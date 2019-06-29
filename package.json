@@ -1,0 +1,38 @@
+{
+  "name": "queue-management-2",
+  "version": "1.0.0",
+  "description": "Queue Management App",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poloarol/queue-management-2.git"
+  },
+  "keywords": [
+    "VueJS",
+    "NodeJS",
+    "Express",
+    "PostgresSQL"
+  ],
+  "author": "Polo Arol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/poloarol/queue-management-2/issues"
+  },
+  "homepage": "https://github.com/poloarol/queue-management-2#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "eslint": "^6.0.1",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "pg": "^7.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
