@@ -12,6 +12,7 @@
     "core-js": "^2.6.5",
     "fomantic-ui": "^2.7.6",
     "fomantic-ui-css": "^2.7.6",
+    "jquery": "^3.4.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6"
   },

@@ -10,7 +10,8 @@
       <tr v-for="job in jobs" v-bind:key="job.id">
         <td data-label="Name"> 
           <i class="user icon"></i>
-          {{ job.name }} </td>
+          {{ job.name }} 
+        </td>
         <td data-label="Faculty">{{job.names}}</td>
       </tr>
     </tbody>

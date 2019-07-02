@@ -14,7 +14,7 @@ export default {
     },
 
     updateJob(id) {
-        return axios.post(`/update/${id}`, id)
+        return axios.put(`/update/${id}`, id)
     },
 
     getFaculty(){

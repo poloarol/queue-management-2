@@ -2,7 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 
-import './assets/fomantic/dist/semantic.css'
+import './assets/fomantic/dist/semantic.min.css'
+import './assets/fomantic/dist/semantic.min.js'
 
 import MainComponent from '@/components/MainComponent.vue'
 import RegistrationComponent from '@/components/RegistrationComponent.vue'

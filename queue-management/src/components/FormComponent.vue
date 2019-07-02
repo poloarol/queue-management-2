@@ -5,7 +5,7 @@
             <p>Enregistrez vous pour obtenir du soutien sur BrightSpace</p>
             <p>Register to get BrightSpace help</p>
         </div>
-        <div class="ui raised segment" id="my-footer">
+        <div class="ui raised segment" id="my-form">
             <form class="ui form" action="/register" method="post">
                 <h4 class="ui dividing header">Staff Information</h4>
                 <div class="field">
@@ -21,14 +21,17 @@
                 </div>
                 <div class="field">
                     <label>Faculty</label>
-                    <div class="ui fluid selection dropdown">
+                    <div class="ui fluid selection dropdown" id="select">
                         <input type="hidden" name="faculty">
                         <i class="dropdown icon"></i>
                         <div class="default text">Select Faculty</div>
-                        <div class="menu" 
-                                v-for="faculty in faculties" 
-                                :key="faculty.id">
-                            <div class="item" data-value=faculty.id>{{ faculty.names }}</div>
+                        <div class="menu">
+                            <div class="item" 
+                                v-for="(faculty, index) in faculties"
+                                v-bind:key="index"
+                                data-value=faculty.id>
+                                {{ faculty.names }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,7 +71,10 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import JobServices from '../../services/api/JobServices'
+
+$('#select').dropdown()
 
 export default {
     name: 'FormComponent',
@@ -90,7 +96,7 @@ export default {
 
 <style>
 
-    div#assist-message, div#my-footer{
+    div#assist-message, div#my-form{
         max-width: 80%;
         margin: 0 auto;
     }
@@ -99,7 +105,7 @@ export default {
         top: 3em;
     }
 
-    div#my-footer{
+    div#my-form{
         top: 5em;
         text-align: left !important;
     }
