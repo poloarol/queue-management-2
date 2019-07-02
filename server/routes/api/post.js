@@ -56,7 +56,7 @@ router.post('/register', async(req, res) => {
 })
 
 // Update Jobs
-router.post('/update/:id', async(req, res) => {
+router.put('/update/:id', async(req, res) => {
     const client = await loadJobRequests()
 
     await client.connect(function(err){
@@ -90,13 +90,15 @@ router.get('/register', async(req, res) => {
             return console.error('could not connect to postgres', err)
         }
         
-        const faculty = "SELECT FACULTY.ID, FACULTY.NAMES FROM FACULTY"
+        const faculty = "SELECT DISTINCT FACULTY.ID, FACULTY.NAMES FROM FACULTY"
 
-        client.query(faculty)
-               .then(result => {
-                    console.log(result.rows)
-                })
-                 .catch(e => console.error(e.stack))
+        client.query(faculty, function(err, results){
+            if(err){
+                return console.error('error running query', err)
+            }
+            res.send(results.rows)
+            client.end()
+        })
     })
 
     // let status = await client2.connect(function(err){
