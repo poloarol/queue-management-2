@@ -14,6 +14,6 @@ export default {
     },
 
     updateJob(id) {
-        return axios.put(`/update/${id}`, id)
+        return axios.put(`/update/${id}`)
     }
 }

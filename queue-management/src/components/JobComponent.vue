@@ -2,8 +2,8 @@
   <table class="ui purple table">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Faculty</th>
+        <th>Name | Nom</th>
+        <th>Faculty | Faculté</th>
       </tr>
     </thead>
     <tbody>

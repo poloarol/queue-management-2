@@ -8,6 +8,7 @@ import 'vue-select/dist/vue-select.css'
 
 import MainComponent from '@/components/MainComponent.vue'
 import RegistrationComponent from '@/components/RegistrationComponent.vue'
+import AdminUpdateComponent from '@/components/AdminUpdateComponent.vue'
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:3030/api/post'
@@ -25,6 +26,10 @@ const router = new VueRouter({
     {
       path: '/register',
       component: RegistrationComponent
+    },
+    {
+      path: '/update',
+      component: AdminUpdateComponent
     }
   ]
 })
