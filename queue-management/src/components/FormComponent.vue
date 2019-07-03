@@ -6,43 +6,47 @@
             <p>Register to get BrightSpace help</p>
         </div>
         <div class="ui raised segment" id="my-form">
-            <form class="ui form" method="post" @submit.prevent='validate_form'>
+            <form class="ui form">
                 <h4 class="ui dividing header">Staff Information</h4>
                 <div class="field">
                     <label>Name</label>
                     <div class="two fields">
                         <div class="field">
-                            <input type="text" name="firstname" placeholder="Paula" v-model='user.firstname'>
-                            <span></span>
+                            <input type="text" name="firstname" placeholder="Paula" v-model='firstname'>
                         </div>
                         <div class="field">
-                            <input type="text" name="lastname" placeholder="Poe" v-model='user.lastname'>
+                            <input type="text" name="lastname" placeholder="Poe" v-model='lastname'>
                         </div>
                     </div>
                 </div>
                 <div class="field">
                     <label>Faculty</label>
-                    <v-select label="value" :options="faculties" placeholder="Choose your faculty" v-model="user.faculty"></v-select>
+                    <v-select label="value" :options="faculties" placeholder="Choose your faculty" v-model='faculty'></v-select>
                 </div>
                 <div class="field">
                     <div class="two fields">
                         <div class="field">
                             <label>Status</label>
-                            <v-select label="value" :options="roles" placeholder="Choose a role" v-model="user.status"></v-select>
+                            <v-select label="value" :options="roles" placeholder="Choose a role" v-model='status'></v-select>
                         </div>
                         <div class="field">
                             <label>Preferred Language</label>
-                            <v-select label="value" :options="language" placeholder="Choose your languange of preference" v-model="user.lang"></v-select>
+                            <v-select label="value" :options="language" placeholder="Choose your languange of preference" v-model='lang'></v-select>
                         </div>
                     </div>
                 </div>
                 <div class="field">
                     <label>Problem Description</label>
-                    <textarea name="desc" v-model='user.desc'></textarea>
+                    <textarea name="desc" v-model='desc'></textarea>
                 </div>
                 <br>
                 <div class="field">
-                    <button class="ui large primary button" type="submit">Submit</button>
+                    <button class="ui large primary button" 
+                            type="submit"
+                            @click="register"
+                    >
+                        Submit
+                    </button>
                 </div>
             </form>
         </div>
@@ -50,8 +54,8 @@
 </template>
 
 <script>
-// import JobServices from '../../services/api/JobServices'
-import validators from '../assets/js/validators'
+import JobServices from '../../services/api/JobServices'
+// import validators from '../assets/js/validators'
 
 export default {
     name: 'FormComponent',
@@ -134,22 +138,28 @@ export default {
                     value : 'Both | Les deux'
                 }
             ],
-            errors: '',
-            user: {}
+            user: null,
+            firstname: '',
+            lastname: '',
+            faculty: '',
+            status: '',
+            lang: '',
+            desc: ''
         }
     },
     methods: {
-        validate_form: function(e){
-            this.errors = {}
-
-            const firstname = validators.validFirstName(this.user.name)
-            const lastname = validators.validLastName(this.last.name)
-            const faculty = validators.validateFaculty(this.user.faculty)
-            const status = validators.validateStatus(this.user.status)
-            const language = validators.validateLang(this.user.lang)
-            const description = validators.validateDescription(this.user.desc)
+        async register(){
+            let val = `${this.firstname} ${this.lastname}`
+            this.user = {
+                            "name" : val, 
+                            "faculty" : this.faculty.id, 
+                            "role" : this.status.id, 
+                            "status" : this.lang.id, 
+                            "desc" : 'Course creation'
+                        }
+            await JobServices.createJob(this.user)
         }
-    }
+    },
 }
 </script>
 

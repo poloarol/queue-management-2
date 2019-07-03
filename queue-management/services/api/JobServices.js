@@ -9,18 +9,11 @@ export default {
                     })
     },
 
-    createJob(formdata) {
-        return axios.post('/register', formdata)
+    createJob(credentials) {
+        return axios.post('/register', credentials)
     },
 
     updateJob(id) {
         return axios.put(`/update/${id}`, id)
-    },
-
-    getFaculty(){
-        return axios.get('/register')
-                    .then(response => {
-                        return response.data
-                    })
     }
 }
