@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/poloarol/queue-management-2#readme",
   "dependencies": {
+    "@hapi/joi": "^15.1.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "eslint": "^6.0.1",

@@ -1,5 +1,6 @@
 const express = require('express')
 const pg = require('pg')
+const Joi = require('@hapi/joi')
 
 
 const router = express.Router()
@@ -27,31 +28,49 @@ router.get('/', async(req, res) => {
 router.post('/register', async(req, res) => {
     const client = await loadJobRequests()
 
+    const schema = {
+        name: Joi.string().alphanum().required(),
+        faculty: Joi.number().integer().required(),
+        role: Joi.number().integer().required(),
+        status: Joi.number().required(),
+        desc: Joi.string().min(5).required()
+    }
+
     await client.connect(function(err){
         if(err){
             return console.error('could not connect to postgress', err)
         }
 
-        let name = req.body.name
-        let faculty = req.body.faculty
-        let text = req.body.desc
-        let role = req.body.role
-        let status = req.body.status
-        let date = new Date()
-        let complete = false
+        let data = req.body
 
-        let values = [name, faculty, role, status, date, text, complete]
-        const query = 'INSERT INTO JOB (NAME, FACULTY_ID, ROLE_ID, STATUS_ID, TODAY, DESCRIPTION, COMPLETE) \
-                            VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING ID;'
-
-        client.query(query, values)
-                .then(result => {
-                    res.sendStatus(201)
-                    client.end()
+        Joi.validate(data, schema, (err, value) => {
+            if(err){
+                res.status(422).json({
+                    status: 'error',
+                    message: 'Invalid request data',
+                    data: data
                 })
-                .catch(e => console.error(e.stack))
+            }else{
+                let name = data.name
+                let faculty = data.faculty
+                let text = data.desc
+                let role = data.role
+                let status = data.status
+                let date = new Date()
+                let complete = false
         
+                let values = [name, faculty, role, status, date, text, complete]
+                const query = 'INSERT INTO JOB (NAME, FACULTY_ID, ROLE_ID, STATUS_ID, TODAY, DESCRIPTION, COMPLETE) \
+                                    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING ID;'
         
+                client.query(query, values)
+                        .then(result => {
+                            res.send(result)
+                            client.end()
+                        })
+                        .catch(e => console.error(e.stack))
+            }
+        })        
     })
 })
 
@@ -71,63 +90,11 @@ router.put('/update/:id', async(req, res) => {
     
         client.query(query,values)
                 .then(result => {
-                    res.sendStatus(200)
+                    res.send(result)
                     client.end()
                 })
                 .catch(e => console.error(e.stack))
     })
-})
-
-// Get faculty, role and status information
-router.get('/register', async(req, res) => {
-
-    const client = await loadJobRequests()
-    // const client2 = await loadJobRequests()
-    // const client3 = await loadJobRequests()
-
-    await client.connect(function(err){
-        if(err){
-            return console.error('could not connect to postgres', err)
-        }
-        
-        const faculty = "SELECT DISTINCT FACULTY.ID, FACULTY.NAMES FROM FACULTY"
-
-        client.query(faculty, function(err, results){
-            if(err){
-                return console.error('error running query', err)
-            }
-            res.send(results.rows)
-            client.end()
-        })
-    })
-
-    // let status = await client2.connect(function(err){
-    //                     if(err){
-    //                         return console.error('could not connect to postgres', err)
-    //                     }
-
-    //                     const status = "SELECT STATUS.NAMES FROM STATUS"
-
-    //                     client2.query(stat)
-    //                             .then(result => {
-    //                                 console.log(result.rows)
-    //                             })
-    //                             .catch(e => console.error(e.stack))
-    //                 })
-
-    // let roles = await client3.connect(function(err){
-    //                 if(err){
-    //                     return console.error('could not connect to postgres', err)
-    //                 }
-
-    //                 const faculty = "SELECT ROLES.NAMES FROM ROLES"
-
-    //                 client3.query(faculty)
-    //                         .then(result => {
-    //                             console.log(result.rows)
-    //                         })
-    //                         .catch(e => console.error(e.stack))
-    //             })
 })
 
 async function loadJobRequests() {
