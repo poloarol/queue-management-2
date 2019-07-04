@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <table class="ui purple table">
+        <table class="ui purple fixed table">
             <thead>
                 <tr>
                     <th>Name | Nom</th>
@@ -9,11 +9,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="job in jobs" v-bind:key='job.id'>
+                <tr v-for="(job, index) in jobs" v-bind:key='index'>
                     <td data-label="Name">{{job.name}}</td>
                     <td data-label="Faculty">{{job.names}}</td>
-                    <td data-label="unsave">
-                        <input class="ui checkbox" type="checkbox" @click="update(job.id)">
+                    <td data-label="unsave" class="center aligned">
+                        <div class="container btns">
+                            <div class="ui left floated compact segment">
+                                <div class="ui fitted checkbox">
+                                    <input type="checkbox" @click="check(index)">
+                                </div>
+                            </div>
+                            <div class="ui labeled button" tabindex="0">
+                                <div class="ui large disabled button" :id="`${index}`" @click="update(job.id)">
+                                    <i class="save icon"></i> Save
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -31,7 +42,8 @@ export default {
         return {
             jobs: [],
             error: '',
-            checkedJob: []
+            checkedJob: [],
+            checked: false
         }
     },
     async created(){
@@ -45,8 +57,29 @@ export default {
         async update(id){
             await JobServices.updateJob(id)
             this.jobs = await JobServices.getJobs()
+        },
+        check(id){
+            let btn = document.getElementById(`${id}`)
+            if(btn.classList.contains('disabled')){
+                btn.classList.remove('disabled')
+            }else{
+                btn.classList.add('disabled')
+            }
         }
     }
 }
 
 </script>
+
+<style>
+
+    div.ui.labeled.button{
+        margin: 0 auto;
+        margin-top: 2%;
+    }
+
+    div.btns{
+        display: inline-block;
+    }
+</style>
+

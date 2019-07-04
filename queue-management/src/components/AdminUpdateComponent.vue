@@ -1,16 +1,22 @@
 <template>
     <div class="container">
-    <UpdateComponent></UpdateComponent>
+        <MenuComponent></MenuComponent>
+        <UpdateComponent></UpdateComponent>
+        <FooterComponent></FooterComponent>
     </div>
 </template>
 
-<script>
+<script> 
+import MenuComponent from './MenuComponent.vue'
 import UpdateComponent from './UpdateComponent.vue'
+import FooterComponent from './FooterComponent.vue'
 
 export default {
     name: 'AdminComponent',
     components: {
-        UpdateComponent
+        MenuComponent,
+        UpdateComponent,
+        FooterComponent
     }
 }
 

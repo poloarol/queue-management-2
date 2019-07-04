@@ -13,8 +13,12 @@ router.get('/', async(req, res) => {
         if(err){
             return console.error('could not connect to postgress', err)
         }
-        client.query("SELECT JOB.ID, JOB.NAME, FACULTY.NAMES FROM JOB INNER JOIN FACULTY ON \
-                        JOB.FACULTY_ID = FACULTY.ID WHERE JOB.COMPLETE = FALSE ORDER BY TODAY DESC;", function(err, results){
+
+        const query = "SELECT JOB.ID, JOB.NAME, FACULTY.NAMES \
+                        FROM JOB INNER JOIN FACULTY ON JOB.FACULTY_ID = FACULTY.ID \
+                        WHERE JOB.COMPLETE = FALSE ORDER BY TODAY DESC;"
+
+        client.query(query, function(err, results){
                             if(err){
                                 return console.error('error running query', err)
                             }
@@ -24,53 +28,37 @@ router.get('/', async(req, res) => {
     })
 })
 
+
+
 // Add Jobs
 router.post('/register', async(req, res) => {
     const client = await loadJobRequests()
-
-    const schema = {
-        name: Joi.string().alphanum().required(),
-        faculty: Joi.number().integer().required(),
-        role: Joi.number().integer().required(),
-        status: Joi.number().required(),
-        desc: Joi.string().min(5).required()
-    }
 
     await client.connect(function(err){
         if(err){
             return console.error('could not connect to postgress', err)
         }
 
-        let data = req.body
+    let data = req.body
 
-        Joi.validate(data, schema, (err, value) => {
-            if(err){
-                res.status(422).json({
-                    status: 'error',
-                    message: 'Invalid request data',
-                    data: data
-                })
-            }else{
-                let name = data.name
-                let faculty = data.faculty
-                let text = data.desc
-                let role = data.role
-                let status = data.status
+    let name = data.name
+    let faculty = data.faculty
+    let text = data.desc
+    let role = data.role
+    let status = data.status
                 let date = new Date()
-                let complete = false
+    let complete = false
         
-                let values = [name, faculty, role, status, date, text, complete]
-                const query = 'INSERT INTO JOB (NAME, FACULTY_ID, ROLE_ID, STATUS_ID, TODAY, DESCRIPTION, COMPLETE) \
-                                    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING ID;'
+    let values = [name, faculty, role, status, date, text, complete]
+    const query = 'INSERT INTO JOB (NAME, FACULTY_ID, ROLE_ID, STATUS_ID, TODAY, DESCRIPTION, COMPLETE) \
+                        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING ID;'
         
-                client.query(query, values)
-                        .then(result => {
-                            res.send(result)
-                            client.end()
-                        })
-                        .catch(e => console.error(e.stack))
-            }
-        })        
+    client.query(query, values)
+            .then(result => {
+                res.send(result)
+                client.end()
+            })
+            .catch(e => console.error(e.stack))
     })
 })
 
@@ -83,7 +71,7 @@ router.put('/update/:id', async(req, res) => {
             return console.error('could not connect to postgres', err)
         }
 
-        let id = req.body.id
+        let id = req.params.id
 
         const query = "UPDATE JOB SET COMPLETE = ($1) WHERE ID = ($2)"
         let values = [true, id]
