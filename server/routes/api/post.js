@@ -145,6 +145,40 @@ router.put('/update/:id', async(req, res) => {
     })
 })
 
+router.get('/admin/dashboard', async(req, res) => {
+    const client = await loadJobRequests()
+
+    await client.connect(function(err){
+        if(err){
+            return console.error('could not connect to postgres', err)
+        }
+
+        const query = "SELECT STAFF.ID, STAFF.IDENT FROM STAFF"
+        const query1 = "SELECT STATUS.ID, STAFF.IDENT FROM STAFF"
+
+        let results = {}
+    
+        client.query(query, function(err, result){
+            if(err){
+                return console.error('error running query', err)
+            }else{
+                results['staff'] = result.rows
+            }
+        })
+
+        client.query(query1, function(err, result){
+            if(err){
+                return console.error('error running query', err)
+            }else{
+                results['status'] = result.rows
+                res.send(results)
+                client.end()
+            }
+        })
+
+    })
+})
+
 async function loadJobRequests() {
     const conString = "postgres://ynsvtncb:v3StzUeatCf_PrpAfcdIwVe6RW-Qn6rI@isilo.db.elephantsql.com:5432/ynsvtncb"
     const client = await new pg.Client(conString)
