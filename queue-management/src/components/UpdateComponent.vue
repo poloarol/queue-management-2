@@ -5,13 +5,17 @@
                 <tr>
                     <th>Name | Nom</th>
                     <th>Faculty | Faculté</th>
+                    <th>Personel</th>
                     <th>On Queue Currently | Sur la file d'attente</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(job, index) in jobs" v-bind:key='index'>
-                    <td data-label="Name">{{job.name}}</td>
-                    <td data-label="Faculty">{{job.names}}</td>
+                    <td data-label="Name">{{job.lname}} {{job.fname}}</td>
+                    <td data-label="Faculty">{{job.ident}}</td>
+                    <td data-label="staff">
+                        <v-select label="ident" :options="staff"  v-model='people'></v-select>
+                    </td>
                     <td data-label="unsave" class="center aligned">
                         <div class="container btns">
                             <div class="ui left floated compact segment">
@@ -41,14 +45,18 @@ export default {
     data() {
         return {
             jobs: [],
+            staff: [],
             error: '',
             checkedJob: [],
-            checked: false
+            checked: false,
+            people: ''
         }
     },
     async created(){
         try{
             this.jobs = await JobServices.getJobs()
+            this.staff = await JobServices.getStaff()
+            console.log(this.staff)
         }catch(err){
             this.error = err.message
         }
@@ -62,8 +70,10 @@ export default {
             let btn = document.getElementById(`${id}`)
             if(btn.classList.contains('disabled')){
                 btn.classList.remove('disabled')
+                btn.classList.add('positive')
             }else{
                 btn.classList.add('disabled')
+                btn.classList.remove('positive')
             }
         }
     }

@@ -9,6 +9,7 @@ import 'vue-select/dist/vue-select.css'
 import MainComponent from '@/components/MainComponent.vue'
 import RegistrationComponent from '@/components/RegistrationComponent.vue'
 import AdminUpdateComponent from '@/components/AdminUpdateComponent.vue'
+import MiniAdminUpdateComponent from '@/components/MiniAdminUpdateComponent.vue'
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:3030/api/post'
@@ -30,6 +31,10 @@ const router = new VueRouter({
     {
       path: '/update',
       component: AdminUpdateComponent
+    },
+    {
+      path: '/miniupdates',
+      component: MiniAdminUpdateComponent
     }
   ]
 })

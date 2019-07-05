@@ -1,5 +1,5 @@
 <template>
-  <table class="ui purple table">
+  <table class="ui purple fixed table">
     <thead>
       <tr>
         <th>Name | Nom</th>
@@ -10,9 +10,9 @@
       <tr v-for="job in jobs" v-bind:key="job.id">
         <td data-label="Name"> 
           <i class="user icon"></i>
-          {{ job.name }} 
+          {{ job.lname }} {{job.fname}}
         </td>
-        <td data-label="Faculty">{{job.names}}</td>
+        <td data-label="Faculty">{{job.ident}}</td>
       </tr>
     </tbody>
   </table>
