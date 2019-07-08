@@ -14,7 +14,7 @@
                     <td data-label="Name">{{job.lname}} {{job.fname}}</td>
                     <td data-label="Faculty">{{job.ident}}</td>
                     <td data-label="staff">
-                        <v-select label="ident" :options="staff"  v-model='people'></v-select>
+                        <v-select label="ident" :options="staff" :value="staff.id" @input="setSelected"></v-select>
                     </td>
                     <td data-label="unsave" class="center aligned">
                         <div class="container btns">
@@ -49,21 +49,21 @@ export default {
             error: '',
             checkedJob: [],
             checked: false,
-            people: ''
+            personnel: ''
         }
     },
     async created(){
         try{
             this.jobs = await JobServices.getJobs()
             this.staff = await JobServices.getStaff()
-            console.log(this.staff)
         }catch(err){
             this.error = err.message
         }
     },
     methods: {
         async update(id){
-            await JobServices.updateJob(id)
+            let staff_id = this.personnel
+            await JobServices.updateJob(id, staff_id)
             this.jobs = await JobServices.getJobs()
         },
         check(id){
@@ -75,6 +75,9 @@ export default {
                 btn.classList.add('disabled')
                 btn.classList.remove('positive')
             }
+        },
+        setSelected(value){
+            this.personnel = value.id
         }
     }
 }

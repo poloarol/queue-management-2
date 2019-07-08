@@ -123,7 +123,7 @@ router.get('/update', async(req, res) => {
 })
 
 // Update Jobs
-router.put('/update/:id', async(req, res) => {
+router.put('/update/:id/:staff_id', async(req, res) => {
     const client = await loadJobRequests()
 
     await client.connect(function(err){
@@ -132,9 +132,10 @@ router.put('/update/:id', async(req, res) => {
         }
 
         let id = req.params.id
+        let staff = req.params.staff_id
 
         const query = "UPDATE JOB SET ASSISTED_BY = ($1), ASSISSTED = ($2) WHERE ID = ($3)"
-        let values = [5, true, id]
+        let values = [staff, true, id]
     
         client.query(query,values)
                 .then(result => {
@@ -145,7 +146,7 @@ router.put('/update/:id', async(req, res) => {
     })
 })
 
-router.get('/admin/dashboard', async(req, res) => {
+router.get('/admin/dashboard/something', async(req, res) => {
     const client = await loadJobRequests()
 
     await client.connect(function(err){
@@ -177,6 +178,10 @@ router.get('/admin/dashboard', async(req, res) => {
         })
 
     })
+})
+
+router.get('/admin', async(req, res) => {
+    
 })
 
 async function loadJobRequests() {
