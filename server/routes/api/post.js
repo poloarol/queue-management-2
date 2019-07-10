@@ -181,13 +181,66 @@ router.get('/admin/dashboard/something', async(req, res) => {
 })
 
 router.get('/admin', async(req, res) => {
+    const client = await loadJobRequests()
+
     
+    let results = {'monday': hourDict(), 'tuesday': hourDict(), 'wednesday': hourDict(), 'thursday': hourDict(), 'friday': hourDict()}
+    console.log(results)
+
+    await client.connect(function(err){
+        if(err){
+            return console.error('could not connect to postgres', err)
+        }
+
+        const query = "SELECT JOB.TODAY FROM JOB WHERE EXTRACT(MONTH FROM JOB.TODAY) = EXTRACT(MONTH FROM NOW())"
+
+        client.query(query, function(err, result){
+            if(err){
+                return console.error('error running query', err)
+            }else{
+                for(let i in result.rows){
+                    let date = new Date(result.rows[i].today)
+                    
+                    switch(date.getDay()){
+                        case 0:
+                            continue
+                            break
+                        case 1:
+                            continue
+                            break
+                        case 2:
+                            continue
+                            break
+                        case 3:
+                            continue
+                            break
+                        case 4:
+                            continue
+                            break
+                        case 5:
+                            continue
+                            break
+                        case 6:
+                            continue
+                            break
+                    }
+                }
+                res.send(result.rows)
+                client.end()
+            }
+        })
+    })
 })
 
 async function loadJobRequests() {
     const conString = "postgres://ynsvtncb:v3StzUeatCf_PrpAfcdIwVe6RW-Qn6rI@isilo.db.elephantsql.com:5432/ynsvtncb"
     const client = await new pg.Client(conString)
     return client
+}
+
+function hourDict(){
+    let hours = {'8': 0, '9': 0, '10': 0, '11':0, '12': 0, '13': 0, '14': 0, '15': 0, '16': 0, '17': 0}
+    return hours
 }
 
 module.exports = router
