@@ -180,55 +180,34 @@ router.get('/admin/dashboard/something', async(req, res) => {
     })
 })
 
-router.get('/admin', async(req, res) => {
+router.get('/admin/:month/:day', async(req, res) => {
     const client = await loadJobRequests()
 
-    
-    let results = {'monday': hourDict(), 'tuesday': hourDict(), 'wednesday': hourDict(), 'thursday': hourDict(), 'friday': hourDict()}
-    console.log(results)
+    let hour = 0
+    let month = req.params.month
+    let day = req.params.day
+
+    let results = {'day': hourDict()}
+
+    let values = [month, day]
 
     await client.connect(function(err){
         if(err){
             return console.error('could not connect to postgres', err)
         }
 
-        const query = "SELECT JOB.TODAY FROM JOB WHERE EXTRACT(MONTH FROM JOB.TODAY) = EXTRACT(MONTH FROM NOW())"
+        const query = "SELECT JOB.TODAY FROM JOB WHERE EXTRACT(MONTH FROM JOB.TODAY) = ($1) AND EXTRACT(DAY FROM JOB.TODAY) = ($2)"
 
-        client.query(query, function(err, result){
-            if(err){
-                return console.error('error running query', err)
-            }else{
-                for(let i in result.rows){
-                    let date = new Date(result.rows[i].today)
-                    
-                    switch(date.getDay()){
-                        case 0:
-                            continue
-                            break
-                        case 1:
-                            continue
-                            break
-                        case 2:
-                            continue
-                            break
-                        case 3:
-                            continue
-                            break
-                        case 4:
-                            continue
-                            break
-                        case 5:
-                            continue
-                            break
-                        case 6:
-                            continue
-                            break
+        client.query(query, values)
+                .then(result => {
+                    for(let i in result.rows){
+                        let date = new Date(result.rows[i].today)
+                        incrementHour(date.getHours(), results.day)
                     }
-                }
-                res.send(result.rows)
-                client.end()
-            }
-        })
+                    res.send({raw: result.rows, trimmed: results})
+                    client.end()
+                })
+                .catch(e => console.error(e.stack))
     })
 })
 
@@ -241,6 +220,45 @@ async function loadJobRequests() {
 function hourDict(){
     let hours = {'8': 0, '9': 0, '10': 0, '11':0, '12': 0, '13': 0, '14': 0, '15': 0, '16': 0, '17': 0}
     return hours
+}
+
+function incrementHour(hour, value){
+    
+    switch(hour){
+        case 8:
+            value['8']++
+            break
+        case 9:
+            value['9']++
+            break
+        case 10:
+            value['10']++
+            break
+        case 11:
+            value['11']++
+            break
+        case 12:
+            value['12']++
+            break
+        case 13:
+            value['13']++
+            break
+        case 14:
+            value['14']++
+            break
+        case 15:
+            value['15']++
+            break
+        case 16:
+            value['16']++
+            break
+        case 17:
+            value['17']++
+            break
+        default:
+            value = 0
+            break
+    }
 }
 
 module.exports = router
