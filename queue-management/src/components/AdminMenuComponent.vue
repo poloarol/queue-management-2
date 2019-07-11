@@ -2,11 +2,23 @@
     <div class="container">
         <MenuComponent></MenuComponent>
         <div class="container secondary-menu">
-            <div class="ui fluid four item menu">
-                <a class="item">Traffic</a>
-                <a class="item">Statistics</a>
-                <a class="item">DB Managment</a>
-                <a class="item">Export Data</a>
+            <div class="ui fluid inverted large four item menu">
+                <a class="item active" :href="'/admin/traffic/:month/:day'">
+                    <i class="tachometer alternate icon"></i>
+                    Traffic
+                </a>
+                <a class="item" :href="'/admin/statistics'">
+                    <i class="chart bar outline icon"></i>
+                    Statistics
+                </a>
+                <a class="item" :href="'/admin/db'">
+                    <i class="users icon"></i>
+                    User Management
+                </a>
+                <a class="item" :href="'/admin/export'">
+                    <i class="file excel icon"></i>
+                    Export
+                </a>
             </div>
         </div>
         <FooterComponent></FooterComponent>
