@@ -196,15 +196,18 @@ router.get('/admin/:month/:day', async(req, res) => {
             return console.error('could not connect to postgres', err)
         }
 
-        const query = "SELECT JOB.TODAY FROM JOB WHERE EXTRACT(MONTH FROM JOB.TODAY) = ($1) AND EXTRACT(DAY FROM JOB.TODAY) = ($2)"
+        const query = "SELECT JOB.TODAY FROM JOB WHERE EXTRACT(MONTH FROM JOB.TODAY) = \
+                            ($1) AND EXTRACT(DOW FROM JOB.TODAY) = ($2)"
 
         client.query(query, values)
                 .then(result => {
+                    let total = result.rowCount
                     for(let i in result.rows){
                         let date = new Date(result.rows[i].today)
                         incrementHour(date.getHours(), results.day)
                     }
-                    res.send({raw: result.rows, trimmed: results})
+                    normalizeToPercentage(total, results.day)
+                    res.send(results.day)
                     client.end()
                 })
                 .catch(e => console.error(e.stack))
@@ -224,41 +227,13 @@ function hourDict(){
 
 function incrementHour(hour, value){
     
-    switch(hour){
-        case 8:
-            value['8']++
-            break
-        case 9:
-            value['9']++
-            break
-        case 10:
-            value['10']++
-            break
-        case 11:
-            value['11']++
-            break
-        case 12:
-            value['12']++
-            break
-        case 13:
-            value['13']++
-            break
-        case 14:
-            value['14']++
-            break
-        case 15:
-            value['15']++
-            break
-        case 16:
-            value['16']++
-            break
-        case 17:
-            value['17']++
-            break
-        default:
-            value = 0
-            break
-    }
+    if(hour > 7 && hour < 18)
+        value[hour.toString()]++
+}
+
+function normalizeToPercentage(total, values){
+    for(let key in values)
+        values[key] = ((values[key]/total) * 100).toFixed(3)
 }
 
 module.exports = router

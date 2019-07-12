@@ -37,8 +37,8 @@ export default {
                         return response.data
                     })
     },
-    getTraffic(){
-        return axios.get('/admin/traffic/:month/:day')
+    getTraffic(month, day){
+        return axios.get(`/admin/${month}/${day}`)
                     .then(response => {
                         return response.data
                     })
