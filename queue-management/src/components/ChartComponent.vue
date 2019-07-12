@@ -1,12 +1,9 @@
 <script>
 import { Bar,  mixins} from 'vue-chartjs'
 
-const { reactiveProp } = mixins
-
 export default {  // extending the base class
     extends: Bar,
-    mixins: [reactiveProp],
-
+    mixins: [mixins.reactiveProp],
     data() {
         return {
             options: { // chart.js options
@@ -16,7 +13,7 @@ export default {  // extending the base class
                             beginAtZero: true
                         },
                         gridLines: {
-                            display: true
+                            display: false
                         }
                     }],
                     xAxes: [{

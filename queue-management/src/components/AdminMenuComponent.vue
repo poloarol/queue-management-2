@@ -21,10 +21,19 @@
                 </a>
             </div>
         </div>
-        <ChartComponent chartData="datacollection"></ChartComponent>
+        <div class="format-chart">
+            <ChartComponent :chartData="datacollection"></ChartComponent>
+        </div>
         <FooterComponent></FooterComponent>
     </div>
 </template>
+
+<style>
+    div.format-chart{
+        width: 40%;
+        margin: 0 auto;
+    }
+</style>
 
 <script>
 import MenuComponent from './MenuComponent.vue'
@@ -46,10 +55,7 @@ export default {
             err: '',
             month: date.getMonth()+1, // to match sql values date/month values
             day: date.getDay()+1,
-            traffic: null,
-            datacollection: null,
-            labels: [],
-            points: []
+            datacollection: {}
         }
     },
     async created(){
@@ -58,23 +64,28 @@ export default {
     methods: {
         async updateChart(month, day){
             try{
-                this.traffic = await JobServices.getTraffic(month, day)
+                let label = []
+                let points = []
 
-                for (let key in this.traffic){
-                    this.labels.push(key)
-                    this.points.push(this.traffic[key])
+                let traffic = await JobServices.getTraffic(month, day)
+
+                for (let key in traffic){
+                    label.push(key)
+                    points.push(traffic[key])
                 }
 
                 this.datacollection = {
-                    labels: this.labels,
+                    labels: label,
                     datasets: [
                         {
                             label: '# of visits',
                             backgroundColor: '#F87979',
-                            data: this.points
+                            data: points
                         }
                     ]
                 }
+
+                console.log(this.datacollection)
             }catch(err){
                 this.err = err.message
             }
