@@ -36,10 +36,6 @@ import StatisticsComponent from './StatisticsComponent.vue'
 import UserManagementComponent from './UserManagementComponent.vue'
 import ExportFileComponent from './ExportFileComponent.vue'
 
-import JobServices from '../../services/api/JobServices'
-
-let date = new Date()
-
 export default {
     name: 'AdminMenuComponent',
     components: {
