@@ -3,40 +3,39 @@
         <MenuComponent></MenuComponent>
         <div class="container secondary-menu">
             <div class="ui fluid inverted large four item menu">
-                <a class="item">
+                <a class="item first" @click="addActiveClass(0)" :class="{garnet : activeNav == 0}">
                     <i class="tachometer alternate icon"></i>
                     Traffic
                 </a>
-                <a class="item">
+                <a class="item second" @click="addActiveClass(1)" :class="{garnet : activeNav == 1}">
                     <i class="chart bar outline icon"></i>
                     Statistics
                 </a>
-                <a class="item">
+                <a class="item first" @click="addActiveClass(2)" :class="{garnet : activeNav == 2}">
                     <i class="users icon"></i>
                     User Management
                 </a>
-                <a class="item">
+                <a class="item second" @click="addActiveClass(3)" :class="{garnet : activeNav == 3}">
                     <i class="file excel icon"></i>
                     Export
                 </a>
             </div>
         </div>
-        <component :is="comp" :chartData="datacollection"></component>
+        <div>
+            <component :is="currentComponent" :chartData="datacollection"></component>
+        </div>
         <FooterComponent></FooterComponent>
     </div>
 </template>
 
-<style>
-    div.format-chart{
-        width: 40%;
-        margin: 0 auto;
-    }
-</style>
-
 <script>
 import MenuComponent from './MenuComponent.vue'
 import FooterComponent from './FooterComponent.vue'
-import ChartComponent from './ChartComponent.vue'
+import MenuChartComponent from './MenuChartComponent.vue'
+import StatisticsComponent from './StatisticsComponent.vue'
+import UserManagementComponent from './UserManagementComponent.vue'
+import ExportFileComponent from './ExportFileComponent.vue'
+
 import JobServices from '../../services/api/JobServices'
 
 let date = new Date()
@@ -45,55 +44,28 @@ export default {
     name: 'AdminMenuComponent',
     components: {
         MenuComponent,
-        ChartComponent,
+        MenuChartComponent,
+        StatisticsComponent,
+        UserManagementComponent,
+        ExportFileComponent,
         FooterComponent
     },
     data(){
         return {
-            err: '',
-            month: date.getMonth()+1, // to match sql values date/month values
-            day: date.getDay()+1,
             datacollection: {},
             currentTab: 'traffic',
-            comp: "ChartComponent"
+            activeNav: 0,
+            tabs: [MenuChartComponent, StatisticsComponent, UserManagementComponent, ExportFileComponent],
+            currentComponent: MenuChartComponent
         }
     },
     async created(){
-        this.updateChart(this.month, this.day)
+        
     },
     methods: {
-        async updateChart(month, day){
-            try{
-                let label = []
-                let points = []
-
-                let traffic = await JobServices.getTraffic(month, day)
-
-                for (let key in traffic){
-                    label.push(key)
-                    points.push(traffic[key])
-                }
-
-                this.datacollection = {
-                    labels: label,
-                    datasets: [
-                        {
-                            label: '# of visits',
-                            backgroundColor: '#F87979',
-                            data: points
-                        }
-                    ]
-                }
-
-                console.log(this.datacollection)
-            }catch(err){
-                this.err = err.message
-            }
-        }
-    },
-    computed: {
-        currentTabComponent: function () {
-            return this.currentTab
+        addActiveClass(value){
+            this.activeNav = value
+            this.currentComponent = this.tabs[value]
         }
     }
 }
@@ -106,5 +78,17 @@ div.secondary-menu{
     margin: 0 auto;
     margin-top: 7em;
 }
-</style>
 
+.garnet{
+    border: 2px solid #781C2E !important;
+}
+
+a.first{
+    background-color: #3B5998 !important;
+}
+
+a.second{
+    background-color: #38A1F3 !important;
+}
+
+</style>

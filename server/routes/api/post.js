@@ -206,7 +206,7 @@ router.get('/admin/:month/:day', async(req, res) => {
                         let date = new Date(result.rows[i].today)
                         incrementHour(date.getHours(), results.day)
                     }
-                    normalizeToPercentage(total, results.day)
+                    // normalizeToPercentage(total, results.day)
                     res.send(results.day)
                     client.end()
                 })

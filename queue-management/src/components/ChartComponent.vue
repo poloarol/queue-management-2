@@ -18,12 +18,12 @@ export default {  // extending the base class
                     }],
                     xAxes: [{
                         gidLines: {
-                            display: true
+                            display: false
                         }
                     }]
                 },
                 legend: {
-                    display: true
+                    display: false
                 },
                 responsive: true,
                 maintainAspectRatio: false

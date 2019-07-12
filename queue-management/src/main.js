@@ -11,6 +11,7 @@ import RegistrationComponent from '@/components/RegistrationComponent.vue'
 import AdminUpdateComponent from '@/components/AdminUpdateComponent.vue'
 import MiniAdminUpdateComponent from '@/components/MiniAdminUpdateComponent.vue'
 import AdminMenuComponent from '@/components/AdminMenuComponent.vue'
+import MenuChartComponent from '@/components/MenuChartComponent.vue'
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:3030/api/post'
@@ -40,6 +41,10 @@ const router = new VueRouter({
     {
       path: '/admin',
       component: AdminMenuComponent
+    },
+    {
+      path: '/menu',
+      component: MenuChartComponent
     }
   ],
   mode: 'history'

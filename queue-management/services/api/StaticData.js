@@ -77,5 +77,83 @@ export default {
             id : 'BOTH | LES DEUX',
             value : 'BOTH | LES DEUX'
         }]
+    },
+
+    getDay(){
+        return [
+            {
+                id: 0,
+                value: 'Monday | Lundi'
+            },
+            {
+                id: 1,
+                value: 'Tuesday | Mardi'
+            },
+            {
+                id: 2,
+                value: 'Wednesday | Mercredi'
+            },
+            {
+                id: 3,
+                value: 'Thursday | Jeudi'
+            },
+            {
+                id: 4,
+                value: 'Friday | Vendredi'
+            }
+        ]
+    },
+
+    getMonth(){
+        return [
+            {
+                id: 1,
+                value: 'January | Janvier'
+            },
+            {
+                id: 2,
+                value: 'February | Fevrier'
+            },
+            {
+                id: 3,
+                value: 'March | Mars'
+            },
+            {
+                id: 4,
+                value: 'April | Avril'
+            },
+            {
+                id: 5,
+                value: 'May | Mai'
+            },
+            {
+                id: 6,
+                value: 'June | Juin'
+            },
+            {
+                id: 7,
+                value: 'July | Juillet'
+            },
+            {
+                id: 8,
+                value: 'August | Août'
+            },
+            {
+                id: 9,
+                value: 'September | Septembre'
+            },
+            {
+                id: 10,
+                value: 'October | Octobre'
+            },
+            {
+                id: 11,
+                value: 'November | Novembre'
+            },
+            {
+                id: 12,
+                value: 'December | Decembre'
+            }
+        ]
     }
 }
