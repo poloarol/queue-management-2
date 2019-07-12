@@ -3,27 +3,25 @@
         <MenuComponent></MenuComponent>
         <div class="container secondary-menu">
             <div class="ui fluid inverted large four item menu">
-                <a class="item active" :href="'/admin/traffic/:month/:day'">
+                <a class="item">
                     <i class="tachometer alternate icon"></i>
                     Traffic
                 </a>
-                <a class="item" :href="'/admin/statistics'">
+                <a class="item">
                     <i class="chart bar outline icon"></i>
                     Statistics
                 </a>
-                <a class="item" :href="'/admin/db'">
+                <a class="item">
                     <i class="users icon"></i>
                     User Management
                 </a>
-                <a class="item" :href="'/admin/export'">
+                <a class="item">
                     <i class="file excel icon"></i>
                     Export
                 </a>
             </div>
         </div>
-        <div class="format-chart">
-            <ChartComponent :chartData="datacollection"></ChartComponent>
-        </div>
+        <component :is="comp" :chartData="datacollection"></component>
         <FooterComponent></FooterComponent>
     </div>
 </template>
@@ -55,7 +53,9 @@ export default {
             err: '',
             month: date.getMonth()+1, // to match sql values date/month values
             day: date.getDay()+1,
-            datacollection: {}
+            datacollection: {},
+            currentTab: 'traffic',
+            comp: "ChartComponent"
         }
     },
     async created(){
@@ -89,6 +89,11 @@ export default {
             }catch(err){
                 this.err = err.message
             }
+        }
+    },
+    computed: {
+        currentTabComponent: function () {
+            return this.currentTab
         }
     }
 }

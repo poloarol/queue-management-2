@@ -41,7 +41,8 @@ const router = new VueRouter({
       path: '/admin',
       component: AdminMenuComponent
     }
-  ]
+  ],
+  mode: 'history'
 })
 
 new Vue({
