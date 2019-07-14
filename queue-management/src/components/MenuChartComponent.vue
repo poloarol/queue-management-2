@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="ui small tabular menu">
+        <div class="ui small tabular menu tabular-menu">
             <a class="item" 
                 v-for="month in months" 
                 :key="month.id"
@@ -10,7 +10,7 @@
                 {{ month.value }}
             </a>
         </div>
-        <div class="ui large secondary vertical pointing menu">
+        <div class="ui large secondary vertical pointing menu pointing-menu">
             <a class="item"
                 v-for="day in days"
                 :key="day.id"
@@ -45,7 +45,7 @@ export default {
             days: [],
             activeMonth: date.getMonth() + 1,
             activeDay: date.getDay() - 1,
-            datacollection: {},
+            datacollection: {}
         }
     },
     async created(){
@@ -73,7 +73,7 @@ export default {
                     datasets: [
                         {
                             label: `Percentage # of visits on ${day}`,
-                            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                            backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850", "#ff7f00", "#33a02c", "#cab2d6", "#fb9a99", "#01665e"],
                             data: points
                         }
                     ]
@@ -95,26 +95,30 @@ export default {
 </script>
 
 <style>
-    div.ui.tabular{
-        display: inline-flex !important;
+    div.tabular-menu{
+        display: -webkit-inline-box !important;
         margin: 0 auto;
-        float: right;
-        margin-right: 5% !important;
+        margin-top:4em !important;
+        margin-left: 15em !important;
     }
 
-    div.ui.secondary.pointing{
+    div.pointing-menu{
         position: absolute;
-        top: 20%;
+        top: 35%;
         display: inline-grid !important;
         transform: translateY(20%);
         left: 0 !important;
     }
 
     div.chart{
-        width: 60%;
-        float: right !important;
-        margin-right: 25em !important;
-        margin-top: 10em;
+        display: inline-flex;
+        margin-left: 10em;
+        margin-top: 5em;
+    }
+
+    canvas#bar-chart{
+        width: 900px;
+        height: 500px;
     }
 </style>
 

@@ -4,9 +4,13 @@
             <img src="../assets/logo.png" class="ui centered mini image" alt="uOttawa logo">
             <!-- <img src="../assets/logo.png" class="ui centered mini image" alt="uOttawa logo"> -->
             <div class="ui horizontal inverted small divided link list">
-                <a class="item" href="">uOttawa</a>
-                <a class="item" href="">Teaching and Learning Services</a>
-                <a class="item" href="">BrighSpace</a>
+                <a class="item"
+                    v-for="item in items"
+                    :key="item.id"
+                    :href="item.value"
+                >
+                {{ item.title }}
+                </a>
             </div>
         </div>
     </div>
@@ -15,9 +19,24 @@
 <style>
     div#foot{
         position: absolute;
-        bottom: -7%;
+        bottom: -5em;
         width: 100%;
     }
 
 </style>
+
+<script>
+import StaticData from '../../services/api/StaticData'
+
+export default {
+    data() {
+        return {
+            items: []
+        }
+    },
+    created() {
+        this.items = StaticData.getFooter()
+    },
+}
+</script>
 

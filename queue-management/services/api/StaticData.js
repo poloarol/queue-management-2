@@ -78,7 +78,6 @@ export default {
             value : 'BOTH | LES DEUX'
         }]
     },
-
     getDay(){
         return [
             {
@@ -103,7 +102,6 @@ export default {
             }
         ]
     },
-
     getMonth(){
         return [
             {
@@ -153,6 +151,49 @@ export default {
             {
                 id: 12,
                 value: 'December | Decembre'
+            }
+        ]
+    },
+    getNavBar(){
+        return [
+            {
+                id: 0,
+                icon: 'tachometer alternate icon',
+                title: 'Traffic'
+            },
+            {
+                id: 1,
+                icon: 'chart bar outline icon',
+                title: 'Statistics'
+            },
+            {
+                id: 2,
+                icon: 'users icon',
+                title: 'User Management'
+            },
+            {
+                id: 3,
+                icon: 'file excel icon',
+                title: 'Export Data'
+            }
+        ]
+    },
+    getFooter(){
+        return [
+            {
+                id: 1,
+                value: 'uottawa.ca/en/employees',
+                title: "VirtuO | Employee Access"
+            },
+            {
+                id: 2,
+                value: 'tlss.uottawa.ca/site/en/',
+                title: 'TLSS | SAEA'
+            },
+            {
+                id: 3,
+                value: 'uottawa.brightspace.ca',
+                title: 'Virtual Campus | Campus Virtuel'
             }
         ]
     }

@@ -10,9 +10,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(job, index) in jobs" v-bind:key='index'>
-                    <td data-label="Name">{{job.lname}} {{job.fname}}</td>
-                    <td data-label="Faculty">{{job.ident}}</td>
+                <tr v-for="(job, index) in visibleJob" v-bind:key='index'>
+                    <td data-label="Name">
+                        <i class="laptop icon"></i>
+                        {{job.fname}}
+                    </td>
+                    <td data-label="Faculty">
+                        <i class="university icon"></i>
+                        {{job.ident}}
+                    </td>
                     <td data-label="staff">
                         <v-select label="ident" :options="staff" :value="staff.id" @input="setSelected"></v-select>
                     </td>
@@ -46,16 +52,20 @@ export default {
         return {
             jobs: [],
             staff: [],
+            visibleJob: [],
             error: '',
             checkedJob: [],
             checked: false,
-            personnel: ''
+            personnel: '',
+            currentPage: 0,
+            numPage: 7
         }
     },
     async created(){
         try{
             this.jobs = await JobServices.getJobs()
             this.staff = await JobServices.getStaff()
+            this.updateVisibleJobs()
         }catch(err){
             this.error = err.message
         }
@@ -65,6 +75,7 @@ export default {
             let staff_id = this.personnel
             await JobServices.updateJob(id, staff_id)
             this.jobs = await JobServices.getJobs()
+            this.updateVisibleJobs()
         },
         check(id){
             let btn = document.getElementById(`${id}`)
@@ -78,6 +89,18 @@ export default {
         },
         setSelected(value){
             this.personnel = value.id
+        },
+        updatePage(value){
+            this.currentPage = value
+            this.updateVisibleJobs()
+        },
+        updateVisibleJobs(){
+            this.visibleJob = this.jobs.slice(this.currentPage * this.numPage, [this.currentPage * this.numPage] + this.numPage)
+
+            // if 0 visible page go back 1 page
+            if(this.visible.length === 0 && this.currentPage > 0){
+                this.updatePage(this.currentPage - 1)
+            }
         }
     }
 }
