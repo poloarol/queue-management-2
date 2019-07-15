@@ -16,7 +16,7 @@
                         {{job.fname}}
                     </td>
                     <td data-label="Faculty">
-                        <i class="university icon"></i>
+                        <i :class="icon[0][job.identifier]"></i>
                         {{job.ident}}
                     </td>
                     <td data-label="staff">
@@ -45,6 +45,7 @@
 
 <script>
 import JobServices from '../../services/api/JobServices'
+import StaticData from '../../services/api/StaticData'
 
 export default {
     name : 'UpdateComponent',
@@ -58,13 +59,15 @@ export default {
             checked: false,
             personnel: '',
             currentPage: 0,
-            numPage: 7
+            numPage: 7,
+            icon: []
         }
     },
     async created(){
         try{
             this.jobs = await JobServices.getJobs()
             this.staff = await JobServices.getStaff()
+            this.icon = StaticData.getFacultyIcon()
             this.updateVisibleJobs()
         }catch(err){
             this.error = err.message

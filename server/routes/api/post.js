@@ -13,7 +13,7 @@ router.get('/', async(req, res) => {
             return console.error('could not connect to postgress', err)
         }
 
-        const query = "SELECT JOB.ID, JOB.LNAME, JOB.FNAME, FACULTY.IDENT \
+        const query = "SELECT JOB.ID, JOB.LNAME, JOB.FNAME, FACULTY.IDENT, FACULTY.ID AS IDENTIFIER \
                         FROM JOB INNER JOIN FACULTY ON JOB.FACULTY_ID = FACULTY.ID \
                         WHERE JOB.ASSISSTED = FALSE ORDER BY TODAY DESC;"
 
@@ -146,7 +146,7 @@ router.put('/update/:id/:staff_id', async(req, res) => {
     })
 })
 
-router.get('/admin/dashboard/something', async(req, res) => {
+router.get('/admin/management', async(req, res) => {
     const client = await loadJobRequests()
 
     await client.connect(function(err){
@@ -213,6 +213,7 @@ router.get('/admin/:month/:day', async(req, res) => {
                 .catch(e => console.error(e.stack))
     })
 })
+
 
 async function loadJobRequests() {
     const conString = "postgres://ynsvtncb:v3StzUeatCf_PrpAfcdIwVe6RW-Qn6rI@isilo.db.elephantsql.com:5432/ynsvtncb"

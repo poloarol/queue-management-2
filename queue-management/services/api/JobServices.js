@@ -42,5 +42,11 @@ export default {
                     .then(response => {
                         return response.data
                     })
+    },
+    getManagement(){
+        return axios.get('admin/management')
+                    .then(response => {
+                        return response.data
+                    })
     }
 }

@@ -1,3 +1,6 @@
+let university = 'university'
+let icon = 'icon'
+
 export default {
     getCompID(){
         return [
@@ -168,11 +171,16 @@ export default {
             },
             {
                 id: 2,
+                icon: 'user friends icon',
+                title: 'In Queue'
+            },
+            {
+                id: 3,
                 icon: 'users icon',
                 title: 'User Management'
             },
             {
-                id: 3,
+                id: 4,
                 icon: 'file excel icon',
                 title: 'Export Data'
             }
@@ -192,8 +200,22 @@ export default {
             },
             {
                 id: 3,
-                value: 'uottawa.brightspace.ca',
+                value: '#',
                 title: 'Virtual Campus | Campus Virtuel'
+            }
+        ]
+    },
+    getFacultyIcon(){
+        return [
+            {  
+                1 : `${university} white ${icon}`,
+                2 : `${university} #4682B4 ${icon}`,
+                3 : `${university} orange ${icon}`,
+                4 : `${university} #ADFF2F ${icon}`,
+                5 : `${university} #CB4154 ${icon}`,
+                6 : `${university} yellow ${icon}`,
+                7 : `${university} #158277 ${icon}`,
+                8 : `${university} #800080 ${icon}`
             }
         ]
     }

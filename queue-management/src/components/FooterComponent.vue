@@ -7,7 +7,8 @@
                 <a class="item"
                     v-for="item in items"
                     :key="item.id"
-                    :href="item.value"
+                    :href="'//' + item.value"
+                    target="_blank"
                 >
                 {{ item.title }}
                 </a>
@@ -19,7 +20,7 @@
 <style>
     div#foot{
         position: absolute;
-        bottom: -5em;
+        bottom: 0;
         width: 100%;
     }
 

@@ -1,10 +1,10 @@
 <template>
     <div class="container secondary-menu">
-        <div class="ui fluid large four item menu">
+        <div class="ui fluid large five item menu">
             <a class="item"
                 v-for="item in items"
                 :key="item.id"
-                @click="addActiveClass(item.id)"
+                @click="[addActiveClass(item.id), swap()]"
                 :class="[item.id % 2 === 0 ? 'first' : 'second',
                          item.id === active ? 'garnet' : 'blue'
                         ]"
@@ -37,7 +37,10 @@ export default {
     methods: {
         addActiveClass(value){
             this.active = value
-            this.$emit('swap')
+        },
+        swap(){
+            this.component = this.tabular[this.active]
+            this.$emit("swapComponent", this.component)
         }
     }
 }
