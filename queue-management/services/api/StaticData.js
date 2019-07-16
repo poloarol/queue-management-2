@@ -1,6 +1,3 @@
-let university = 'university'
-let icon = 'icon'
-
 export default {
     getCompID(){
         return [
@@ -205,17 +202,29 @@ export default {
             }
         ]
     },
-    getFacultyIcon(){
+    getFacultyColor(){
         return [
             {  
-                1 : `${university} white ${icon}`,
-                2 : `${university} #4682B4 ${icon}`,
-                3 : `${university} orange ${icon}`,
-                4 : `${university} #ADFF2F ${icon}`,
-                5 : `${university} #CB4154 ${icon}`,
-                6 : `${university} yellow ${icon}`,
-                7 : `${university} #158277 ${icon}`,
-                8 : `${university} #800080 ${icon}`
+                1 : "white",
+                2 : "#4682B4",
+                3 : "orange",
+                4 : "#ADFF2F",
+                5 : "#CB4154",
+                6 : "yellow",
+                7 : "#158277",
+                8 : "#800080"
+            }
+        ]
+    },
+    getJobHeader(){
+        return [
+            {
+                id: 1,
+                value: 'Name | Nom'
+            },
+            {
+                id: 2,
+                value: 'Faculty | Faculté'
             }
         ]
     }

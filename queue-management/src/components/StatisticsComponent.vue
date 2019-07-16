@@ -1,7 +1,5 @@
 <template>
-    <div class="container">
-        Let's do stats
-    </div>
+    <div>View your stats</div>
 </template>
 
 <script>

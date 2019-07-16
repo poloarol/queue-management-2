@@ -13,9 +13,10 @@ router.get('/', async(req, res) => {
             return console.error('could not connect to postgress', err)
         }
 
-        const query = "SELECT JOB.ID, JOB.LNAME, JOB.FNAME, FACULTY.IDENT, FACULTY.ID AS IDENTIFIER \
+        const query = "SELECT JOB.ID AS ID, JOB.FNAME AS NAME, JOB.STATION_ID AS POST,\
+                        FACULTY.ID AS F_ID, FACULTY.IDENT AS FACULTY, JOB.USER_DESCRIPTION AS DESCRIPTION\
                         FROM JOB INNER JOIN FACULTY ON JOB.FACULTY_ID = FACULTY.ID \
-                        WHERE JOB.ASSISSTED = FALSE ORDER BY TODAY DESC;"
+                        WHERE JOB.ASSISSTED = FALSE AND TODAY::DATE = NOW()::DATE ORDER BY TODAY DESC;"
 
         client.query(query, function(err, results){
                             if(err){
