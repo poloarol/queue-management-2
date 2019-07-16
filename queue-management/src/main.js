@@ -17,6 +17,7 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:3030/api/post'
 
 Vue.use(VueRouter)
+
 Vue.component('v-select', vSelect)
 Vue.config.productionTip = false
 

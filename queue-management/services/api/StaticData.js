@@ -202,19 +202,19 @@ export default {
             }
         ]
     },
-    getFacultyColor(){
-        return [
-            {  
-                1 : "white",
-                2 : "#4682B4",
-                3 : "orange",
-                4 : "#ADFF2F",
-                5 : "#CB4154",
-                6 : "yellow",
-                7 : "#158277",
-                8 : "#800080"
-            }
-        ]
+    getFacultyColor(id){
+        
+        let color = {  
+                        1 : "white",
+                        2 : "blue",
+                        3 : "orange",
+                        4 : "olive",
+                        5 : "red",
+                        6 : "yellow",
+                        7 : "teal",
+                        8 : "purple"
+                    }
+        return color[id]
     },
     getJobHeader(){
         return [

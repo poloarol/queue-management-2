@@ -1,22 +1,37 @@
 import JobServices from './JobServices'
 
-export default{
-    getJobComp(){
-        let collection = JobServices.getJobs()
-        let data = []
-        let datum = {'Station': 0, 'Name': '', 'Faculty': '', 'id': 0}
-        for(let i in collection){
-            datum.Station = collection[i].post
-            datum.Name = collection[i].name
-            datum.Faculty = collection[i].faculty
-            datum.id = collection[i].f_id
+import StaticData from './StaticData'
 
+export default{
+    async getJobComp(){
+        let collection = await JobServices.getJobs()
+        let data = []
+        let datum, color
+        for(let i in collection){
+            color = StaticData.getFacultyColor(collection[i].f_id)
+            datum = {'station': {}, 'name':{}, 'faculty': {}}
+            datum.station = {'icon': `laptop ${color} icon`, 'name': collection[i].post, 'type': 'str'}
+            datum.name = {'icon': `user ${color} icon`, 'name' : collection[i].name, 'type': 'str'}
+            datum.faculty = {'icon': `university ${color} icon`, 'name' : collection[i].faculty, 'type' : 'str'}
             data.push(datum)
         }
         return data
     },
-    getAdminComp(){
-
+    async getAdminComp(){
+        let collection = await JobServices.getJobs()
+        let staff = await JobServices.getStaff()
+        let data = []
+        let datum
+        for(let i in collection){
+            datum = {'name': {}, 'personnel': {}, 'desc': {}, 'save': {}}
+            datum.name = {'icon': 'user icon', 'name': collection[i].name, 'type': 'str'}
+            datum.personnel = {'name' : staff, 'type': 'dropdown'}
+            datum.desc = {'desc': collection[i].description, 'type': 'str'}
+            datum.save = {'type': 'input'}
+            data.push(datum)
+        }
+        console.log(data)
+        return data
     },
     getUpdateComp(){
 

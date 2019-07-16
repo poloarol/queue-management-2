@@ -1,5 +1,7 @@
 <template>
-  <div class="container"> {{ jobs }}</div>
+  <div class="container">
+    <TableComponent :headers="headers" :jobs="jobs"></TableComponent>
+  </div>
 </template>
 
 <style>
@@ -8,18 +10,19 @@
 
 
 <script>
-import VueTable from 'vuetable-2'
-
 import FilterJobs from '../../services/api/FilterJobs'
+
+import TableComponent from './TableComponent'
 
 export default {
   name: 'JobComponent',
   components: {
-    VueTable
+    TableComponent
   },
   data(){
     return {
-      jobs: []
+      jobs: [],
+      headers: [{'id': 1, 'name': 'Station'}, {'id': 2,'name': 'Name'}, {'id': 3, 'name': 'Faculty'}]
     }
   },
   async created(){
