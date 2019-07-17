@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <TableComponent :headers="headers" :jobs="jobs"></TableComponent>
+    <TableComponent :headers="headers" :jobs="jobs" :perPage="perPage"></TableComponent>
   </div>
 </template>
 
@@ -22,7 +22,8 @@ export default {
   data(){
     return {
       jobs: [],
-      headers: [{'id': 1, 'name': 'Station'}, {'id': 2,'name': 'Name'}, {'id': 3, 'name': 'Faculty'}]
+      headers: [{'id': 1, 'name': 'Station'}, {'id': 2,'name': 'Name'}, {'id': 3, 'name': 'Faculty'}],
+      perPage: 8
     }
   },
   async created(){

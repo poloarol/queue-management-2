@@ -38,6 +38,7 @@
                 </tr>
             </tbody>
         </table>
+        <PaginationComponent></PaginationComponent>
     </div>
 </template>
 
@@ -51,19 +52,28 @@
 
 
 <script>
+import PaginationComponent from './PaginationComponent'
 
 export default {
     name: 'TableComponent',
-    props: ['headers', 'jobs'],
+    props: ['headers', 'jobs', 'perPage'],
     components: {
+        PaginationComponent
     },
     data(){
         return {
-            data: {}
+            currentPage: 0,
+            pages: 0,
+            activeNav: 0,
+            visible: []
         }
     },
-    create(){
-    
+    created(){
+    },
+    updated(){
+    },
+    methods:{
+
     }
 }
 </script>

@@ -22,7 +22,7 @@ export default {
   margin-top: 60px;
 }
 
-body{
+/* body{
   overflow: hidden;
-}
+} */
 </style>
