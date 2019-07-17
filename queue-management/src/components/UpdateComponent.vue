@@ -9,6 +9,7 @@
 import FilterData from '../../services/api/FilterJobs'
 
 import TableComponent from './TableComponent'
+import FilterJobs from '../../services/api/FilterJobs';
 
 export default {
     name : 'UpdateComponent',
@@ -23,7 +24,7 @@ export default {
     },
     async created(){
         try{
-            this.jobs = FilterData.getAdminComp()
+            this.jobs = await FilterJobs.getAdminComp()
         }catch(err){
             this.error = err.message
         }

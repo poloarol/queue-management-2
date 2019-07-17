@@ -13,6 +13,27 @@
                            <i :class="j.icon"></i>
                             {{ j.name }}
                        </div>
+                       <div v-else-if="j.type === 'dropdown'">
+                           <p>Dropdown</p>
+                       </div>
+                       <div v-else-if="j.type.input === 'input'">
+                           <input type='j.type.name'>
+                       </div>
+                       <div v-else-if="j.type === 'button'">
+                           <button class="ui positive botton">j.name</button>
+                       </div>
+                       <div v-else-if="j.type.input === 'input-plus-button'">
+                           <div class="container">
+                               <div class="ui toggle checkbox">
+                                   <input :type=j.type.name>
+                                   <label></label>
+                               </div>
+                               <div class="ui positive button">
+                                   <i :class="j.name"></i>
+                                   {{ j.name }}
+                               </div>
+                           </div>
+                       </div>
                     </td>
                 </tr>
             </tbody>
@@ -42,7 +63,7 @@ export default {
         }
     },
     create(){
-        console.log(this.jobs)
+    
     }
 }
 </script>

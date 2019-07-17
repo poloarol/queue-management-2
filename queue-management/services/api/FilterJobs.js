@@ -19,18 +19,17 @@ export default{
     },
     async getAdminComp(){
         let collection = await JobServices.getJobs()
-        let staff = await JobServices.getStaff()
+        // let staff = await JobServices.getStaff()
         let data = []
         let datum
         for(let i in collection){
             datum = {'name': {}, 'personnel': {}, 'desc': {}, 'save': {}}
             datum.name = {'icon': 'user icon', 'name': collection[i].name, 'type': 'str'}
-            datum.personnel = {'name' : staff, 'type': 'dropdown'}
-            datum.desc = {'desc': collection[i].description, 'type': 'str'}
-            datum.save = {'type': 'input'}
+            datum.personnel = {'icon': 'user secret icon' ,'name' : '', 'type': 'dropdown'}
+            datum.desc = {'name': collection[i].description, 'type': 'str'}
+            datum.save = {'icon': 'save icon','name': 'Save', 'type': {'input':'input-plus-button', 'name': 'checkbox'}, 'event': {'name': '@click', 'func': {'input': [], 'button': []}}}
             data.push(datum)
         }
-        console.log(data)
         return data
     },
     getUpdateComp(){
