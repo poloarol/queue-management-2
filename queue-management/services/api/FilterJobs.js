@@ -27,7 +27,7 @@ export default{
             datum.name = {'icon': 'user icon', 'name': collection[i].name, 'type': 'str'}
             datum.personnel = {'icon': 'user secret icon' ,'name' : '', 'type': 'dropdown'}
             datum.desc = {'name': collection[i].description, 'type': 'str'}
-            datum.save = {'icon': 'save icon','name': 'Save', 'type': {'input':'input-plus-button', 'name': 'checkbox'}, 'event': {'name': '@click', 'func': {'input': [], 'button': []}}}
+            datum.save = {'icon': 'save icon','name': 'Save', 'type': {'input':'input-plus-button', 'name': 'checkbox'}, 'event': collection[i].id}
             data.push(datum)
         }
         return data

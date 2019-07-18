@@ -28,7 +28,10 @@
                                    <input :type=j.type.name :id="`p_${index}`" @click="check(index)">
                                    <label></label>
                                </div>
-                               <div class="ui disabled button" :id="`b_${index}`">
+                               <div class="ui disabled button" 
+                                    :id="`b_${index}`"
+                                    @click="parentEvent(j.event)"
+                                >
                                    <i :class="j.name"></i>
                                    {{ j.name }}
                                </div>
@@ -90,6 +93,9 @@ export default {
                 btn.classList.add('disabled')
                 btn.classList.remove('positive')
             }
+        },
+        parentEvent(value){
+            console.log(`${value}`)
         }
     },
     computed: {

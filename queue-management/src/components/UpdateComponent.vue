@@ -24,7 +24,8 @@ export default {
         return {
             jobs: [],
             headers: [{id: 1, 'name': 'Name | Nom'}, {'id': 2, 'name': 'Personnel'}, {'id': 3, 'name': 'Description'}, {'id': 3, 'name': 'In Queue'}],
-            perPage: 8
+            perPage: 8,
+            params: {'id': '', 'staff': ''}
         }
     },
     async created(){
@@ -36,10 +37,16 @@ export default {
     },
     async updated(){
         try{
+            // this.JobServices.updateJob(this.params.id, this.params.staff)
             this.jobs = await FilterJobs.getAdminComp()
         }catch(err){
             this.error = err.message
         }
+    },
+    computed: {
+        // getParams(){
+        //     return this.params
+        // }
     }
 }
 
