@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-    <TableComponent :headers="headers" :jobs="jobs" :perPage="perPage"></TableComponent>
+    <TableComponent 
+        :headers="headers" 
+        :jobs="jobs" 
+        :perPage="perPage"
+    >
+    </TableComponent>
   </div>
 </template>
 

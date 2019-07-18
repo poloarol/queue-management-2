@@ -2,7 +2,7 @@
     <div class="container container-pagination">
         <button 
             class="ui labeled icon button"
-            @click="navigateBack"
+            @click="[navigateBack(), move()]"
         >
             <i class="chevron left icon"></i>
             Prev
@@ -11,14 +11,14 @@
             <a class="item" 
                 v-for="(page, index) in pages" 
                 :key="index"
-                @click="navigate(index)" 
+                @click="[navigate(index), move()]" 
                 :class="{active : activeNav === index}"
             >
                 {{ page }}
             </a>
         </div>
         <button class="ui right labeled icon button"
-            @click="navigateForward"
+            @click="[navigateForward(), move()]"
         >
             <i class="chevron right icon"></i>
             Next
@@ -42,11 +42,11 @@
 <script>
 export default {
     name: 'PaginationComponent',
-    props: ["pages"],
+    props: ["pages", "currentPage"],
     data(){
         return {
             activeNav: 0,
-            current: this.visible
+            current: this.currentPage
         }
     },
     created(){
@@ -55,7 +55,9 @@ export default {
     updated() {
         // don't know why but printing it allows it to work 
         // so it stays. # theBugBecameAFuture
-        console.log(this.pages)
+        // console.log(this.pages)
+        // console.log('--------------------------')
+        // console.log(this.current)
     },
     methods: {
         navigate(value){
@@ -72,6 +74,10 @@ export default {
                 this.activeNav++
             else
                 this.activeNav = this.pages-1
+        },
+        move(){
+            this.current = this.activeNav
+            this.$emit("moveable", this.current)
         }
     }
 }

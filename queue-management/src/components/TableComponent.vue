@@ -7,7 +7,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(job, index) in visible" :key="index">
+                <tr v-for="(job, index) in getPages" :key="index">
                    <td v-for="(j, i) in job" :key="i">
                        <div v-if="['str', 'date', 'number'].includes(j.type)">
                            <i :class="j.icon"></i>
@@ -25,10 +25,10 @@
                        <div v-else-if="j.type.input === 'input-plus-button'">
                            <div class="container">
                                <div class="ui toggle checkbox">
-                                   <input :type=j.type.name>
+                                   <input :type=j.type.name :id="`p_${index}`" @click="check(index)">
                                    <label></label>
                                </div>
-                               <div class="ui positive button">
+                               <div class="ui disabled button" :id="`b_${index}`">
                                    <i :class="j.name"></i>
                                    {{ j.name }}
                                </div>
@@ -38,7 +38,7 @@
                 </tr>
             </tbody>
         </table>
-        <PaginationComponent :pages="pages"></PaginationComponent>
+        <PaginationComponent :pages="pages" @moveable="current=$event"></PaginationComponent>
     </div>
 </template>
 
@@ -56,33 +56,49 @@ import PaginationComponent from './PaginationComponent'
 
 export default {
     name: 'TableComponent',
-    props: ['headers', 'jobs', 'perPage'],
+    props: ['headers', 'jobs', 'perPage', 'currentPage'],
     components: {
         PaginationComponent
     },
     data(){
         return {
-            currentPage: 0,
+            current: this.currentPage,
             pages: [],
             activeNav: 0,
             visible: [],
-            currentPage: 1
         }
     },
     created(){
+        this.current = 0
         this.setPages()
-        this.getPages()
     },
-    updated()
+    updated(){
         this.setPages()
-        this.getPages()
     },
     methods:{
         setPages(){
             this.pages = Math.ceil(this.jobs.length / this.perPage)
         },
+        check(value){
+            let box = document.querySelector(`#p_${value}`)
+            if(box.checked){
+                let btn = document.querySelector(`#b_${value}`)
+                btn.classList.remove('disabled')
+                btn.classList.add('positive')
+            }else{
+                let btn = document.querySelector(`#b_${value}`)
+                btn.classList.add('disabled')
+                btn.classList.remove('positive')
+            }
+        }
+    },
+    computed: {
+        moveable(){
+            return this.current
+        },
         getPages(){
-            this.visible = this.jobs.slice(this.currentPage * this.perPage, (this.currentPage * this.perPage) + this.perPage)
+            this.visible = this.jobs.slice(this.current * this.perPage, (this.current * this.perPage) + this.perPage)
+            return this.visible
         }
     }
 }

@@ -1,6 +1,11 @@
 <template>
     <div class="container">
-        <TableComponent :headers="headers" :jobs="jobs" :perPage="perPage"></TableComponent>
+        <TableComponent 
+            :headers="headers" 
+            :jobs="jobs" 
+            :perPage="perPage"
+        >
+        </TableComponent>
     </div>
 </template>
 
@@ -8,6 +13,7 @@
 <script>
 import TableComponent from './TableComponent'
 import FilterJobs from '../../services/api/FilterJobs';
+import JobServices from '../../services/api/JobServices'
 
 export default {
     name : 'UpdateComponent',
@@ -18,7 +24,7 @@ export default {
         return {
             jobs: [],
             headers: [{id: 1, 'name': 'Name | Nom'}, {'id': 2, 'name': 'Personnel'}, {'id': 3, 'name': 'Description'}, {'id': 3, 'name': 'In Queue'}],
-            perPage: 7
+            perPage: 8
         }
     },
     async created(){

@@ -47,6 +47,6 @@ export default {
         swapComponent(){
             return this.current
         }
-    },
+    }
 }
 </script>
