@@ -23,7 +23,8 @@ export default {
     return {
       jobs: [],
       headers: [{'id': 1, 'name': 'Station'}, {'id': 2,'name': 'Name'}, {'id': 3, 'name': 'Faculty'}],
-      perPage: 8
+      perPage: 10,
+      visible: []
     }
   },
   async created(){

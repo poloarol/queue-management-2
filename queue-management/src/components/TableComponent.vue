@@ -7,7 +7,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(job, index) in jobs" :key="index">
+                <tr v-for="(job, index) in visible" :key="index">
                    <td v-for="(j, i) in job" :key="i">
                        <div v-if="['str', 'date', 'number'].includes(j.type)">
                            <i :class="j.icon"></i>
@@ -38,7 +38,7 @@
                 </tr>
             </tbody>
         </table>
-        <PaginationComponent></PaginationComponent>
+        <PaginationComponent :pages="pages"></PaginationComponent>
     </div>
 </template>
 
@@ -63,17 +63,27 @@ export default {
     data(){
         return {
             currentPage: 0,
-            pages: 0,
+            pages: [],
             activeNav: 0,
-            visible: []
+            visible: [],
+            currentPage: 1
         }
     },
     created(){
+        this.setPages()
+        this.getPages()
     },
-    updated(){
+    updated()
+        this.setPages()
+        this.getPages()
     },
     methods:{
-
+        setPages(){
+            this.pages = Math.ceil(this.jobs.length / this.perPage)
+        },
+        getPages(){
+            this.visible = this.jobs.slice(this.currentPage * this.perPage, (this.currentPage * this.perPage) + this.perPage)
+        }
     }
 }
 </script>

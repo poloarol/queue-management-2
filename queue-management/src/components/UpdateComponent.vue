@@ -18,7 +18,7 @@ export default {
         return {
             jobs: [],
             headers: [{id: 1, 'name': 'Name | Nom'}, {'id': 2, 'name': 'Personnel'}, {'id': 3, 'name': 'Description'}, {'id': 3, 'name': 'In Queue'}],
-            perPage: 5
+            perPage: 7
         }
     },
     async created(){
