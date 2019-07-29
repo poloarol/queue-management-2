@@ -14,7 +14,7 @@
                             {{ j.name }}
                        </div>
                        <div v-else-if="j.type === 'dropdown'">
-                           <p>Dropdown</p>
+                           <v-select label="ident" :options=j.name @input="setSelected"></v-select>
                        </div>
                        <div v-else-if="j.type.input === 'input'">
                            <input type='j.type.name'>
@@ -50,6 +50,9 @@
         margin: 0 auto !important;
         width: 80% !important;
         margin-top: 10em !important;
+    };
+    .allow-overflow{
+        overflow: none !important;
     }
 </style>
 
@@ -59,7 +62,7 @@ import PaginationComponent from './PaginationComponent'
 
 export default {
     name: 'TableComponent',
-    props: ['headers', 'jobs', 'perPage', 'currentPage'],
+    props: ['headers', 'jobs', 'perPage', 'currentPage', 'currentStaffParams'],
     components: {
         PaginationComponent
     },
@@ -69,11 +72,14 @@ export default {
             pages: [],
             activeNav: 0,
             visible: [],
+            staff: 0,
+            currentParams: this.currentStaffParams
         }
     },
     created(){
         this.current = 0
         this.setPages()
+        this.currentParams = {'id': '', 'staff': ''}
     },
     updated(){
         this.setPages()
@@ -95,7 +101,17 @@ export default {
             }
         },
         parentEvent(value){
-            console.log(`${value}`)
+            this.currentParams.id = value
+            this.currentParams.staff = this.staff
+        },
+        setSelected(value){
+            if(value === null)
+                this.staff = 0
+            else
+                this.staff = value.id
+        },
+        parameters(){
+            this.$emit('getParams', this.currentParams)
         }
     },
     computed: {
