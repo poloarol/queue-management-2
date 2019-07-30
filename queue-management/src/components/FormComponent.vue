@@ -18,7 +18,7 @@
                     </div>
                     <h4 class="ui dividing header">Staff Information</h4>
                     <div class="field">
-                        <div class="two fields">
+                        <div class="three fields">
                             <div class="field"><label>First Name | Prenom</label>
                                 <input type="text" name="firstname" placeholder="Paula" v-model='firstname'>
                             </div>
@@ -26,10 +26,14 @@
                                 <label>Last Name | Nom de famille</label>
                                 <input type="text" name="lastname" placeholder="Poe" v-model='lastname'>
                             </div>
+                            <div class="field">
+                                <label>Email | Couriel</label>
+                                <input type="email" name="email" placeholder="poe@uottawa.ca" v-model='email'>
+                            </div>
                         </div>
                     </div>
                     <div class="field">
-                        <div class="two fields">
+                        <div class="three fields">
                             <div class="field">
                                 <label>Faculty | Faculte</label>
                                 <v-select label="ident" :options="faculties" placeholder="Choose your faculty | Choisissez votre faculte" v-model='faculty'></v-select>
@@ -38,18 +42,19 @@
                                 <label>Status | Statut</label>
                                 <v-select label="ident" :options="roles" placeholder="Choose a role | Choisissez votre role" v-model='status'></v-select>
                             </div>
+                            <div class="field">
+                                <label>Preferred Language | Langaunge Preferee</label>
+                                <v-select label="value" :options="language" placeholder="Choose your languange of preference | Quelle est votre langue de preference" v-model='lang'></v-select>
+                            </div>
                         </div>
                     </div>
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
-                                <label>Computer ID | ID de l'ordinateur</label>
+                                <label>Which platform do you require help with? | Vous avez besoin d'aide avec quelle platforme? </label>
                                 <v-select label="value" :options="stations" placeholder="Choose the computer ID | Choisissez l'identifiant de l'ordinateur" v-model='station'></v-select>
                             </div>
-                            <div class="field">
-                                <label>Preferred Language | Langaunge Preferee</label>
-                                <v-select label="value" :options="language" placeholder="Choose your languange of preference | Quelle est votre langue de preference" v-model='lang'></v-select>
-                            </div>
+                            <div></div>
                         </div>
                     </div>
                     <div class="field">
@@ -103,7 +108,7 @@ export default {
             this.faculties = res['faculty']
             this.roles = res['roles']
             this.language = StaticData.getLang()
-            this.stations = StaticData.getCompID()
+            this.stations = StaticData.getPlatform()
         }catch(err){
             this.err = err.message
         }
