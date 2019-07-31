@@ -39,7 +39,7 @@
                                 <v-select label="ident" :options="faculties" placeholder="Choose your faculty | Choisissez votre faculte" v-model='faculty'></v-select>
                             </div>
                             <div class="field">
-                                <label>Status | Statut</label>
+                                <label>Role | Rôle</label>
                                 <v-select label="ident" :options="roles" placeholder="Choose a role | Choisissez votre role" v-model='status'></v-select>
                             </div>
                             <div class="field">
@@ -52,9 +52,11 @@
                         <div class="two fields">
                             <div class="field">
                                 <label>Which platform do you require help with? | Vous avez besoin d'aide avec quelle platforme? </label>
-                                <v-select label="value" :options="stations" placeholder="Choose the computer ID | Choisissez l'identifiant de l'ordinateur" v-model='station'></v-select>
+                                <v-select label="ident" :options="platform" placeholder="Choose the ... | Choisissez ... " v-model='software'></v-select>
                             </div>
-                            <div></div>
+                            <div class="field">
+                                <label>Which difficulties did you encounter with this tool? | Quelle sont les difficulte ...</label>
+                            </div>
                         </div>
                     </div>
                     <div class="field">
@@ -90,7 +92,9 @@ export default {
             faculties: [],
             roles: [],
             language: [],
-            stations:[],
+            platform:[],
+            topics: [],
+            topic: [],
             user: null,
             firstname: '',
             lastname: '',
@@ -98,8 +102,9 @@ export default {
             status: '',
             lang: '',
             desc: '',
-            station: '',
-            err: ''
+            software: '',
+            email: '',
+            err: '',
         }
     },
     async created(){
@@ -108,10 +113,14 @@ export default {
             this.faculties = res['faculty']
             this.roles = res['roles']
             this.language = StaticData.getLang()
-            this.stations = StaticData.getPlatform()
+            this.platform = res['software']
+            this.topics = res['topics']
         }catch(err){
             this.err = err.message
         }
+    },
+    async updated(){
+        await this.filter_software(this.software.id)
     },
     methods: {
         async register(){
@@ -121,10 +130,13 @@ export default {
                             "faculty" : this.faculty.id, 
                             "role" : this.status.id, 
                             "lang" : this.lang.id,
-                            "station" : this.station.id,
+                            "software" : this.software.id,
                             "desc" : this.desc
                         }
             await JobServices.createJob(this.user)
+        },
+        filter_software(val){
+            this.topic = this.topics.filter(item => item.software_id == val)
         }
     },
 }

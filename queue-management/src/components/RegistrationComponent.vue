@@ -17,7 +17,7 @@ export default {
     components: {
         MenuComponent,
         FormComponent,
-        FooterComponent
+        // FooterComponent
     }
 }
 

@@ -39,6 +39,9 @@ router.get('/register', async(req, res) => {
         const query = "SELECT FACULTY.ID, FACULTY.IDENT FROM FACULTY"
         const query1 = "SELECT ROLES.ID, ROLES.IDENT FROM ROLES"
         const query3 = "SELECT STAFF.ID, STAFF.IDENT FROM STAFF"
+        const query4 = "SELECT SOFTWARE.ID, SOFTWARE.IDENT FROM SOFTWARE"
+        const query5 = "SELECT * FROM TOPICS INNER JOIN SUB_TOPICS ON \
+                        TOPICS.ID = SUB_TOPICS.TOPIC_ID"
 
         let results = {}
 
@@ -61,6 +64,20 @@ router.get('/register', async(req, res) => {
                 return console.error('error running query', err)
             }
             results['staff'] = result.rows
+        })
+
+        client.query(query4, function(err, result){
+            if(err){
+                return console.error('error running query', err)
+            }
+            results['software'] = result.rows
+        })
+
+        client.query(query5, function(err, result){
+            if(err){
+                return console.error('error running quer', err)
+            }
+            results['topics'] = result.rows
             res.send(results)
             client.end()
         })
