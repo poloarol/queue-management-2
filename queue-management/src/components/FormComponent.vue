@@ -56,6 +56,7 @@
                             </div>
                             <div class="field">
                                 <label>Which difficulties did you encounter with this tool? | Quelle sont les difficulte ...</label>
+                                <v-select label="prob" :options="filtered_topics" v-model="problem"></v-select>
                             </div>
                         </div>
                     </div>
@@ -78,7 +79,11 @@
     </div>
 </template>
 
+
 <script>
+// import Treeselect from 'riophae/vue-treeselect'
+// import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+
 import JobServices from '../../services/api/JobServices'
 import StaticData from '../../services/api/StaticData'
 
@@ -95,6 +100,7 @@ export default {
             platform:[],
             topics: [],
             topic: [],
+            chosen_topic: [],
             user: null,
             firstname: '',
             lastname: '',
@@ -103,24 +109,17 @@ export default {
             lang: '',
             desc: '',
             software: '',
+            problem: '',
             email: '',
             err: '',
+            current_topic: 0
         }
     },
     async created(){
-        try{
-            let res = await JobServices.getInfo()
-            this.faculties = res['faculty']
-            this.roles = res['roles']
-            this.language = StaticData.getLang()
-            this.platform = res['software']
-            this.topics = res['topics']
-        }catch(err){
-            this.err = err.message
-        }
+        await this.get_data()
     },
-    async updated(){
-        await this.filter_software(this.software.id)
+    async updated() {
+        await this.get_data()
     },
     methods: {
         async register(){
@@ -135,10 +134,27 @@ export default {
                         }
             await JobServices.createJob(this.user)
         },
-        filter_software(val){
-            this.topic = this.topics.filter(item => item.software_id == val)
+        async get_data(){
+            try{
+                let res = await JobServices.getInfo()
+                this.faculties = res['faculty']
+                this.roles = res['roles']
+                this.language = StaticData.getLang()
+                this.platform = res['software']
+                this.topics = res['topics']
+            }catch(err){
+                this.err = err.message
+            }
         }
     },
+    computed: {
+        filtered_topics(){
+            if(this.software.id)
+                console.log(this.software.id)
+            else
+                console.log(0)
+        }
+    }
 }
 </script>
 

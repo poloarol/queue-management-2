@@ -1,0 +1,12 @@
+[ 
+    { "id": "1", "software_id": 1, "prob": "Grade book | Carnet de notes", "topic_id": 4, "sub_topic": "Add/Delete Evaluation | Ajouter/Supprimer une évaluation" }, 
+    { "id": "2", "software_id": 1, "prob": "Grade book | Carnet de notes", "topic_id": 4, "sub_topic": "Add/Modify grades | Ajouter/Modifier des notes" }, 
+    { "id": "3", "software_id": 1, "prob": "Grade book | Carnet de notes", "topic_id": 4, "sub_topic": "Import/Export grades | Importer/Exporter des notes" }, 
+    { "id": "4", "software_id": 1, "prob": "Groups | Groupes", "topic_id": 5, "sub_topic": "Setup groups | Crée des groupes" }, 
+    { "id": "5", "software_id": 1, "prob": "Discussions", "topic_id": 6, "sub_topic": "Create an Open discussion | Crée une discussion ouvertes" }, 
+    { "id": "6", "software_id": 1, "prob": "Discussions", "topic_id": 6, "sub_topic": "Create a group discussion | Crée une discussion de groupe" }, 
+    { "id": "7", "software_id": 1, "prob": "Discussions", "topic_id": 6, "sub_topic": "Create single user discussion | Crée une discussion a un utilisateur unique" }, 
+    { "id": "8", "software_id": 1, "prob": "Assignments | Devoir", "topic_id": 8, "sub_topic": "Create an assignment | Crée un devoir" }, 
+    { "id": "9", "software_id": 1, "prob": "Rubrics | Rubriques", "topic_id": 7, "sub_topic": "Create a rubric | Crée une rubrique" }, 
+    { "id": "10", "software_id": 1, "prob": "Rubrics | Rubriques", "topic_id": 7, "sub_topic": "Modify an existing rubric | Modifier une rubrique existante" } 
+]
