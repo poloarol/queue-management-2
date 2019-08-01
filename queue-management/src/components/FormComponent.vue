@@ -36,15 +36,43 @@
                         <div class="three fields">
                             <div class="field">
                                 <label>Faculty | Faculte</label>
-                                <v-select label="ident" :options="faculties" placeholder="Choose your faculty | Choisissez votre faculte" v-model='faculty'></v-select>
+                                <multiselect 
+                                    v-model="faculty" 
+                                    :options="faculties" 
+                                    :searchable="false" 
+                                    :close-on-select="false"
+                                    label="ident"
+                                    :allow-empty="false"
+                                    track-by="ident"
+                                >
+                                </multiselect>
                             </div>
                             <div class="field">
                                 <label>Role | Rôle</label>
-                                <v-select label="ident" :options="roles" placeholder="Choose a role | Choisissez votre role" v-model='status'></v-select>
+                                <multiselect 
+                                    v-model="status" 
+                                    :options="roles" 
+                                    :searchable="false" 
+                                    :close-on-select="false"
+                                    label="ident"
+                                    :allow-empty="false"
+                                    track-by="ident"
+                                >
+                                </multiselect>
                             </div>
                             <div class="field">
                                 <label>Preferred Language | Langaunge Preferee</label>
-                                <v-select label="value" :options="language" placeholder="Choose your languange of preference | Quelle est votre langue de preference" v-model='lang'></v-select>
+                                <multiselect 
+                                    v-model="lang" 
+                                    :options="language" 
+                                    :searchable="false" 
+                                    :close-on-select="false"
+                                    label="ident"
+                                    :allow-empty="false"
+                                    track-by="ident"
+                                >
+                                </multiselect>
+                                </multiselect>
                             </div>
                         </div>
                     </div>
@@ -55,8 +83,18 @@
                                 <v-select label="ident" :options="platform" placeholder="Choose the ... | Choisissez ... " v-model='software'></v-select>
                             </div>
                             <div class="field">
-                                <label>Which difficulties did you encounter with this tool? | Quelle sont les difficulte ...</label>
-                                <v-select label="prob" :options="filtered_topics" v-model="problem"></v-select>
+                                <label>Which tool are you having problems with? | Vous avez des problème avec quel outils?</label>
+                                <multiselect
+                                        v-model="problem"
+                                        :options="topic"
+                                        :multiple="true"
+                                        placeholder="Type to search"
+                                        group-values="children"
+                                        group-label="label"
+                                        label="name"
+                                >
+                                <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
+                               </multiselect>
                             </div>
                         </div>
                     </div>
@@ -81,16 +119,16 @@
 
 
 <script>
-// import Treeselect from 'riophae/vue-treeselect'
-// import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-
 import JobServices from '../../services/api/JobServices'
 import StaticData from '../../services/api/StaticData'
 
 export default {
     name: 'FormComponent',
     props : {
-
+        
+    },
+    components: {
+       
     },
     data() {
         return {
@@ -117,9 +155,18 @@ export default {
     },
     async created(){
         await this.get_data()
+        this.current_topic = 1
+        this.filter_topics(this.current_topic)
+        console.log(this.topic)
     },
     async updated() {
         await this.get_data()
+        if(this.software === null || this.software === undefined){
+            this.current_topic = 0
+        }else{
+            this.current_topic = this.software.id
+        }
+        this.filter_topics(this.current_topic)
     },
     methods: {
         async register(){
@@ -145,16 +192,31 @@ export default {
             }catch(err){
                 this.err = err.message
             }
+        },
+        filter_topics(val){
+            let value = this.topics.filter(item => item.software_id == val)
+
+            let options = []
+            let parent, prev_child_key = null
+
+            for(let i in value){
+                let key = value[i].topic_id
+                if(prev_child_key === key){
+                    parent.children.push({'id': [value[i].id ,value[i].topic_id], 'name': value[i].sub_topic})
+                }else{
+                    prev_child_key = value[i].topic_id
+                    parent = {}
+                    parent['id'] = [value[i].id, value[i].software_id]
+                    parent['label'] = value[i].prob
+                    parent['children'] = []
+                    parent.children.push({'id': [value[i].id ,value[i].topic_id], 'name': value[i].sub_topic})
+                    options.push(parent)
+                }
+    
+            }
+            this.topic = options
         }
     },
-    computed: {
-        filtered_topics(){
-            if(this.software.id)
-                console.log(this.software.id)
-            else
-                console.log(0)
-        }
-    }
 }
 </script>
 

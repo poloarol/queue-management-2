@@ -51,9 +51,9 @@
         width: 80% !important;
         margin-top: 10em !important;
     };
-    .allow-overflow{
+    /* .allow-overflow{
         overflow: none !important;
-    }
+    } */
 </style>
 
 
