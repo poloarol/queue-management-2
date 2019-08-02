@@ -1,94 +1,87 @@
 const express = require('express')
 const pg = require('pg')
 
-
 const router = express.Router()
+
+const Pool = getPool()
 
 // Get Jobs
 router.get('/', async(req, res) => {
-    const client = await loadJobRequests()
 
-    await client.connect(function(err){
+    Pool.connect(async function(err, client, done){
         if(err){
             return console.error('could not connect to postgress', err)
         }
-
+        
         const query = "SELECT JOB.ID AS ID, JOB.FNAME AS NAME, JOB.STATION_ID AS POST,\
                         FACULTY.ID AS F_ID, FACULTY.IDENT AS FACULTY, JOB.USER_DESCRIPTION AS DESCRIPTION\
                         FROM JOB INNER JOIN FACULTY ON JOB.FACULTY_ID = FACULTY.ID \
                         WHERE JOB.ASSISSTED = FALSE AND TODAY::DATE = NOW()::DATE ORDER BY TODAY DESC;"
-
-        client.query(query, function(err, results){
-                            if(err){
-                                return console.error('error running query', err)
-                            }
-                            res.send(results.rows)
-                            client.end()
-                        })
+    
+        await client.query(query)
+                    .then((result) => {
+                        done()
+                        res.send(result.rows)
+                    })
+                    .catch((err) => {
+                        return console.error('error running query', err)
+                    })
     })
 })
 
 router.get('/register', async(req, res) => {
-    const client = await loadJobRequests()
 
-    await client.connect(function(err){
+    let results = {}
+   
+    Pool.connect(async function(err, client, done){
         if(err){
-            return console.error('could not connect to postgres', err)
+            return console.error('could not connect to postgress', err)
         }
-
         const query = "SELECT FACULTY.ID, FACULTY.IDENT FROM FACULTY"
-        const query1 = "SELECT ROLES.ID, ROLES.IDENT FROM ROLES"
-        const query3 = "SELECT STAFF.ID, STAFF.IDENT FROM STAFF"
-        const query4 = "SELECT SOFTWARE.ID, SOFTWARE.IDENT FROM SOFTWARE"
-        const query5 = "SELECT * FROM TOPICS INNER JOIN SUB_TOPICS ON \
-                        TOPICS.ID = SUB_TOPICS.TOPIC_ID"
+        await runQuery(client, query, results, 'faculty', done)
 
-        let results = {}
-
-        client.query(query, function(err, result){
-            if(err){
-                return console.error('error running query', err)
-            }
-            results['faculty'] = result.rows
-        })
-
-        client.query(query1, function(err, result){
-            if(err){
-                return console.error('error running query', err)
-            }
-            results['roles'] = result.rows
-        })
-
-        client.query(query3, function(err, result){
-            if(err){
-                return console.error('error running query', err)
-            }
-            results['staff'] = result.rows
-        })
-
-        client.query(query4, function(err, result){
-            if(err){
-                return console.error('error running query', err)
-            }
-            results['software'] = result.rows
-        })
-
-        client.query(query5, function(err, result){
-            if(err){
-                return console.error('error running quer', err)
-            }
-            results['topics'] = result.rows
-            res.send(results)
-            client.end()
-        })
     })
+
+    Pool.connect(async function(err, client, done){
+        if(err){
+            return console.error('could not connect to postgress', err)
+        }
+        const query = "SELECT ROLES.ID, ROLES.IDENT FROM ROLES"
+        await runQuery(client, query, results, 'roles', done)
+    })
+
+    Pool.connect(async function(err, client, done){
+        if(err){
+            return console.error('could not connect to postgress', err)
+        }
+        const query = "SELECT STAFF.ID, STAFF.IDENT FROM STAFF"
+        await runQuery(client, query, results, 'staff', done)
+    })
+
+    Pool.connect(async function(err, client, done){
+        if(err){
+            return console.error('could not connect to postgress', err)
+        }
+        const query = "SELECT SOFTWARE.ID, SOFTWARE.IDENT FROM SOFTWARE"
+        await runQuery(client, query, results, 'software', done)
+    })
+
+    Pool.connect(async function(err, client, done){
+        if(err){
+            return console.error('could not connect to postgress', err)
+        }
+        const query = "SELECT * FROM TOPICS INNER JOIN SUB_TOPICS ON TOPICS.ID = SUB_TOPICS.TOPIC_ID"
+        await runQuery(client, query, results, 'software', done)
+
+        res.send(results)
+    })
+    
 })
 
 // Add Jobs
 router.post('/register', async(req, res) => {
-    const client = await loadJobRequests()
 
-    await client.connect(function(err){
+    Pool.connect(async function(err, client, done){
         if(err){
             return console.error('could not connect to postgress', err)
         }
@@ -109,42 +102,45 @@ router.post('/register', async(req, res) => {
         let values = [fname, lname, date, faculty, role, lang, station, assisted_by, assisted, text]
         const query = 'INSERT INTO JOB (FNAME, LNAME, TODAY, FACULTY_ID, ROLES_ID, LANGUANGE, STATION_ID, ASSISTED_BY, ASSISSTED, USER_DESCRIPTION) \
                             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING ID;'
-            
+        
         client.query(query, values)
-                .then(result => {
-                    res.send(result)
-                    client.end()
-                })
-                .catch(e => console.error(e.stack))
+              .then((result) => {
+                  res.send(result)
+              })
+              .catch((err) => {
+                return console.error('error running query', err)
+              })
+        
     })
+
 })
 
 router.get('/update', async(req, res) => {
-    const client = await loadJobRequests()
 
-    await client.connect(function(err){
+    Pool.connect(async function(err, client, done){
         if(err){
             return console.error('could not connect to postgres', err)
         }
-
-        const query = "SELECT STAFF.ID, STAFF.IDENT FROM STAFF"
-
-        client.query(query, function(err, results){
-            if(err){
-                return console.error('error running query', err)
-            }else{
-                res.send(results.rows)
-                client.end()
-            }
-        })
     })
+
+    const query = "SELECT STAFF.ID, STAFF.IDENT FROM STAFF"
+
+    await client.query(query)
+                .then((result) => {
+                    done()
+                    res.send(result.rows)
+                })
+                .catch((err) => {
+                    return console.error('error running query', err)
+                })
+
 })
 
 // Update Jobs
 router.put('/update/:id/:staff_id', async(req, res) => {
-    const client = await loadJobRequests()
 
-    await client.connect(function(err){
+    Pool.connect(async, function(err, client, done){
+       
         if(err){
             return console.error('could not connect to postgres', err)
         }
@@ -154,89 +150,93 @@ router.put('/update/:id/:staff_id', async(req, res) => {
 
         const query = "UPDATE JOB SET ASSISTED_BY = ($1), ASSISSTED = ($2) WHERE ID = ($3)"
         let values = [staff, true, id]
-    
-        client.query(query,values)
-                .then(result => {
+
+        client.query(query, values)
+                .then((result) => {
                     res.send(result)
-                    client.end()
                 })
-                .catch(e => console.error(e.stack))
+                .catch((err) => {
+                    return console.error('error running query', err)
+                })
     })
 })
 
 router.get('/admin/management', async(req, res) => {
-    const client = await loadJobRequests()
 
-    await client.connect(function(err){
+    let results = {}
+   
+    Pool.connect(async function(err, client, done){
         if(err){
             return console.error('could not connect to postgres', err)
         }
-
         const query = "SELECT STAFF.ID, STAFF.IDENT FROM STAFF"
-        const query1 = "SELECT STATUS.ID, STAFF.IDENT FROM STAFF"
-
-        let results = {}
+        await runQuery(client, query, results, 'staff', done)
     
-        client.query(query, function(err, result){
-            if(err){
-                return console.error('error running query', err)
-            }else{
-                results['staff'] = result.rows
-            }
-        })
-
-        client.query(query1, function(err, result){
-            if(err){
-                return console.error('error running query', err)
-            }else{
-                results['status'] = result.rows
-                res.send(results)
-                client.end()
-            }
-        })
-
     })
+
+    Pool.connect(async function(err, client, done){
+        if(err){
+            return console.error('could not connect to postgres', err)
+        }
+        const query = "SELECT STATUS.ID, STAFF.IDENT FROM STAFF"
+        await runQuery(client, query, results, 'status', done)
+        res.send(results)
+    
+    })
+
+
 })
 
 router.get('/admin/:month/:day', async(req, res) => {
-    const client = await loadJobRequests()
 
-    let hour = 0
-    let month = req.params.month
-    let day = req.params.day
-
-    let results = {'day': hourDict()}
-
-    let values = [month, day]
-
-    await client.connect(function(err){
+    Pool.connect(async function(err, client, done){
         if(err){
-            return console.error('could not connect to postgres', err)
+            return console.error('could not connect to postgress', err)
         }
 
+        let hour = 0
+        let month = req.params.month
+        let day = req.params.day
+
+        let results = {'day': hourDict()}
+
+        let values = [month, day]
         const query = "SELECT JOB.TODAY FROM JOB WHERE EXTRACT(MONTH FROM JOB.TODAY) = \
                             ($1) AND EXTRACT(DOW FROM JOB.TODAY) = ($2)"
 
-        client.query(query, values)
-                .then(result => {
-                    let total = result.rowCount
-                    for(let i in result.rows){
-                        let date = new Date(result.rows[i].today)
-                        incrementHour(date.getHours(), results.day)
-                    }
-                    // normalizeToPercentage(total, results.day)
-                    res.send(results.day)
-                    client.end()
-                })
-                .catch(e => console.error(e.stack))
+        await client.query(query, values)
+                    .then((result) => {
+                        let total = result.rowCount
+                        for(let i in result.rows){
+                            let date = new Date(result.rows[i].today)
+                            incrementHour(date.getHours(), results.day)
+                        }
+                        // normalizeToPercentage(total, results.day)
+                        res.send(results.day)
+                    })
+                    .catch((err) => {
+                        return console.error('error running query', err)
+                    })
+
     })
 })
 
 
-async function loadJobRequests() {
+function getPool() {
     const conString = "postgres://ynsvtncb:v3StzUeatCf_PrpAfcdIwVe6RW-Qn6rI@isilo.db.elephantsql.com:5432/ynsvtncb"
-    const client = await new pg.Client(conString)
-    return client
+    const pool = new pg.Pool({connectionString: conString, ssl: true})
+    return pool
+}
+
+async function runQuery(client, query, dict, key, done){
+    await client.query(query)
+                    .then((result) => {
+                        done()
+                        dict[key] = result.rows
+                    })
+                    .catch((err) => {
+                        return console.error('error running query', err)
+                    })
 }
 
 function hourDict(){

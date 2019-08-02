@@ -62,7 +62,7 @@
                             </div>
                             <div class="field">
                                 <label>Preferred Language | Langaunge Preferee</label>
-                                <multiselect 
+                                <!-- <multiselect 
                                     v-model="lang" 
                                     :options="language" 
                                     :searchable="false" 
@@ -71,8 +71,7 @@
                                     :allow-empty="false"
                                     track-by="ident"
                                 >
-                                </multiselect>
-                                </multiselect>
+                                </multiselect> -->
                             </div>
                         </div>
                     </div>
