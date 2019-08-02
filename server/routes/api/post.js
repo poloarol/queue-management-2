@@ -38,8 +38,8 @@ router.get('/register', async(req, res) => {
             return console.error('could not connect to postgress', err)
         }
         const query = "SELECT FACULTY.ID, FACULTY.IDENT FROM FACULTY"
-        await runQuery(client, query, results, 'faculty', done)
 
+        results['faculty'] = await runQuery(client, query, done)
     })
 
     Pool.connect(async function(err, client, done){
@@ -47,7 +47,7 @@ router.get('/register', async(req, res) => {
             return console.error('could not connect to postgress', err)
         }
         const query = "SELECT ROLES.ID, ROLES.IDENT FROM ROLES"
-        await runQuery(client, query, results, 'roles', done)
+        results['roles'] = await runQuery(client, query, done)
     })
 
     Pool.connect(async function(err, client, done){
@@ -55,7 +55,7 @@ router.get('/register', async(req, res) => {
             return console.error('could not connect to postgress', err)
         }
         const query = "SELECT STAFF.ID, STAFF.IDENT FROM STAFF"
-        await runQuery(client, query, results, 'staff', done)
+        results['staff'] = await runQuery(client, query, done)
     })
 
     Pool.connect(async function(err, client, done){
@@ -63,19 +63,20 @@ router.get('/register', async(req, res) => {
             return console.error('could not connect to postgress', err)
         }
         const query = "SELECT SOFTWARE.ID, SOFTWARE.IDENT FROM SOFTWARE"
-        await runQuery(client, query, results, 'software', done)
+        results['software'] = await runQuery(client, query, done)
     })
 
-    Pool.connect(async function(err, client, done){
-        if(err){
-            return console.error('could not connect to postgress', err)
-        }
-        const query = "SELECT * FROM TOPICS INNER JOIN SUB_TOPICS ON TOPICS.ID = SUB_TOPICS.TOPIC_ID"
-        await runQuery(client, query, results, 'software', done)
+    setTimeout(() => {
+        Pool.connect(async function(err, client, done){
+            if(err){
+                return console.error('could not connect to postgress', err)
+            }
+            const query = "SELECT * FROM TOPICS INNER JOIN SUB_TOPICS ON TOPICS.ID = SUB_TOPICS.TOPIC_ID"
+            results['sub_topic'] = await runQuery(client, query, done)
+            res.send(results)
+        })
+    }, 1000)
 
-        res.send(results)
-    })
-    
 })
 
 // Add Jobs
@@ -224,19 +225,21 @@ router.get('/admin/:month/:day', async(req, res) => {
 
 function getPool() {
     const conString = "postgres://ynsvtncb:v3StzUeatCf_PrpAfcdIwVe6RW-Qn6rI@isilo.db.elephantsql.com:5432/ynsvtncb"
-    const pool = new pg.Pool({connectionString: conString, ssl: true})
+    const pool = new pg.Pool({connectionString: conString, ssl: true, max:10, idleTimeoutMillis: 30000})
     return pool
 }
 
-async function runQuery(client, query, dict, key, done){
-    await client.query(query)
-                    .then((result) => {
-                        done()
-                        dict[key] = result.rows
-                    })
-                    .catch((err) => {
-                        return console.error('error running query', err)
-                    })
+async function runQuery(client, query, done){
+    let value = await client.query(query)
+                            .then((result) => {
+                                done()
+                                return result.rows
+                            })
+                            .catch((err) => {
+                                return console.error('error running query', err)
+                            })
+
+    return value
 }
 
 function hourDict(){

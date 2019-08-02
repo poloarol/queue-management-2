@@ -39,8 +39,8 @@
                                 <multiselect 
                                     v-model="faculty" 
                                     :options="faculties" 
-                                    :searchable="false" 
-                                    :close-on-select="false"
+                                    :searchable="true" 
+                                    :close-on-select="true"
                                     label="ident"
                                     :allow-empty="false"
                                     track-by="ident"
@@ -52,8 +52,8 @@
                                 <multiselect 
                                     v-model="status" 
                                     :options="roles" 
-                                    :searchable="false" 
-                                    :close-on-select="false"
+                                    :searchable="true" 
+                                    :close-on-select="true"
                                     label="ident"
                                     :allow-empty="false"
                                     track-by="ident"
@@ -62,16 +62,16 @@
                             </div>
                             <div class="field">
                                 <label>Preferred Language | Langaunge Preferee</label>
-                                <!-- <multiselect 
+                                <multiselect 
                                     v-model="lang" 
                                     :options="language" 
-                                    :searchable="false" 
-                                    :close-on-select="false"
-                                    label="ident"
+                                    :searchable="true" 
+                                    :close-on-select="true"
+                                    label="value"
                                     :allow-empty="false"
-                                    track-by="ident"
+                                    track-by="value"
                                 >
-                                </multiselect> -->
+                                </multiselect>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,16 @@
                         <div class="two fields">
                             <div class="field">
                                 <label>Which platform do you require help with? | Vous avez besoin d'aide avec quelle platforme? </label>
-                                <v-select label="ident" :options="platform" placeholder="Choose the ... | Choisissez ... " v-model='software'></v-select>
+                                <multiselect 
+                                    v-model="software" 
+                                    :options="platform" 
+                                    :searchable="true" 
+                                    :close-on-select="true"
+                                    label="ident"
+                                    :allow-empty="false"
+                                    track-by="ident"
+                                >
+                                </multiselect>
                             </div>
                             <div class="field">
                                 <label>Which tool are you having problems with? | Vous avez des problème avec quel outils?</label>
@@ -87,6 +96,7 @@
                                         v-model="problem"
                                         :options="topic"
                                         :multiple="true"
+                                        :group-select="true"
                                         placeholder="Type to search"
                                         group-values="children"
                                         group-label="label"
@@ -156,7 +166,6 @@ export default {
         await this.get_data()
         this.current_topic = 1
         this.filter_topics(this.current_topic)
-        console.log(this.topic)
     },
     async updated() {
         await this.get_data()
@@ -165,7 +174,7 @@ export default {
         }else{
             this.current_topic = this.software.id
         }
-        this.filter_topics(this.current_topic)
+        // this.filter_topics(this.current_topic)
     },
     methods: {
         async register(){
@@ -187,7 +196,7 @@ export default {
                 this.roles = res['roles']
                 this.language = StaticData.getLang()
                 this.platform = res['software']
-                this.topics = res['topics']
+                this.topics = res['sub_topic']
             }catch(err){
                 this.err = err.message
             }
