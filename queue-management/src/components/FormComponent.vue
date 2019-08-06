@@ -7,7 +7,7 @@
                     <p>Register to get BrightSpace help</p>
                 </div>
                 <div class="ui raised segment" id="my-form">
-                <form class="ui form" method="POST">
+                <form class="ui form" method="POST" @submit.prevent="register">
                     <div class="ui info floating icon message" id="assist-info-message">
                         <i class="info circle icon"></i>
                         <div class="content">
@@ -19,16 +19,17 @@
                     <h4 class="ui dividing header">Staff Information</h4>
                     <div class="field">
                         <div class="three fields">
-                            <div class="field"><label>First Name | Prenom</label>
-                                <input type="text" name="firstname" placeholder="Paula" v-model='firstname'>
+                            <div class="field form-group" :class="{'form-group--error' : '$v.firstname.$model'}">
+                                <label>First Name | Prenom</label>
+                                <input class="form__input" v-model.trim="$v.firstname.$model" type="text" name="firstname" placeholder="Paula">
                             </div>
                             <div class="field">
                                 <label>Last Name | Nom de famille</label>
-                                <input type="text" name="lastname" placeholder="Poe" v-model='lastname'>
+                                <input class="form__input" type="text" name="lastname" placeholder="Poe" v-model.trim='$v.lastname.$model'>
                             </div>
                             <div class="field">
                                 <label>Email | Couriel</label>
-                                <input type="email" name="email" placeholder="poe@uottawa.ca" v-model='email'>
+                                <input type="email" name="email" placeholder="ppoe@uottawa.ca" v-model='$v.email$model'>
                             </div>
                         </div>
                     </div>
@@ -37,39 +38,42 @@
                             <div class="field">
                                 <label>Faculty | Faculte</label>
                                 <multiselect 
-                                    v-model="faculty" 
+                                    v-model.trim="$v.faculty.$model" 
                                     :options="faculties" 
                                     :searchable="true" 
                                     :close-on-select="true"
                                     label="ident"
                                     :allow-empty="false"
                                     track-by="ident"
+                                    @select="selectFaculty"
                                 >
                                 </multiselect>
                             </div>
                             <div class="field">
                                 <label>Role | Rôle</label>
                                 <multiselect 
-                                    v-model="status" 
+                                    v-model.trim="$v.status.$trim" 
                                     :options="roles" 
                                     :searchable="true" 
                                     :close-on-select="true"
                                     label="ident"
                                     :allow-empty="false"
                                     track-by="ident"
+                                    @select="selectRole"
                                 >
                                 </multiselect>
                             </div>
                             <div class="field">
                                 <label>Preferred Language | Langaunge Preferee</label>
                                 <multiselect 
-                                    v-model="lang" 
+                                    v-model.trim="$v.lang.$trim" 
                                     :options="language" 
                                     :searchable="true" 
                                     :close-on-select="true"
                                     label="value"
                                     :allow-empty="false"
                                     track-by="value"
+                                    @select="selectLang"
                                 >
                                 </multiselect>
                             </div>
@@ -80,20 +84,21 @@
                             <div class="field">
                                 <label>Which platform do you require help with? | Vous avez besoin d'aide avec quelle platforme? </label>
                                 <multiselect 
-                                    v-model="software" 
+                                    v-model.trim="$v.software.$model" 
                                     :options="platform" 
                                     :searchable="true" 
                                     :close-on-select="true"
                                     label="ident"
                                     :allow-empty="false"
                                     track-by="ident"
+                                    @select="selectSoftware"
                                 >
                                 </multiselect>
                             </div>
                             <div class="field">
                                 <label>Which tool are you having problems with? | Vous avez des problème avec quel outils?</label>
                                 <multiselect
-                                        v-model="problem"
+                                        v-model.trim="$v.problem.$model"
                                         :options="topic"
                                         :multiple="true"
                                         :group-select="true"
@@ -101,6 +106,8 @@
                                         group-values="children"
                                         group-label="label"
                                         label="name"
+                                        track-by="name"
+                                        @select="selectTool"
                                 >
                                 <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
                                </multiselect>
@@ -108,14 +115,13 @@
                         </div>
                     </div>
                     <div class="field">
-                        <label>Problem Description | Description du Probleme</label>
-                        <textarea name="desc" v-model='desc' placeholder="lorep ipsum dolore"></textarea>
+                        <label>Consent to contact | Autorisation pour vous contacter</label>
                     </div>
                     <br>
                     <div class="field btn-field">
                         <button class="ui large primary button" 
                                 type="submit"
-                                @click="register"
+                                :disabled="submitStatus === 'PENDING'"
                         >
                             Submit
                         </button>
@@ -130,6 +136,8 @@
 <script>
 import JobServices from '../../services/api/JobServices'
 import StaticData from '../../services/api/StaticData'
+
+import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
     name: 'FormComponent',
@@ -159,12 +167,38 @@ export default {
             problem: '',
             email: '',
             err: '',
-            current_topic: 0
+            current_topic: 0,
+            submitStatus: ''
+        }
+    },
+    validations: {
+        firstname: {
+            required,
+            minLength: minLength(2)
+        },
+        lastname: {
+            required,
+            minLength: minLength(2)
+        },
+        faculty: {
+            required
+        },
+        status:  {
+            required
+        },
+        lang: {
+            required
+        },
+        software: {
+            required
+        },
+        email: {
+            required
         }
     },
     async created(){
         await this.get_data()
-        this.current_topic = 1
+        this.current_topic = 0
         this.filter_topics(this.current_topic)
     },
     async updated() {
@@ -174,7 +208,7 @@ export default {
         }else{
             this.current_topic = this.software.id
         }
-        // this.filter_topics(this.current_topic)
+        this.filter_topics(this.current_topic)
     },
     methods: {
         async register(){
@@ -223,8 +257,24 @@ export default {
     
             }
             this.topic = options
+        },
+        selectFaculty(option){
+            this.faculty = option.id
+        },
+        selectRole(option){
+            this.status = option.id
+        },
+        selectLang(option){
+            this.lang = option.id
+        },
+        selectSoftware(option){
+            this.software = option.id
+        },
+        selectTool(option){
+            // use chosen_topics for submission in db
+            console.log(option)
         }
-    },
+    }
 }
 </script>
 
