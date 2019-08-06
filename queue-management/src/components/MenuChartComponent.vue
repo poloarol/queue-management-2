@@ -3,9 +3,9 @@
         <div class="ui small tabular menu tabular-menu">
             <a class="item" 
                 v-for="month in months" 
-                :key="month.id"
-                @click="addActiveMonth(month.id)"
-                :class="{active : activeMonth == month.id}"
+                    :key="month.id"
+                    @click="addActiveMonth(month.id)"
+                    :class="{active : activeMonth == month.id}"
             >
                 {{ month.value }}
             </a>
@@ -13,9 +13,9 @@
         <div class="ui large secondary vertical pointing menu pointing-menu">
             <a class="item"
                 v-for="day in days"
-                :key="day.id"
-                @click="addActiveDay(day.id)"
-                :class="{active : activeDay == day.id}"
+                    :key="day.id"
+                    @click="addActiveDay(day.id)"
+                    :class="{active : activeDay == day.id}"
             >
                 {{ day.value}}
             </a>
@@ -96,15 +96,13 @@ export default {
 
 <style>
     div.tabular-menu{
-        display: -webkit-inline-box !important;
-        margin: 0 auto;
-        margin-top:4em !important;
-        margin-left: 15em !important;
+        width: 65%;
+        margin: 5em 0 0 15em !important;
     }
 
     div.pointing-menu{
         position: absolute;
-        top: 35%;
+        top: 30%;
         display: inline-grid !important;
         transform: translateY(20%);
         left: 0 !important;
@@ -112,8 +110,7 @@ export default {
 
     div.chart{
         display: inline-flex;
-        margin-left: 10em;
-        margin-top: 5em;
+        margin: 5em 0 0 0;
     }
 
     canvas#bar-chart{

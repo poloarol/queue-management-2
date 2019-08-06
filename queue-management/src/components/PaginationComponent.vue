@@ -8,7 +8,7 @@
             Prev
         </button>
         <div class="ui pagination menu">
-            <a class="item" 
+            <a class="ui pink circular label" 
                 v-for="(page, index) in pages" 
                 :key="index"
                 @click="[navigate(index), move()]" 

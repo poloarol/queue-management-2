@@ -22,8 +22,7 @@ export default {
                         value: 'Blue - Online Evaluation | Évaluation en ligne'
                     }
                 ]
-            },
-    
+    },
     getLang(){
         return [{
             id : 'ENGLISH | ANGLAIS',
@@ -133,8 +132,8 @@ export default {
             },
             {
                 id: 3,
-                icon: 'users icon',
-                title: 'User Management'
+                icon: 'database icon',
+                title: 'Database Management'
             },
             {
                 id: 4,
@@ -185,6 +184,54 @@ export default {
             {
                 id: 2,
                 value: 'Faculty | Faculté'
+            }
+        ]
+    },
+    getSoftware(){
+        return [
+            {
+                id: 1,
+                value: 'BrightSpace'
+            },
+            {
+                id: 2,
+                value: 'Maestro',
+            },
+            {
+                id: 3,
+                value: 'Blue'
+            },
+            {
+                id: 4,
+                value: 'uOSyllabus'
+            },
+            {
+                id: 6,
+                value: "Echo"
+            },
+            {
+                id: '5',
+                value: 'Other | Autre'
+            },
+            {
+                id: 7,
+                value: 'Lecture Capture'
+            }
+        ]
+    },
+    manageDB(){
+        return [
+            {
+                id: 1,
+                value: 'Users'
+            },
+            {
+                id: 2,
+                value: 'Software'
+            },
+            {
+                id: 3,
+                value: 'Faculty'
             }
         ]
     }

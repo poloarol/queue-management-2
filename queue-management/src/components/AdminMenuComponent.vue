@@ -5,7 +5,7 @@
                               :activeNav="activeNav" @swapComponent="current=$event">
         </AdminNavBarComponent>
         <component :is="swapComponent" :chartData="datacollection"></component>
-        <FooterComponent></FooterComponent>
+        <!-- <FooterComponent></FooterComponent> -->
     </div>
 </template>
 

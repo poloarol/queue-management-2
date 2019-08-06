@@ -37,33 +37,25 @@ router.get('/register', async(req, res) => {
         if(err){
             return console.error('could not connect to postgress', err)
         }
-        const query = "SELECT FACULTY.ID, FACULTY.IDENT FROM FACULTY"
+        const query1 = "SELECT FACULTY.ID, FACULTY.IDENT FROM FACULTY"
 
-        results['faculty'] = await runQuery(client, query, done)
+        results['faculty'] = await runQuery(client, query1, done)
     })
 
     Pool.connect(async function(err, client, done){
         if(err){
             return console.error('could not connect to postgress', err)
         }
-        const query = "SELECT ROLES.ID, ROLES.IDENT FROM ROLES"
-        results['roles'] = await runQuery(client, query, done)
+        const query2 = "SELECT ROLES.ID, ROLES.IDENT FROM ROLES"
+        results['roles'] = await runQuery(client, query2, done)
     })
 
     Pool.connect(async function(err, client, done){
         if(err){
             return console.error('could not connect to postgress', err)
         }
-        const query = "SELECT STAFF.ID, STAFF.IDENT FROM STAFF"
-        results['staff'] = await runQuery(client, query, done)
-    })
-
-    Pool.connect(async function(err, client, done){
-        if(err){
-            return console.error('could not connect to postgress', err)
-        }
-        const query = "SELECT SOFTWARE.ID, SOFTWARE.IDENT FROM SOFTWARE"
-        results['software'] = await runQuery(client, query, done)
+        const query3 = "SELECT SOFTWARE.ID, SOFTWARE.IDENT FROM SOFTWARE"
+        results['software'] = await runQuery(client, query3, done)
     })
 
     setTimeout(() => {
@@ -75,7 +67,7 @@ router.get('/register', async(req, res) => {
             results['sub_topic'] = await runQuery(client, query, done)
             res.send(results)
         })
-    }, 1000)
+    }, 500)
 
 })
 
@@ -225,7 +217,7 @@ router.get('/admin/:month/:day', async(req, res) => {
 
 function getPool() {
     const conString = "postgres://ynsvtncb:v3StzUeatCf_PrpAfcdIwVe6RW-Qn6rI@isilo.db.elephantsql.com:5432/ynsvtncb"
-    const pool = new pg.Pool({connectionString: conString, ssl: true, max:10, idleTimeoutMillis: 30000})
+    const pool = new pg.Pool({connectionString: conString, ssl: true, max:20, idleTimeoutMillis: 30000})
     return pool
 }
 

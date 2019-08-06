@@ -19,17 +19,26 @@
                     <h4 class="ui dividing header">Staff Information</h4>
                     <div class="field">
                         <div class="three fields">
-                            <div class="field form-group" :class="{'form-group--error' : '$v.firstname.$model'}">
+                            <div class="field">
                                 <label>First Name | Prenom</label>
-                                <input class="form__input" v-model.trim="$v.firstname.$model" type="text" name="firstname" placeholder="Paula">
+                                <input v-model="firstname" type="text" name="firstname" placeholder="Paula" v-validate="{required: true, min: 2, alpha: true}">
+                                <div class="ui negative message" v-if=" errors.first('firstname')">
+                                    <span >Please enter your first name | SVP entrex votre prenom</span>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Last Name | Nom de famille</label>
-                                <input class="form__input" type="text" name="lastname" placeholder="Poe" v-model.trim='$v.lastname.$model'>
+                                <input type="text" name="lastname" placeholder="Poe" v-model='lastname' v-validate="{required: true, min: 2, alpha: true}">
+                                <div class="ui negative message" v-if=" errors.first('lastname')">
+                                    <span >Please enter your last name | SVP entrex votre nom de famille</span>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>Email | Couriel</label>
-                                <input type="email" name="email" placeholder="ppoe@uottawa.ca" v-model='$v.email$model'>
+                                <input type="email" name="email" placeholder="ppoe@uottawa.ca" v-model='email' v-validate.bails="'required|email'">
+                                <div class="ui negative message"  v-if=" errors.first('email')">
+                                    <span>Please enter your email address | SVP entrez votre address courriel</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -38,7 +47,7 @@
                             <div class="field">
                                 <label>Faculty | Faculte</label>
                                 <multiselect 
-                                    v-model.trim="$v.faculty.$model" 
+                                    v-model="faculty"
                                     :options="faculties" 
                                     :searchable="true" 
                                     :close-on-select="true"
@@ -46,13 +55,14 @@
                                     :allow-empty="false"
                                     track-by="ident"
                                     @select="selectFaculty"
+                                    v-validate="{required: true, digits: true}"
                                 >
                                 </multiselect>
                             </div>
                             <div class="field">
                                 <label>Role | Rôle</label>
                                 <multiselect 
-                                    v-model.trim="$v.status.$trim" 
+                                    v-model="status" 
                                     :options="roles" 
                                     :searchable="true" 
                                     :close-on-select="true"
@@ -66,7 +76,7 @@
                             <div class="field">
                                 <label>Preferred Language | Langaunge Preferee</label>
                                 <multiselect 
-                                    v-model.trim="$v.lang.$trim" 
+                                    v-model="lang" 
                                     :options="language" 
                                     :searchable="true" 
                                     :close-on-select="true"
@@ -84,7 +94,7 @@
                             <div class="field">
                                 <label>Which platform do you require help with? | Vous avez besoin d'aide avec quelle platforme? </label>
                                 <multiselect 
-                                    v-model.trim="$v.software.$model" 
+                                    v-model="software" 
                                     :options="platform" 
                                     :searchable="true" 
                                     :close-on-select="true"
@@ -98,7 +108,7 @@
                             <div class="field">
                                 <label>Which tool are you having problems with? | Vous avez des problème avec quel outils?</label>
                                 <multiselect
-                                        v-model.trim="$v.problem.$model"
+                                        v-model="problem"
                                         :options="topic"
                                         :multiple="true"
                                         :group-select="true"
@@ -114,14 +124,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="field">
+                    <!-- <div class="field">
                         <label>Consent to contact | Autorisation pour vous contacter</label>
-                    </div>
+                    </div> -->
                     <br>
                     <div class="field btn-field">
                         <button class="ui large primary button" 
                                 type="submit"
-                                :disabled="submitStatus === 'PENDING'"
                         >
                             Submit
                         </button>
@@ -136,8 +145,6 @@
 <script>
 import JobServices from '../../services/api/JobServices'
 import StaticData from '../../services/api/StaticData'
-
-import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
     name: 'FormComponent',
@@ -171,31 +178,6 @@ export default {
             submitStatus: ''
         }
     },
-    validations: {
-        firstname: {
-            required,
-            minLength: minLength(2)
-        },
-        lastname: {
-            required,
-            minLength: minLength(2)
-        },
-        faculty: {
-            required
-        },
-        status:  {
-            required
-        },
-        lang: {
-            required
-        },
-        software: {
-            required
-        },
-        email: {
-            required
-        }
-    },
     async created(){
         await this.get_data()
         this.current_topic = 0
@@ -213,15 +195,13 @@ export default {
     methods: {
         async register(){
             this.user = {
-                            "fname" : this.firstname,
-                            "lname" : this.lastname,
-                            "faculty" : this.faculty.id, 
-                            "role" : this.status.id, 
-                            "lang" : this.lang.id,
-                            "software" : this.software.id,
-                            "desc" : this.desc
-                        }
-            await JobServices.createJob(this.user)
+                    "fname" : this.firstname,
+                    "lname" : this.lastname,
+                    "faculty" : this.faculty.id, 
+                    "role" : this.status.id, 
+                    "lang" : this.lang.id,
+                    "software" : this.software.id,
+            }
         },
         async get_data(){
             try{
@@ -271,8 +251,7 @@ export default {
             this.software = option.id
         },
         selectTool(option){
-            // use chosen_topics for submission in db
-            console.log(option)
+            
         }
     }
 }

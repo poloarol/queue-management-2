@@ -3,11 +3,10 @@
         <div class="ui fluid large five item menu">
             <a class="item"
                 v-for="item in items"
-                :key="item.id"
-                @click="[addActiveClass(item.id), swap()]"
-                :class="[item.id % 2 === 0 ? 'first' : 'second',
-                         item.id === active ? 'garnet' : 'blue'
-                        ]"
+                    :key="item.id"
+                    @click="[addActiveClass(item.id), swap()]"
+                    :class="[item.id % 2 === 0 ? 'first' : 'second',
+                            item.id === active ? 'garnet' : 'blue']"
             >
             <i :class=item.icon></i>
             {{ item.title }}
