@@ -17,7 +17,7 @@ import StatisticsComponent from './StatisticsComponent.vue'
 import UserManagementComponent from './UserManagementComponent.vue'
 import ExportFileComponent from './ExportFileComponent.vue'
 import AdminNavBarComponent from './AdminNavBarComponent.vue'
-import MainAdminUpdateComponent from './MainAdminUpdateComponent'
+import MainAdminUpdateComponent from './MainAdminUpdateComponent.vue'
 
 export default {
     name: 'AdminMenuComponent',

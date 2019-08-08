@@ -1,16 +1,12 @@
 <template>
     <div class="container">
-        <div class="ui secondary vertical menu vertical-menu">
-            <a class="item" v-for="bar in bars" :key="bar.id">
-                {{ bar.value }}
-            </a>
-        </div>
+
     </div>
 </template>
 
 <style>
     div.vertical-menu{
-        
+        margin-top: 15em !important;
     }
 </style>
 
@@ -36,6 +32,11 @@ export default {
     },
     updated(){
         this.bars = StaticData.manageDB()
+    },
+    methods: {
+        addActiveBar(value){
+            this.activeBar = value
+        }
     }
 }
 </script>
