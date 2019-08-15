@@ -1,26 +1,8 @@
 <template>
     <div class="container">
-        <div class="ui small tabular menu tabular-menu">
-            <a class="item" 
-                v-for="month in months" 
-                    :key="month.id"
-                    @click="addActiveMonth(month.id)"
-                    :class="{active : activeMonth == month.id}"
-            >
-                {{ month.value }}
-            </a>
-        </div>
-        <div class="ui large secondary vertical pointing menu pointing-menu">
-            <a class="item"
-                v-for="day in days"
-                    :key="day.id"
-                    @click="addActiveDay(day.id)"
-                    :class="{active : activeDay == day.id}"
-            >
-                {{ day.value}}
-            </a>
-        </div>
         <div class="container chart">
+            <TabNavBar :values="months" :top='activeMonth'></TabNavBar>
+            <SideNavBar :values="days" :side='activeDay'></SideNavBar>
             <ChartComponent :chartData="datacollection"></ChartComponent>
         </div>
     </div>    
@@ -28,6 +10,8 @@
 
 <script>
 import ChartComponent from './ChartComponent.vue'
+import SideNavBar from './SideNavBar.vue'
+import TabNavBar from './TabNavBar.vue'
 
 import StaticData from '../../services/api/StaticData'
 import JobServices from '../../services/api/JobServices'
@@ -37,7 +21,9 @@ let date = new Date()
 export default {
     name: 'MenuChartComponent',
     components: {
-        ChartComponent
+        ChartComponent,
+        SideNavBar,
+        TabNavBar
     },
     data(){
         return {
@@ -95,27 +81,11 @@ export default {
 </script>
 
 <style>
-    div.tabular-menu{
-        width: 65%;
-        margin: 5em 0 0 15em !important;
-    }
-
-    div.pointing-menu{
-        position: absolute;
-        top: 30%;
-        display: inline-grid !important;
-        transform: translateY(20%);
-        left: 0 !important;
-    }
-
-    div.chart{
-        display: inline-flex;
-        margin: 5em 0 0 0;
-    }
-
     canvas#bar-chart{
-        width: 900px;
+        width: 900px !important;
         height: 500px;
+        margin: 0 auto !important;
+        margin-top: -15em !important;
     }
 </style>
 

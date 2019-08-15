@@ -1,36 +1,46 @@
 <template>
     <div class="container">
-        <div class="ui large tabular menu">
-            <a class="item"
-                v-for="item in items"
-                :key="item.id"
-                :class="{active : tab === item.id}"
-                @click="change(item.id)"
+       <div class="ui large tabular menu tab-menu">
+           <a class="item" 
+                v-for="value in values" 
+                :key="value.id"
+                @click="modifyTopVal(value.id)"
+                :class="{active: value.id === topVal}"
             >
-            {{ item.value }}
+                {{ value.value }}
             </a>
-        </div>
+       </div>
     </div>
 </template>
 
+<style>
+
+div.tab-menu{
+    width: 70%;
+    margin: 5em !important;
+}
+
+</style>
 
 <script>
+
 export default {
-    name : 'TabNavBar',
-    props : ['values', 'current'],
+    name: 'TabNavBar',
+    props: ['values', 'top'],
     data(){
         return {
-            items : this.values,
-            tab: this.current
+           topVal: this.top
         }
     },
     created(){
         
     },
     methods: {
-        change(value){
-            this.$emit('addActiveMonth', this.tab)
+        modifyTopVal(val){
+            this.topVal = val
+            this.$emit('updateTop', this.topVal)
         }
     }
 }
+
 </script>
