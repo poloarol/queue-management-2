@@ -6,7 +6,7 @@
                     <th v-for="(head, index) in headers" :key="index">{{ head.name }}</th>
                 </tr>
             </thead>
-            <tbody>
+            <!-- <tbody>
                 <tr v-for="(job, index) in getPages" :key="index">
                    <td v-for="(j, i) in job" :key="i">
                        <div v-if="['str', 'date', 'number'].includes(j.type)">
@@ -39,21 +39,18 @@
                        </div>
                     </td>
                 </tr>
-            </tbody>
+            </tbody> -->
         </table>
-        <PaginationComponent :pages="pages" @moveable="current=$event"></PaginationComponent>
+        <!-- <PaginationComponent :pages="pages" @moveable="current=$event"></PaginationComponent> -->
     </div>
 </template>
 
 <style>
     div.container-table{
-        margin: 0 auto !important;
-        width: 80% !important;
-        margin-top: 10em !important;
+        /* margin: 0 auto !important; */
+        width: 70% !important;
+        /* margin-top: 2.5em !important; */
     };
-    /* .allow-overflow{
-        overflow: none !important;
-    } */
 </style>
 
 
@@ -62,7 +59,7 @@ import PaginationComponent from './PaginationComponent'
 
 export default {
     name: 'TableComponent',
-    props: ['headers', 'jobs', 'perPage', 'currentPage', 'currentStaffParams'],
+    props: ['headers'],
     components: {
         PaginationComponent
     },
@@ -86,7 +83,7 @@ export default {
     },
     methods:{
         setPages(){
-            this.pages = Math.ceil(this.jobs.length / this.perPage)
+            // this.pages = Math.ceil(this.values.length / this.perPage)
         },
         check(value){
             let box = document.querySelector(`#p_${value}`)

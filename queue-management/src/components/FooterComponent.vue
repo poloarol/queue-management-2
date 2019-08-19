@@ -19,7 +19,7 @@
 
 <style>
     div#foot{
-        position: absolute;
+        position: fixed;
         bottom: 0;
         width: 100%;
     }
@@ -27,16 +27,17 @@
 </style>
 
 <script>
-import StaticData from '../../services/api/StaticData'
+import EN from '../../services/en/text'
+import FR from '../../services/fr/text'
 
 export default {
     data() {
         return {
-            items: []
+            items: EN.getFooter()
         }
     },
     created() {
-        this.items = StaticData.getFooter()
+        // this.items = StaticData.getFooter()
     },
 }
 </script>

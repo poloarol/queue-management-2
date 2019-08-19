@@ -5,7 +5,7 @@
                               :activeNav="activeNav" @swapComponent="current=$event">
         </AdminNavBarComponent>
         <component :is="swapComponent" :chartData="datacollection"></component>
-        <!-- <FooterComponent></FooterComponent> -->
+        <FooterComponent></FooterComponent>
     </div>
 </template>
 
@@ -14,10 +14,10 @@ import MenuComponent from './MenuComponent.vue'
 import FooterComponent from './FooterComponent.vue'
 import MenuChartComponent from './MenuChartComponent.vue'
 import StatisticsComponent from './StatisticsComponent.vue'
-import UserManagementComponent from './UserManagementComponent.vue'
+import ManagementComponent from './ManagementComponent.vue'
 import ExportFileComponent from './ExportFileComponent.vue'
 import AdminNavBarComponent from './AdminNavBarComponent.vue'
-import MainAdminUpdateComponent from './MainAdminUpdateComponent.vue'
+import AdminMainQueue from './AdminMainQueue.vue'
 
 export default {
     name: 'AdminMenuComponent',
@@ -26,17 +26,17 @@ export default {
         MenuComponent,
         MenuChartComponent,
         StatisticsComponent,
-        UserManagementComponent,
+        ManagementComponent,
         ExportFileComponent,
         FooterComponent,
         AdminNavBarComponent,
-        MainAdminUpdateComponent
+        AdminMainQueue
     },
     data(){
         return {
             activeNav: 0,
             datacollection: {},
-            tabs: [MenuChartComponent, StatisticsComponent, MainAdminUpdateComponent, UserManagementComponent, ExportFileComponent],
+            tabs: [MenuChartComponent, StatisticsComponent, AdminMainQueue, ManagementComponent, ExportFileComponent],
             current: this.currentComponent
         }
     },

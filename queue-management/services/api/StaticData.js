@@ -1,46 +1,14 @@
 export default {
-    getPlatform(){
-        return [
-                    {
-                        id: 1,
-                        value: 'BrightSpace - Virtual Campus | Campus Virtuel'
-                    },
-                    {
-                        id: 2,
-                        value: "Lecture Capture | Outil de capture d'écran"
-                    },
-                    {
-                        id: 3,
-                        value: 'Maestro - Course creation portal | Portail de création de cours'
-                    },
-                    {
-                        id: 4,
-                        value: 'uOSyllabus - Online course plan '
-                    },
-                    {
-                        id: 5,
-                        value: 'Blue - Online Evaluation | Évaluation en ligne'
-                    }
-                ]
-    },
     getLang(){
-        return [{
-            id : 'ENGLISH | ANGLAIS',
-            value : 'ENGLISH | ANGLAIS'
-        },
-        {
-            id : 'FRENCH | FRANÇAIS',
-            value : 'FRENCH | FRANÇAIS'
-        },
-        {
-            id : 'BOTH | LES DEUX',
-            value : 'BOTH | LES DEUX'
-        }]
+        return [
+            {id : 'ENGLISH | ANGLAIS', value : 'ENGLISH | ANGLAIS'},
+            {id : 'FRENCH | FRANÇAIS', value : 'FRENCH | FRANÇAIS'},
+            {id : 'BOTH | LES DEUX', value : 'BOTH | LES DEUX'}
+        ]
     },
     getDay(){
         return [
-            {
-                id: 0,
+            {id: 0,
                 value: 'Monday | Lundi'
             },
             {
@@ -233,6 +201,53 @@ export default {
                 id: 3,
                 value: 'Faculty'
             }
+        ]
+    },
+    getFaculty(){
+        return [
+            {
+                'id': 1,
+                'value': 'Arts'
+            },
+            {
+                'id': 2,
+                'value': 'Education | Éducation'
+            },
+            {
+                'id': 3,
+                'value': 'Engineering | Génie'
+            },
+            {
+                'id': 4,
+                'value': 'Health Sciences | Science de la Santé'
+            },
+            {
+                'id' : 5,
+                'value': 'Law | Droit'
+            },
+            {
+                'id': 6,
+                'value': 'Sciences'
+            },
+            {
+                'id': 7,
+                'value': 'Social Sciences | Science Sociale'
+            },
+            {
+                'id': 8,
+                'value': 'Medecine | Médécine'
+            },
+            {
+                'id': 9,
+                'value': 'Telfer'
+            }
+        ]
+    },
+    getMainNav(){
+        return [
+            {id: 'logo', value: '../assets/logo.png', alt: "logo d'uOttawa"},
+            {id: 'home', value: 'uOttawa'},
+            {id: 'faq', value: 'FAQ'}
         ]
     }
 }

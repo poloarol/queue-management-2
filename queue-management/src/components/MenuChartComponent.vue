@@ -1,9 +1,9 @@
 <template>
     <div class="container">
         <div class="container chart">
-            <TabNavBar :values="months" :top='activeMonth'></TabNavBar>
-            <SideNavBar :values="days" :side='activeDay'></SideNavBar>
-            <ChartComponent :chartData="datacollection"></ChartComponent>
+            <TabNavBar :values="months" :top='activeMonth' @updateTop='activeMonth=$event' class="top-nav-bar"></TabNavBar>
+            <!-- <SideNavBar :values="days" :side='activeDay' @updateSide='activeDay=$event' class="side-nav-bar"></SideNavBar> -->
+            <!-- <ChartComponent :chartData="datacollection"></ChartComponent> -->
         </div>
     </div>    
 </template>
@@ -13,7 +13,8 @@ import ChartComponent from './ChartComponent.vue'
 import SideNavBar from './SideNavBar.vue'
 import TabNavBar from './TabNavBar.vue'
 
-import StaticData from '../../services/api/StaticData'
+import EN from '../../services/en/text'
+import FR from '../../services/fr/text'
 import JobServices from '../../services/api/JobServices'
 
 let date = new Date()
@@ -27,8 +28,8 @@ export default {
     },
     data(){
         return {
-            months: [],
-            days: [],
+            months: EN.getMonth(),
+            days: EN.getDay(),
             activeMonth: date.getMonth() + 1,
             activeDay: date.getDay() - 1,
             datacollection: {}
@@ -37,8 +38,9 @@ export default {
     async created(){
         if(this.activeDay === -1)
             this.activeDay = 7
-        this.months = StaticData.getMonth()
-        this.days = StaticData.getDay()
+        this.updateChart(this.activeMonth, this.activeDay)
+    },
+    updated(){
         this.updateChart(this.activeMonth, this.activeDay)
     },
     methods: {
@@ -68,24 +70,33 @@ export default {
                 this.err = err.message
             }
         },
-        async addActiveMonth(value){
-            this.activeMonth = value
-            await this.updateChart(this.activeMonth, this.activeDay)
+    },
+    computed: {
+        updateTop(){
+            return this.activeMonth
         },
-        async addActiveDay(value){
-            this.activeDay = value
-            await this.updateChart(this.activeMonth, this.activeDay)
+        updateSide(){
+            return this.activeDay
         }
     }
 }
 </script>
 
 <style>
-    canvas#bar-chart{
-        width: 900px !important;
-        height: 500px;
+
+    /* div.top-nav-bar{
         margin: 0 auto !important;
-        margin-top: -15em !important;
+    } */
+
+    /* canvas#bar-chart{
+        position: absolute;
+        left: 25em;
+        top: 25em;
     }
+
+    div.side-nav-bar{
+        position: absolute;
+        top: 30em;
+    } */
 </style>
 

@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-    <TableComponent 
-        :headers="headers" 
-        :jobs="jobs" 
-        :perPage="perPage"
-    >
-    </TableComponent>
+    <TableComponent :headers="headers" class="table-comp-2"></TableComponent>
   </div>
 </template>
 
 <style>
+
+div.table-comp-2{
+  margin: 0 auto;
+  margin-top: 7.5em;
+}
 
 </style>
 

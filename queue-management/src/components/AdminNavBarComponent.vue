@@ -17,21 +17,21 @@
 
 
 <script>
-import StaticData from '../../services/api/StaticData'
+import EN from '../../services/en/text'
+import FR from '../../services/fr/text'
 
 export default {
     name: 'AdminNavBarComponent',
     props: ['tabs', 'current', 'activeNav'],
     data() {
         return {
-            items: [],
+            items: EN.getNavBar(),
             tabular: this.tabs,
             component: this.current,
             active: this.activeNav
         }
     },
     created(){
-        this.items = StaticData.getNavBar()
     },
     methods: {
         addActiveClass(value){

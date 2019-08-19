@@ -1,12 +1,6 @@
 <template>
     <div class="container">
-        <TableComponent 
-            :headers="headers" 
-            :jobs="jobs" 
-            :perPage="perPage"
-            @getParams="currentStaffParams=$event"
-        >
-        </TableComponent>
+        <TableComponent :headers="headers" class="table-comp"></TableComponent>
     </div>
 </template>
 
@@ -64,7 +58,12 @@ export default {
     }
 
     div.btns{
-        display: inline-block;
+        display: inline-flexbox;
+    }
+
+    div.table-comp{
+        margin-top: 10em !important;
+        margin: 0 auto;
     }
 </style>
 

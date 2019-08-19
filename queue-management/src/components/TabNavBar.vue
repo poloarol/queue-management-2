@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-       <div class="ui large tabular menu tab-menu">
+       <div class="ui massive fluid twelve item menu top-menu">
            <a class="item" 
                 v-for="value in values" 
                 :key="value.id"
@@ -15,9 +15,8 @@
 
 <style>
 
-div.tab-menu{
-    width: 70%;
-    margin: 5em !important;
+div.top-menu{
+    width: 80% !important;
 }
 
 </style>
