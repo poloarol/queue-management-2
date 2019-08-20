@@ -1,11 +1,11 @@
 <template>
     <div class="container">
-       <div class="ui massive fluid twelve item menu top-menu">
+       <div class="ui grey twelve item inverted menu top-menu">
            <a class="item" 
                 v-for="value in values" 
                 :key="value.id"
                 @click="modifyTopVal(value.id)"
-                :class="{active: value.id === topVal}"
+                :class="{selected: value.id === topVal}"
             >
                 {{ value.value }}
             </a>
@@ -17,6 +17,10 @@
 
 div.top-menu{
     width: 80% !important;
+}
+
+.selected{
+    border: 2px purple solid;
 }
 
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="ui large secondary vertical pointing menu point-menu">
+        <div class="ui secondary vertical pointing menu point-menu">
             <a class="item" 
                 v-for="value in values" 
                 :key="value.id"

@@ -3,7 +3,7 @@
         <div class="ui raised form software-dropdown">
             <div class="three fields">
                 <div class="field">
-                    <label>Language | Langage</label>
+                    <label>{{ labels[0] }}</label>
                     <multiselect
                         v-model="lang"
                         :options='language'
@@ -15,7 +15,7 @@
                     ></multiselect>
                 </div>
                 <div class="field">
-                    <label>Platform | Platforme</label>
+                    <label>{{ labels[1] }}</label>
                     <multiselect
                         v-model='platform'
                         :options='software'
@@ -27,7 +27,7 @@
                     ></multiselect>
                 </div>
                 <div class="field">
-                    <label>Faculty | Faculté</label>
+                    <label>{{ labels[2] }}</label>
                     <multiselect
                         v-model="academic"
                         :options='faculty'
@@ -47,8 +47,6 @@
 
 div.software-dropdown{
     width: 70%;
-    margin: 0 auto;
-    top: 2.5em;
 }
 
 </style>
@@ -69,14 +67,15 @@ export default {
             academic: '',
             language: EN.getLang(),
             software: EN.getPlatform(),
-            faculty: EN.getFaculty()
+            faculty: EN.getFaculty(),
+            labels: ['Language', 'Platform', 'Faculty']
         }
     },
     created(){
 
     },
     updated(){
-
+        // this.labels: ['Langage', 'Platform', 'Faculté'] when global languange variable toggles between en and fr
     }
 }
 </script>

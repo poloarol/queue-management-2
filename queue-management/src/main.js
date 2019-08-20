@@ -22,6 +22,8 @@ Vue.use(VeeValidate)
 Vue.component('multiselect', Multiselect)
 Vue.config.productionTip = false
 
+Vue.prototype.language = 'en'
+
 const router = new VueRouter({
   routes: [
     {

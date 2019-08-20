@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        Export
+        {{language }}
     </div>
 </template>
 

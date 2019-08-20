@@ -27,8 +27,14 @@ export default{
     },
     data(){
         return {
-            headers: [{id: 1, name: 'Name | Nom'}, {id: 2, name: 'Description'}, {id:3, name: 'Comments | Commentaires'}, {id:4, name: 'In queue | Dans la queue'}]
+            headers: [{id: 1, name: 'Name'}, {id: 2, name: 'Description'}, {id:3, name: 'Comments'}, {id:4, name: 'In queue'}]
         }
+    },
+    created(){
+
+    },
+    updated(){
+        // this.headers = [{id: 1, name: 'Nom'}, {id: 2, name: 'Description'}, {id:3, name: 'Commentaire'}, {id:4, name: "Sur la fil d'attente"}] 
     }
 }
 

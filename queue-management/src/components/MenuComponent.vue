@@ -6,7 +6,7 @@
         <div class="right menu">
             <div class="item">
                 <multiselect
-                    v-model='lang_value'
+                    v-model='lang'
                     :options='languages'
                     :close-on-select='true'
                     label='name'
@@ -29,15 +29,17 @@ export default {
     name: 'MenuComponent',
     data(){
         return {
-            lang_value: '',
-            languages: [{id: 'en', name: 'FR'}, {id: 'fr', name: 'EN'}]
+            lang: '',
+            languages: [{id: 'fr', name: 'FR'}, {id: 'en', name: 'EN'}]
         }
     },
     created(){
-        // console.log(this.lang)
     },
     updated(){
-        // console.log(this.lang)
+        if(this.lang.id = 'fr')
+            this.language = 'fr'
+        else
+            this.language = 'en'
     },
     methods: {
         chooselang(option){

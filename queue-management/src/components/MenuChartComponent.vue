@@ -2,8 +2,8 @@
     <div class="container">
         <div class="container chart">
             <TabNavBar :values="months" :top='activeMonth' @updateTop='activeMonth=$event' class="top-nav-bar"></TabNavBar>
-            <!-- <SideNavBar :values="days" :side='activeDay' @updateSide='activeDay=$event' class="side-nav-bar"></SideNavBar> -->
-            <!-- <ChartComponent :chartData="datacollection"></ChartComponent> -->
+            <SideNavBar :values="days" :side='activeDay' @updateSide='activeDay=$event' class="side-nav-bar"></SideNavBar>
+            <ChartComponent :chartData="datacollection" class="traffic-chart chart"></ChartComponent>
         </div>
     </div>    
 </template>
@@ -84,19 +84,22 @@ export default {
 
 <style>
 
-    /* div.top-nav-bar{
-        margin: 0 auto !important;
-    } */
-
-    /* canvas#bar-chart{
-        position: absolute;
-        left: 25em;
-        top: 25em;
+    div.top-nav-bar{
+        position: relative;
+        top: 2.5em;
+        left: 10%;
     }
 
     div.side-nav-bar{
-        position: absolute;
-        top: 30em;
-    } */
+        position: relative;
+        top: 15em;
+    }
+
+    div.traffic-chart{
+        position: relative;
+        left: 15%;
+        top: -5em;
+        width: 75%;
+    }
 </style>
 

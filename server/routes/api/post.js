@@ -217,7 +217,7 @@ router.get('/admin/:month/:day', async(req, res) => {
 
 function getPool() {
     const conString = "postgres://ynsvtncb:v3StzUeatCf_PrpAfcdIwVe6RW-Qn6rI@isilo.db.elephantsql.com:5432/ynsvtncb"
-    const pool = new pg.Pool({connectionString: conString, ssl: true, max:20, idleTimeoutMillis: 30000})
+    const pool = new pg.Pool({connectionString: conString, ssl: true, idleTimeoutMillis: 30000})
     return pool
 }
 
