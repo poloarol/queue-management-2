@@ -3,8 +3,8 @@
         <div class="ui raised form software-dropdown">
             <div class="three fields">
                 <div class="field">
-                    <label class="ui red basic label">
-                        <i class="large red language icon"></i> {{ labels[0] }}
+                    <label class="ui orange basic label">
+                        <i class="large orange language icon"></i> {{ labels[0] }}
                     </label>
                     <multiselect
                         v-model="lang"
@@ -18,7 +18,7 @@
                 </div>
                 <div class="field">
                     <label class="ui teal basic label">
-                        <i class="large teal vuejs icon"></i> {{ labels[1] }}
+                        <i class="large teal hdd icon"></i> {{ labels[1] }}
                     </label>
                     <multiselect
                         v-model='platform'

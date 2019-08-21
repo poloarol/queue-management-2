@@ -22,6 +22,8 @@ Vue.use(VeeValidate)
 Vue.component('multiselect', Multiselect)
 Vue.config.productionTip = false
 
+// achieve this by changing lang tag in browser
+
 let lang = navigator.language || navigator.userLanguage
 lang = lang.split("-")[0] === 'fr' ? 'fr' : 'en'
 

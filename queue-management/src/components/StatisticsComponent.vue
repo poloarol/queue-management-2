@@ -2,7 +2,7 @@
     <div class="container">
         <SoftwareUpdateStats class="software"></SoftwareUpdateStats>
         <SideNavBar :values='software' :side='activeSoftware' @updateSide='activeSoftware=$event' class="side-bar"></SideNavBar>
-        <ChartComponent :datacollection='datacollection' class='stats-chart'></ChartComponent>
+        <ChartComponent :chartData='datacollection' class='stats-chart'></ChartComponent>
     </div>
 </template>
 
@@ -15,7 +15,7 @@
 
 div.software{
     position: relative;
-    top: 2.5em;
+    top: 2em;
     left: 20%;
 }
 
@@ -68,9 +68,29 @@ export default {
     },
     created(){
         this.getText()
+        this.datacollection = {
+            labels : '',
+            datasets: [
+                {
+                    label: '',
+                    backgroundColor: [],
+                    data: []
+                }
+            ]
+        }
     },
     updated(){
         this.getText()
+        this.datacollection = {
+            labels : '',
+            datasets: [
+                {
+                    label: '',
+                    backgroundColor: [],
+                    data: []
+                }
+            ]
+        }
     },
     computed: {
         updateSide(){

@@ -26,6 +26,15 @@
     </div>
 </template>
 
+<style>
+
+/* img{
+    display: block;
+    object-fit: cover;
+} */
+
+</style>
+
 <script>
 
 /**
