@@ -27,6 +27,12 @@ div.top-menu{
 
 <script>
 
+/**
+ * 
+ * Secondary navigation bar showing information about months.
+ * 
+ */
+
 export default {
     name: 'TabNavBar',
     props: ['values', 'top'],

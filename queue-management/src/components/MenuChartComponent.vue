@@ -9,6 +9,14 @@
 </template>
 
 <script>
+
+/**
+ * 
+ * This shows the traffic of users in the lab by month and day.
+ * 
+ */
+
+
 import ChartComponent from './ChartComponent.vue'
 import SideNavBar from './SideNavBar.vue'
 import TabNavBar from './TabNavBar.vue'
@@ -28,8 +36,12 @@ export default {
     },
     data(){
         return {
-            months: EN.getMonth(),
-            days: EN.getDay(),
+            months: [],
+            days: [],
+            months_fr: FR.getMonth(),
+            days_fr: FR.getDay(),
+            months_en: EN.getMonth(),
+            days_en: EN.getDay(),
             activeMonth: date.getMonth() + 1,
             activeDay: date.getDay() - 1,
             datacollection: {}
@@ -39,9 +51,11 @@ export default {
         if(this.activeDay === -1)
             this.activeDay = 7
         this.updateChart(this.activeMonth, this.activeDay)
+        this.getText()
     },
     updated(){
         this.updateChart(this.activeMonth, this.activeDay)
+        this.getText()
     },
     methods: {
         async updateChart(month, day){
@@ -70,6 +84,10 @@ export default {
                 this.err = err.message
             }
         },
+        getText(){
+            this.months = this.language === 'en' ? this.months_en : this.months_fr
+            this.days = this.language === 'en' ? this.days_en : this.days_fr
+        }
     },
     computed: {
         updateTop(){

@@ -30,7 +30,7 @@ export default{
     getMonth(){
         return [
             {id: 0, value: 'Janvier'},
-            {id: 1, value: 'Fevrier'},
+            {id: 1, value: 'Février'},
             {id: 2, value: 'Mars'},
             {id: 3, value: 'Avril'},
             {id: 4, value: 'Mai'},

@@ -13,11 +13,14 @@ div.table-comp-3{
 
 </style>
 
-
-
 <script>
-
 import TableComponent from './TableComponent.vue'
+
+/*
+    This is the component shows the admin update panel.
+    Here you can track users as they register and are helped 
+    by the staff.
+*/
 
 export default{
     name: 'AdminMainQueue',
@@ -27,14 +30,22 @@ export default{
     },
     data(){
         return {
-            headers: [{id: 1, name: 'Name'}, {id: 2, name: 'Description'}, {id:3, name: 'Comments'}, {id:4, name: 'In queue'}]
+            headers: [],
+            header_en: [{id: 1, name: 'Name'}, {id: 2, name: 'Description'}, {id:3, name: 'Comments'}, {id:4, name: 'In queue'}],
+            header_fr: [{id: 1, name: 'Nom'}, {id: 2, name: 'Description'}, {id:3, name: 'Commentaires'}, {id:4, name: "Fil d'attente"}]
         }
     },
     created(){
-
+        this.getText()
     },
     updated(){
-        // this.headers = [{id: 1, name: 'Nom'}, {id: 2, name: 'Description'}, {id:3, name: 'Commentaire'}, {id:4, name: "Sur la fil d'attente"}] 
+        this.getText()
+    },
+    methods: {
+        getText(){
+            // Descriptors of table headers by language
+            this.headers = this.language === 'en' ? this.header_en : this.header_fr
+        }
     }
 }
 

@@ -20,6 +20,15 @@
 </style>
 
 <script>
+/**
+ * 
+ * This component allows the management of the DB i.e. users, platforms
+ * and faculties. Here the Admin can update who has access to lab resources
+ * and many more.
+ * 
+ */
+
+
 import EN from '../../services/en/text'
 import FR from '../../services/fr/text'
 
@@ -37,16 +46,26 @@ export default {
     },
     data(){
         return {
-            manager: EN.manageDB(),
+            manager: [],
+            manager_fr: FR.manageDB(),
+            manager_en: EN.manageDB(),
             activeDB: 0,
-            headers: [{id: 1, name:'Name'}, {id:2, name: 'Add-Delete'}]
+            headers: [],
+            headers_fr: [{id: 1, name:'Nom'}, {id:2, name: 'Ajouter-Supprimer'}],
+            headers_en: [{id: 1, name:'Name'}, {id:2, name: 'Add-Delete'}]
         }
     },
     created(){
-    //    this.headers: [{id: 1, name:'Nom'}, {id:2, name: 'Ajouter-Supprimer'}]
+        this.getText()
     },
     upated(){
-
+        this.getText()
+    },
+    methods: {
+        getText(){
+            this.manager = this.language === 'en' ? this.manager_en : this.manager_fr
+            this.headers = this.language === 'en' ? this.headers_en : this.headers_fr
+        }
     },
     computed: {
         updateDB(){

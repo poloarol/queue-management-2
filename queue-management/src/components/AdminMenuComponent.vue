@@ -19,6 +19,13 @@ import ExportFileComponent from './ExportFileComponent.vue'
 import AdminNavBarComponent from './AdminNavBarComponent.vue'
 import AdminMainQueue from './AdminMainQueue.vue'
 
+/*
+
+AdminMenuComponent is a dynamic component, showing diff. components as
+necessary.
+
+*/
+
 export default {
     name: 'AdminMenuComponent',
     props: ['currentComponent'],

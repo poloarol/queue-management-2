@@ -22,7 +22,14 @@ Vue.use(VeeValidate)
 Vue.component('multiselect', Multiselect)
 Vue.config.productionTip = false
 
-Vue.prototype.language = 'en'
+let lang = navigator.language || navigator.userLanguage
+lang = lang.split("-")[0] === 'fr' ? 'fr' : 'en'
+
+Vue.mixin({
+  data(){
+    return {language: lang}
+  }
+})
 
 const router = new VueRouter({
   routes: [

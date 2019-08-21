@@ -1,4 +1,11 @@
 <script>
+/*
+
+ChartComponent allows for the building of Bar Charts. 
+It serves as a visualizing component.
+
+*/
+
 import { Bar,  mixins} from 'vue-chartjs'
 
 export default {  // extending the base class

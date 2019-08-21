@@ -16,8 +16,14 @@ div.table-comp-2{
 
 <script>
 import FilterJobs from '../../services/api/FilterJobs'
-
 import TableComponent from './TableComponent'
+
+/**
+ * 
+ * JobComponent shows the work station at which participants have arrived the lab.
+ * Automatically gets updated as users get assisted.
+ * 
+ */
 
 export default {
   name: 'JobComponent',
@@ -27,13 +33,16 @@ export default {
   data(){
     return {
       jobs: [],
-      headers: [{'id': 1, 'name': 'Station'}, {'id': 2,'name': 'Name'}, {'id': 3, 'name': 'Faculty'}],
+      headers: [],
+      headers_fr: [{'id': 1, 'name': 'Poste de travail'}, {'id': 2,'name': 'Nom'}, {'id': 3, 'name': 'Faculté'}],
+      headers_en: [{'id': 1, 'name': 'Work station'}, {'id': 2,'name': 'Name'}, {'id': 3, 'name': 'Faculty'}],
       perPage: 10,
       visible: []
     }
   },
   async created(){
     try{
+      this.getText()
       this.jobs = await FilterJobs.getJobComp()
     }catch(err){
       this.error = err.message
@@ -41,10 +50,16 @@ export default {
   },
   async updated() {
     try{
+      this.getText()
       this.jobs = await FilterJobs.getJobComp()
     }catch(err){
       return err.message
     }
+  },
+  methods: {
+      getText(){
+        this.headers = this.language === 'en' ? this.headers_en : this.headers_fr
+      }
   }
 }
 

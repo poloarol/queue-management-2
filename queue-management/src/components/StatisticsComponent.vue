@@ -30,6 +30,13 @@ div.stats-chart{
 
 <script>
 
+/**
+ * 
+ * Provides charts about the various platforms, languages and others.
+ * Works with the SoftwareUpdateStats component.
+ * 
+ */
+
 import EN from '../../services/en/text'
 import FR from '../../services/fr/text'
 
@@ -52,20 +59,27 @@ export default {
     data(){
         return {
             // months: EN.getMonth(),
-            software: EN.getPlatform(),
+            software: [],
+            software_fr: FR.getPlatform(),
+            software_en: EN.getPlatform(),
             activeSoftware: 1,
             datacollection: {}
         }
     },
     created(){
-
+        this.getText()
     },
     updated(){
-        
+        this.getText()
     },
     computed: {
         updateSide(){
             return this.activeSoftware
+        }
+    },
+    methods: {
+        getText(){
+            this.software = this.language === 'en' ? this.software_en : this.software_fr
         }
     }
 }

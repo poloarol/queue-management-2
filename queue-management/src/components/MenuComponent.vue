@@ -15,13 +15,26 @@
                 ></multiselect>
             </div>
             <div class="item">
-                <a class="ui primary button" href="">FAQ</a>
+               <a
+                target='_blank'
+                class="ui primary button" 
+                :href="'//' + link"
+                >FAQ
+            </a>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+
+/**
+ * 
+ * MenuComponent builds the primary navigation bar.
+ * 
+ */
+
+
 import EN from '../../services/en/text.js'
 import FR from '../../services/fr/text.js'
 
@@ -30,20 +43,28 @@ export default {
     data(){
         return {
             lang: '',
-            languages: [{id: 'fr', name: 'FR'}, {id: 'en', name: 'EN'}]
+            languages: [{id: 'fr', name: 'FR'}, {id: 'en', name: 'EN'}],
+            link: '',
+            link_en: 'brightspacecommunity.force.com/uottawa/s/',
+            link_fr: 'brightspacecommunity.force.com/uottawafr/s/?language=fr_CA'
         }
     },
     created(){
+        this.getText()
     },
     updated(){
-        if(this.lang.id = 'fr')
+        if(this.lang === 'fr')
             this.language = 'fr'
         else
             this.language = 'en'
+        this.getText()
     },
     methods: {
         chooselang(option){
-            // this.lang = option.id
+            this.lang = option.id
+        },
+        getText(){
+            this.link = this.language === 'en' ? this.link_en : this.link_fr
         }
     }
 }

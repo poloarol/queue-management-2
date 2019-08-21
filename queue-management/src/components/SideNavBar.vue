@@ -14,6 +14,13 @@
 </template>
 
 <script>
+
+/**
+ * 
+ * Side Navigation Bar.
+ * 
+ */
+
 export default {
     name: 'SideNavBar',
     props: ['values', 'side'],

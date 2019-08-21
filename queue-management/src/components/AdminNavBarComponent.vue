@@ -19,22 +19,32 @@
 import EN from '../../services/en/text'
 import FR from '../../services/fr/text'
 
+/*
+
+AdminNavBarComponent, provides information on the secondary nav-bar in the admin panel.
+Provides an interface to update the AdminMenuComponent when chosen / active i.e. 
+showing the active component at the moment.
+
+*/
+
 export default {
     name: 'AdminNavBarComponent',
     props: ['tabs', 'current', 'activeNav'],
     data() {
         return {
-            items: EN.getNavBar(),
+            items: [],
+            items_fr: FR.getNavBar(),
+            items_en: EN.getNavBar(),
             tabular: this.tabs,
             component: this.current,
             active: this.activeNav
         }
     },
     created(){
-        
+        this.getText()
     },
     updated(){
-       
+        this.getText()
     },
     methods: {
         addActiveClass(value){
@@ -43,6 +53,9 @@ export default {
         swap(){
             this.component = this.tabular[this.active]
             this.$emit("swapComponent", this.component)
+        },
+        getText(){
+            this.items = this.language === 'en' ? this.items_en : this.items_fr
         }
     }
 }

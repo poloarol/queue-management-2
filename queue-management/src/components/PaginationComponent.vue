@@ -40,6 +40,14 @@
 
 
 <script>
+
+/**
+ * 
+ * Works with the TableComponent, and allows navigation across the table.
+ * 
+ */
+
+
 export default {
     name: 'PaginationComponent',
     props: ["pages", "currentPage"],

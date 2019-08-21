@@ -2,7 +2,6 @@
     <div class="ui inverted vertical footer segment" id="foot">
         <div class="ui center aligned container">
             <img src="../assets/logo.png" class="ui centered mini image" alt="uOttawa logo">
-            <!-- <img src="../assets/logo.png" class="ui centered mini image" alt="uOttawa logo"> -->
             <div class="ui horizontal inverted small divided link list">
                 <a class="item"
                     v-for="item in items"
@@ -27,18 +26,36 @@
 </style>
 
 <script>
+
+/**
+ * 
+ * FooterComponent provides links and text for the footer.
+ * 
+ */
+
+
 import EN from '../../services/en/text'
 import FR from '../../services/fr/text'
 
 export default {
     data() {
         return {
-            items: EN.getFooter()
+            items: [],
+            items_en: EN.getFooter(),
+            items_fr: FR.getFooter()
         }
     },
     created() {
-        // this.items = StaticData.getFooter()
+        this.getText()
     },
+    updated(){
+        this.getText()
+    },
+    methods: {
+        getText(){
+            this.items = this.language === 'en' ? this.items_en : this.items_fr
+        }
+    }
 }
 </script>
 
