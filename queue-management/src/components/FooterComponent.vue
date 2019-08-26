@@ -1,7 +1,7 @@
 <template>
     <div class="ui inverted vertical footer segment" id="foot">
         <div class="ui center aligned container">
-            <img src="../assets/logo.png" class="ui centered mini image" alt="uOttawa logo">
+            <img src="../assets/uottawa_ver.png" class="ui centered tiny image" alt="uOttawa logo">
             <div class="ui horizontal inverted small divided link list">
                 <a class="item"
                     v-for="item in items"

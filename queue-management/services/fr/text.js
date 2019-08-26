@@ -92,5 +92,11 @@ export default{
             {id: 'home', value: 'Home'},
             {id: 'faq', value: 'FAQ'}
         ]
+    },
+    getStatus(){
+        return [{}]
+    },
+    getFormLabels(){
+        return [{}]
     }
 }

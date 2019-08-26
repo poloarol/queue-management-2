@@ -85,5 +85,76 @@ export default{
             {id: 9, value: 'Medecine'},
             {id: 10,value: 'Telfer'}
         ]
+    },
+    getStatus(){
+        return [
+            {id: 1, value: 'Full time Professor'},
+            {id: 2, value: 'Part time Professor'},
+            {id: 3, value: 'Practicuum Student - Post-Doc'},
+            {id: 4, value: 'Personnel'},
+            {id: 5, value: 'Teaching Assistant'},
+            {id: 6, value: 'Other'}
+        ]
+    },
+    getFormLabels(){
+        return [
+            {header: 'Registration', message: 'Please register to get assistance in the Techno-Pedagogy Lab'},
+            {header: 'Continuos support', bold: 'Use and Disclosure of Personal Information',
+                    message: "The information you provide in this \
+                                form is gathered for statistical purposes \
+                                and to help us continuously improve and \
+                                tailor the services offered. Any personal \
+                                information that could identify you will be \
+                                removed from any disseminated reports."
+            },
+            {header: 'Staff Information', 
+                personel: [
+                    {
+                        label: 'First Name', 
+                        message: 'Please enter your first name', 
+                        type: 'text'
+                    },
+                    {
+                        label: 'Last Name', 
+                        message: 'Please enter your last name', 
+                        type: 'text'
+                    },
+                    {
+                        label: 'Address courriel', 
+                        message: 'Please enter your email', 
+                        type: 'email'
+                    }
+                ],
+                faculty: [
+                    {
+                        label: 'Faculty', 
+                        data: this.getFaculty(),
+                    },
+                    {
+                        label: 'Role', 
+                        data: this.getStatus(),
+                    },
+                    {
+                        label: 'Preffered Language', 
+                        data: this.getLang(),
+                    }
+                ]
+            },
+            {header: '', 
+                platform: [
+                    {
+                        label: 'Which platform do you require assistance with?', 
+                        data: this.getPlatform()
+                    },
+                    {
+                        label: 'Which tool are you having problems with?', data: []
+                    }
+                ]
+            },
+            {contact: 'Please check this box if we can use this information to contact you regarfing services that might \
+                        be of interest to you e.g. courses, workshops, events etc. or for follow-up surveys when relevant research \
+                        data is being collected'},
+            {submit: 'Submit'}
+        ]
     }
 }

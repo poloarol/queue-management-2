@@ -24,12 +24,23 @@ Vue.config.productionTip = false
 
 // achieve this by changing lang tag in browser
 
-let lang = navigator.language || navigator.userLanguage
-lang = lang.split("-")[0] === 'fr' ? 'fr' : 'en'
+
 
 Vue.mixin({
   data(){
-    return {language: lang}
+    return {language: ''}
+  },
+  async created(){
+    await this.updateLang()
+  },
+  async updated(){
+    await this.updateLang()
+  },
+  methods: {
+    async updateLang(){
+      let lang = navigator.language || navigator.userLanguage
+      this.language = lang.split("-")[0] === 'fr' ? 'fr' : 'en'
+    }
   }
 })
 

@@ -1,7 +1,7 @@
 <template>
     <div class="ui massive top fixed menu">
-        <router-link class="item" to='/'>
-            <img src="../assets/logo.png" alt="uOttawa logo">
+        <router-link class="header item" to='/'>
+            <img class="logo" src="../assets/uOttawa_HOR_BLACK.svg" alt="uOttawa logo">
         </router-link>
         <div class="right menu">
             <div class="item">
@@ -28,10 +28,9 @@
 
 <style>
 
-/* img{
-    display: block;
-    object-fit: cover;
-} */
+img.logo{
+    width: 8em !important;
+}
 
 </style>
 
@@ -62,11 +61,7 @@ export default {
         this.getText()
     },
     updated(){
-        if(this.lang === 'fr')
-            this.language = 'fr'
-        else
-            this.language = 'en'
-        this.getText()
+        document.getElementsByTagName('html')[0].setAttribute('lang', this.lang.id)
     },
     methods: {
         chooselang(option){

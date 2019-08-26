@@ -6,7 +6,6 @@
     </div>
 </template>
 <script>
-// import CreateService from '../CreateService'
 
 import MenuComponent from './MenuComponent.vue'
 import FormComponent from './FormComponent.vue'
@@ -17,7 +16,7 @@ export default {
     components: {
         MenuComponent,
         FormComponent,
-        // FooterComponent
+        FooterComponent
     }
 }
 
