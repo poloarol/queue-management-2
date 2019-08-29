@@ -75,15 +75,15 @@ export default{
     getFaculty(){
         return [
             {id: 1, value: 'Arts'},
-            {id: 2, value: 'Education'},
-            {id: 3, value: 'Engineering'},
-            {id: 4, value: 'Health Sciences'},
-            {id: 5, value: 'Law - Common Law'},
-            {id: 6, value: 'Law - Civil Law'},
+            {id: 2, value: 'Éducation'},
+            {id: 3, value: 'Génie'},
+            {id: 4, value: 'Sciences de la santé'},
+            {id: 5, value: 'Law - Section de common Law'},
+            {id: 6, value: 'Law - Section de droit civil'},
             {id: 7, value: 'Sciences'},
-            {id: 8, value: 'Social Sciences'},
-            {id: 9, value: 'Medecine'},
-            {id: 10,value: 'Telfer'}
+            {id: 8, value: 'Sciences sociales'},
+            {id: 9, value: 'Médecine'},
+            {id: 10,value: "École de gestion Telfer"}
         ]
     },
     getMainNav(){
@@ -94,7 +94,14 @@ export default{
         ]
     },
     getStatus(){
-        return [{}]
+        return [
+            {id: 1, value: 'Professeur(e) à temps plein'},
+            {id: 2, value: 'Professeur(e) à temps partiel'},
+            {id: 3, value: 'Stagiare postdoctorale'},
+            {id: 4, value: 'Personnel de soutien'},
+            {id: 5, value: "Assistant d'enseignment"},
+            {id: 6, value: 'Autre'}
+        ]
     },
     getFormLabels(){
         return [{}]

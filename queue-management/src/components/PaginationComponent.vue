@@ -3,6 +3,7 @@
         <button 
             class="ui labeled icon button"
             @click="[navigateBack(), move()]"
+            :class="{disabled : activeNav === 0}"
         >
             <i class="chevron left icon"></i>
             Prev
@@ -19,6 +20,7 @@
         </div>
         <button class="ui right labeled icon button"
             @click="[navigateForward(), move()]"
+            :class="{disabled : activeNav >= pages}"
         >
             <i class="chevron right icon"></i>
             Next
@@ -58,7 +60,7 @@ export default {
         }
     },
     created(){
-        console.log(this.pages)
+        // console.log(this.pages)
     },
     updated() {
         // don't know why but printing it allows it to work 

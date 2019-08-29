@@ -8,31 +8,18 @@
                     </label>
                     <multiselect
                         v-model="lang"
-                        :options='languages'
+                        :options='langs'
                         :searchable='true'
                         :close-on-select='true'
                         label='value'
                         :allow-empty='true'
                         track-by='value'
+                        @select="selectLang"
                     ></multiselect>
                 </div>
                 <div class="field">
                     <label class="ui teal basic label">
-                        <i class="large teal hdd icon"></i> {{ labels[1] }}
-                    </label>
-                    <multiselect
-                        v-model='platform'
-                        :options='software'
-                        :searchable='true'
-                        :close-on-select='true'
-                        label='value'
-                        :allow-empty='true'
-                        track-by='value'
-                    ></multiselect>
-                </div>
-                <div class="field">
-                    <label class="ui violet basic label">
-                        <i class="large violet university icon"></i> {{ labels[2] }}
+                        <i class="large teal university icon"></i> {{ labels[2] }}
                     </label>
                     <multiselect
                         v-model="academic"
@@ -42,6 +29,22 @@
                         label='value'
                         :allow-empty='true'
                         track-by='value'
+                        @select="selectFaq"
+                    ></multiselect>
+                </div>
+                <div class="field">
+                    <label class="ui violet basic label">
+                        <i class="large violet users icon"></i> {{ labels[1] }}
+                    </label>
+                    <multiselect
+                        v-model='role'
+                        :options='status'
+                        :searchable='true'
+                        :close-on-select='true'
+                        label='value'
+                        :allow-empty='true'
+                        track-by='value'
+                        @select="selectRole"
                     ></multiselect>
                 </div>
             </div>
@@ -71,41 +74,37 @@ import FR from '../../services/fr/text'
 
 export default {
     name: 'SoftwareUpdateStats',
-    props: '',
+    props: ['software', 'labels', 'langs', 'status', 'faculty', 'left', 'middle', 'right'],
     components: {},
     data(){
         return {
             lang: '',
-            platform: '',
             academic: '',
-            language_en: EN.getLang(),
-            software_en: EN.getPlatform(),
-            software_fr: FR.getPlatform(),
-            faculty_en: EN.getFaculty(),
-            language_fr: FR.getLang(),
-            faculty_fr: FR.getFaculty(),
-            labels_en: ['Language', 'Platform', 'Faculty'],
-            labels_fr: ['Langage', 'Platforme', 'Faculté'],
-            labels: [],
-            languages: [],
-            software: [],
-            faculty: []
+            role: '',
+            lefts: this.left,
+            mid: this.middle,
+            rights: this.right
         }
     },
     created(){
-        this.getText()
+
     },
     updated(){
-        this.getText()
+
     },
     methods: {
-        getText(){
-            this.languages = this.language === 'en' ? this.language_en : this.language_fr
-            this.software = this.language === 'en' ? this.software_en : this.software_fr
-            this.labels = this.language === 'en' ? this.labels_en : this.labels_fr
-            this.faculty = this.language === 'en' ? this.faculty_en : this.faculty_fr
+        selectLang(option){
+            this.lefts = option.id
+            this.$emit('getLang', this.lefts)
+        },
+        selectFaq(option){
+            this.mid = option.id
+            this.$emit('getFaculty', this.mid)
+        },
+        selectRole(option){
+            this.rights = option.id
+            this.$emit('getRole', this.rights)
         }
     }
-
 }
 </script>

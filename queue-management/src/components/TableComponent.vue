@@ -41,7 +41,7 @@
                 </tr>
             </tbody> -->
         </table>
-        <!-- <PaginationComponent :pages="pages" @moveable="current=$event"></PaginationComponent> -->
+        <PaginationComponent :pages="pages" @moveable="current=$event"></PaginationComponent>
     </div>
 </template>
 

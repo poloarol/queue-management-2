@@ -78,20 +78,20 @@ export default{
             {id: 2, value: 'Education'},
             {id: 3, value: 'Engineering'},
             {id: 4, value: 'Health Sciences'},
-            {id: 5, value: 'Law - Common Law'},
-            {id: 6, value: 'Law - Civil Law'},
+            {id: 5, value: 'Law - Common Law Section'},
+            {id: 6, value: 'Law - Civil Law Section'},
             {id: 7, value: 'Sciences'},
             {id: 8, value: 'Social Sciences'},
             {id: 9, value: 'Medecine'},
-            {id: 10,value: 'Telfer'}
+            {id: 10,value: 'Telfer School of Management'}
         ]
     },
     getStatus(){
         return [
-            {id: 1, value: 'Full time Professor'},
-            {id: 2, value: 'Part time Professor'},
-            {id: 3, value: 'Practicuum Student - Post-Doc'},
-            {id: 4, value: 'Personnel'},
+            {id: 1, value: 'Full-time Professor'},
+            {id: 2, value: 'Part-time Professor'},
+            {id: 3, value: 'Postdoctoral Fellow'},
+            {id: 4, value: 'Support Staff'},
             {id: 5, value: 'Teaching Assistant'},
             {id: 6, value: 'Other'}
         ]

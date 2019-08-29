@@ -1,8 +1,13 @@
 <template>
     <div class="container">
-        <SoftwareUpdateStats class="software"></SoftwareUpdateStats>
+        <SoftwareUpdateStats 
+                :labels="labels" :langs="langs" :status="status" :faculty="faculty"
+                :left="lang_val" :middle="faculty_val" :right="role_val"
+                @getLang="lang_val=$event" @getFaculty="faculty_val=$event" @getRole="role_val=$event"
+            class="software">
+        </SoftwareUpdateStats>
         <SideNavBar :values='software' :side='activeSoftware' @updateSide='activeSoftware=$event' class="side-bar"></SideNavBar>
-        <ChartComponent :chartData='datacollection' class='stats-chart'></ChartComponent>
+        <!-- <ChartComponent :chartData='datacollection' class='stats-chart'></ChartComponent> -->
     </div>
 </template>
 
@@ -54,52 +59,75 @@ export default {
         // TabNavBar,
         SideNavBar,
         SoftwareUpdateStats,
-        ChartComponent
+        // ChartComponent
     },
     data(){
         return {
             // months: EN.getMonth(),
             software: [],
+            language: [],
+            faculty: [],
+            labels: [],
+            status: [],
+            langs: [],
+            labels_en: ['Language', 'Roles', 'Faculty'],
+            labels_fr: ['Langue', 'Rôles', 'Faculté'],
+            lang_en: EN.getLang(),
+            lang_fr: FR.getLang(),
+            faculty_en: EN.getFaculty(),
+            faculty_fr: FR.getFaculty(),
             software_fr: FR.getPlatform(),
             software_en: EN.getPlatform(),
+            status_en: EN.getStatus(),
+            status_fr: FR.getStatus(),
             activeSoftware: 1,
-            datacollection: {}
+            datacollection: {},
+            lang_val: 0,
+            faculty_val: 0,
+            role_val: 0
         }
     },
-    created(){
+    async created(){
         this.getText()
-        this.datacollection = {
-            labels : '',
-            datasets: [
-                {
-                    label: '',
-                    backgroundColor: [],
-                    data: []
-                }
-            ]
-        }
+        await this.updateChart()
     },
-    updated(){
+    async updated(){
         this.getText()
-        this.datacollection = {
-            labels : '',
-            datasets: [
-                {
-                    label: '',
-                    backgroundColor: [],
-                    data: []
-                }
-            ]
-        }
+        await this.updateChart()
     },
     computed: {
         updateSide(){
             return this.activeSoftware
+        },
+        getLang(){
+            return this.lang_val
+        },
+        getFaculty(){
+            return this.faculty_val
+        },
+        getRole(){
+            return this.role_val
         }
     },
     methods: {
         getText(){
             this.software = this.language === 'en' ? this.software_en : this.software_fr
+            this.labels = this.language === 'en' ? this.labels_en : this.labels_fr
+            this.faculty = this.language === 'en' ? this.faculty_en : this.faculty_fr
+            this.status = this.language === 'en' ? this.status_en : this.status_fr
+            this.langs = this.language === 'en' ? this.lang_en : this.lang_fr
+        },
+        async updateChart(){
+            this.datacollection = {
+                labels : '',
+                datasets: [
+                    {
+                        label: '',
+                        backgroundColor: [],
+                        data: []
+                    }
+                ]
+            }
         }
     }
 }

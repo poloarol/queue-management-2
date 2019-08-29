@@ -49,7 +49,7 @@ export default {
             manager: [],
             manager_fr: FR.manageDB(),
             manager_en: EN.manageDB(),
-            activeDB: 0,
+            activeDB: 1,
             headers: [],
             headers_fr: [{id: 1, name:'Nom'}, {id:2, name: 'Ajouter-Supprimer'}],
             headers_en: [{id: 1, name:'Name'}, {id:2, name: 'Add-Delete'}]
