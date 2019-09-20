@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
+// import VFC from 'vfc'
 import Multiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 
@@ -19,6 +20,7 @@ axios.defaults.baseURL = 'http://localhost:3030/api/post'
 
 Vue.use(VueRouter)
 Vue.use(VeeValidate)
+// Vue.use(VFC)
 Vue.component('multiselect', Multiselect)
 Vue.config.productionTip = false
 

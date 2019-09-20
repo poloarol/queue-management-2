@@ -99,7 +99,7 @@ export default{
     getFormLabels(){
         return [
             {header: 'Registration', message: 'Please register to get assistance in the Techno-Pedagogy Lab'},
-            {header: 'Continuos support', bold: 'Use and Disclosure of Personal Information',
+            {header: 'Continuos support', bold: 'Continuos support',
                     message: "The information you provide in this \
                                 form is gathered for statistical purposes \
                                 and to help us continuously improve and \
