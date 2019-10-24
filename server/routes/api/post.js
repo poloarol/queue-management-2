@@ -11,14 +11,11 @@ router.get('/', async(req, res) => {
 
     try{
         const connection = await Pool.getConnection()
-        const query = "SELECT JOB.ID AS ID, JOB.FNAME AS NAME, JOB.STATION_ID AS POST,\
-                            FACULTY.ID AS F_ID, FACULTY.IDENT AS FACULTY, JOB.USER_DESCRIPTION AS DESCRIPTION\
-                            FROM JOB INNER JOIN FACULTY ON JOB.FACULTY_ID = FACULTY.ID \
-                            WHERE JOB.ASSISSTED = FALSE AND DATE(TODAY) = CURRENT_DATE() ORDER BY TODAY DESC;"
+        const query = 'select job.id as id, job.fname as name, job.software as software, job.station_id as post, job.faculty_id as f_id from job'
 
-        const result = await connection.query(query)
+        let result = await connection.query(query)
+        res.send(result)
         connection.done()
-        res.send(result.rows)
     }catch(err){
         console.error('error running query', err.message)
     }
@@ -78,14 +75,21 @@ router.post('/register', async(req, res) => {
         // const query = 'INSERT INTO JOB (FNAME, LNAME, TODAY, FACULTY_ID, ROLES_ID, LANGUANGE, STATION_ID, ASSISTED_BY, ASSISSTED, USER_DESCRIPTION) \
         //                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING ID;'
 
-        let results = await connection.insert('jobs',
+        let results = await connection.insert('job',
                             {
-                                lname: data.lname, fname: data.fname, data: new Date(),
-                                faculty: data.faculty, role: data.role, lang: data.lang.toString(),
-                                station: data.station, assisted_by: null, assisted: false, problems: data.topics,
+                                lname: data.lname, 
+                                fname: data.fname, 
+                                today: new Date(),
+                                faculty_id: data.faculty, 
+                                roles_id: data.roles, 
+                                lang: data.lang,
+                                assisted_by: null, 
+                                assisted: false,
+                                station_id: data.station, 
+                                software: data.software,
+                                topics: data.topics,
                                 contact: data.contact
                             })
-        console.log(results)
         connection.done()
     }catch(err){
         console.error('error running this query', err.message)
@@ -97,10 +101,9 @@ router.get('/update', async(req, res) => {
 
     try{
         const connection = await Pool.getConnection()
-        const query = "SELECT STAFF.ID, STAFF.IDENT FROM STAFF"
 
-        let results = await connection.query(query)
-        res.send(results.rows)
+        let result = await connection.getAll('staff')
+        res.send(result)
         connection.done()
     }catch(err){
         console.error('error running this query', err.message)
@@ -114,10 +117,10 @@ router.put('/update/:id/:staff_id', async(req, res) => {
     try{
         const connection = await Pool.getConnection()
         
-        let results = connection.upsert('staff',
+        let result = connection.upsert('staff',
                         {id: req.params.id, staff: req.params.staff_id}
                         )
-        console.log(results)
+        console.log(result)
         connection.done()
 
     }catch(err){
@@ -163,8 +166,6 @@ router.get('/admin/:month/:day', async(req, res) => {
         const query = "SELECT JOB.TODAY FROM JOB WHERE EXTRACT(MONTH FROM JOB.TODAY) = \
                             ? AND DAYOFWEEK(JOB.TODAY) = ?"
         let result = await connection.query(query, req.params.month, req.params.day)
-        let hour = 0
-        let totalHour = result.rowCount
         let results = {}
 
         for(let i in result.rows){

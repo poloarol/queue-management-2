@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <TableComponent :headers="headers" class="table-comp-2"></TableComponent>
+    <TableComponent :headers="headers" :jobs="jobs" :perPage="perPage" :currentPage="cur" class="table-comp-2"></TableComponent>
   </div>
 </template>
 
@@ -34,10 +34,10 @@ export default {
     return {
       jobs: [],
       headers: [],
-      headers_fr: [{'id': 1, 'name': 'Poste de travail'}, {'id': 2,'name': 'Nom'}, {'id': 3, 'name': 'Faculté'}],
-      headers_en: [{'id': 1, 'name': 'Work station'}, {'id': 2,'name': 'Name'}, {'id': 3, 'name': 'Faculty'}],
+      headers_fr: [{'id': 1, 'name': 'Poste de travail'}, {'id': 2,'name': 'Nom'}, {'id': 3, 'name': 'Logiciel'}],
+      headers_en: [{'id': 1, 'name': 'Work station'}, {'id': 2,'name': 'Name'}, {'id': 3, 'name': 'Software'}],
       perPage: 10,
-      visible: []
+      cur: 0
     }
   },
   async created(){

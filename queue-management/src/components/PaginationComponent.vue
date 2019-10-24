@@ -3,28 +3,24 @@
         <button 
             class="ui labeled icon button"
             @click="[navigateBack(), move()]"
-            :class="{disabled : activeNav === 0}"
-        >
+            :class="{disabled : activeNav === 0}">
             <i class="chevron left icon"></i>
-            Prev
+            Previous
         </button>
         <div class="ui pagination menu">
-            <a class="ui pink circular label" 
-                v-for="(page, index) in pages" 
+            <a class="item" v-for="(page, index) in pages" 
                 :key="index"
-                @click="[navigate(index), move()]" 
-                :class="{active : activeNav === index}"
-            >
+                @click="[navigate(index), move()]">
                 {{ page }}
             </a>
         </div>
         <button class="ui right labeled icon button"
             @click="[navigateForward(), move()]"
-            :class="{disabled : activeNav >= pages}"
-        >
+            :class="{disabled : activeNav === (pages-1)}">
             <i class="chevron right icon"></i>
             Next
         </button>
+        <!-- Bind class conditionally 'ui col circular label' -->
     </div>
 </template>
 

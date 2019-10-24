@@ -30,21 +30,26 @@ CREATE TABLE LAB2019_SCHEDULER.SUB_TOPICS(
     SUB_TOPIC TEXT NOT NULL
 );
 
+CREATE TABLE LAB2019_SCHEDULER.LANGUAGE(
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    LANG VARCHAR(20) NOT NULL
+)
+
 -- CREATE TYPE LANG AS ENUM('ENGLISH | ANGLAIS', 'FRENCH | FRANÇAIS', 'BOTH | LES DEUX');
 -- CREATE TYPE STATION AS ENUM('1', '2', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16');
 
-CREATE TABLE LAB2019_SCHEDULER.JOB (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    FNAME VARCHAR(20) NOT NULL,
-    LNAME VARCHAR(20) NOT NULL,
-    TODAY TIMESTAMP NOT NULL,
-    FACULTY_ID INT REFERENCES  FACULTY(ID),
-    ROLES_ID INT REFERENCES ROLES(ID),
-    LANGUAGE ENUM('ENGLISH | ANGLAIS', 'FRENCH | FRANÇAIS', 'BOTH | LES DEUX'),
-    STATION_ID ENUM('1', '2', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'),
-    ASSISTED_BY INT REFERENCES STAFF(ID),
-    ASSISSTED BOOLEAN NOT NULL DEFAULT FALSE,
-    USER_DESCRIPTION TEXT NOT NULL,
-    PROBLEMS JSON NOT NULL,
-    CONTACT BOOLEAN NOT NULL DEFAULT FALSE
-);
+create table lab2019_Scheduler.job (
+	id int auto_increment primary key,
+    fname varchar(20) not null,
+    lname varchar(20) not null,
+    today timestamp not null,
+    faculty_id int references lab2019_scheduler.faculty(id),
+    roles_id int references lab2019_scheduler.roles(id),
+    lang int references lab2019_Scheduler.LANGUAGE(id),
+    assisted_by INT REFERENCES STAFF(id),
+    assisted BOOLEAN NOT NULL DEFAULT FALSE,
+    station_id ENUM('1', '2', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'),
+    software text not null,
+    topics text not null,
+    contact boolean not null default false
+)

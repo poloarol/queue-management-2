@@ -13,9 +13,9 @@ export default{
     },
     getLang(){
         return [
-            {id : 'ENGLISH | ANGLAIS', value : 'ANGLAIS'},
-            {id : 'FRENCH | FRANÇAIS', value : 'FRANÇAIS'},
-            {id : 'BOTH | LES DEUX', value : 'LES DEUX'}
+            {id : 1, value : 'ANGLAIS'},
+            {id : 2, value : 'FRANÇAIS'},
+            {id : 3, value : 'LES DEUX'}
         ]
     },
     getDay(){

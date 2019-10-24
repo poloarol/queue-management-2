@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <TableComponent :headers="headers" class="table-comp"></TableComponent>
+        <TableComponent :headers="headers" :jobs="jobs" :perPage="perPage" :currentPage="cur" class="table-comp"></TableComponent>
     </div>
 </template>
 
@@ -19,9 +19,12 @@ export default {
     data() {
         return {
             jobs: [],
-            headers: [{id: 1, 'name': 'Name | Nom'}, {'id': 2, 'name': 'Personnel'}, {'id': 3, 'name': 'Description'}, {'id': 3, 'name': 'In Queue'}],
+            headers: [],
+            headers_en: [{id: 1, 'name': 'Name'}, {'id': 2, 'name': 'Personnel'}, {'id': 3, 'name': 'Subject Discussed'}, {'id': 3, 'name': 'In Queue'}],
+            headers_fr: [{id: 1, 'name': 'Nom'}, {'id': 2, 'name': 'Personnel'}, {'id': 3, 'name': 'Subjet abordés'}, {'id': 3, 'name': "File d'attente"}],
             perPage: 8,
-            currentStaffParams: this.staffParams
+            currentStaffParams: this.staffParams,
+            cur: 0
         }
     },
     async created(){
@@ -31,6 +34,7 @@ export default {
         }catch(err){
             this.error = err.message
         }
+        this.getText()
     },
     async updated(){
         try{
@@ -40,10 +44,16 @@ export default {
         }catch(err){
             this.error = err.message
         }
+        this.getText()
     },
     computed: {
         getParams(){
             return this.currentStaffParams
+        }
+    },
+    methods: {
+        getText(){
+            this.headers = this.language === 'en' ? this.headers_en : this.headers_fr
         }
     }
 }

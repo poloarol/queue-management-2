@@ -13,9 +13,9 @@ export default{
     },
     getLang(){
         return [
-            {id : 'ENGLISH | ANGLAIS', value : 'ENGLISH'},
-            {id : 'FRENCH | FRANÇAIS', value : 'FRENCH'},
-            {id : 'BOTH | LES DEUX', value : 'BOTH'}
+            {id : 1, value : 'ENGLISH'},
+            {id : 2, value : 'FRENCH'},
+            {id : 3, value : 'BOTH'}
         ]
     },
     getDay(){
@@ -155,6 +155,160 @@ export default{
                         be of interest to you e.g. courses, workshops, events etc. or for follow-up surveys when relevant research \
                         data is being collected'},
             {submit: 'Submit'}
+        ]
+    },
+    getTopics(){
+        return [
+            {
+                id: 1,
+                topics: [
+                    {
+                        id: 11, 
+                        value: 'Unable to login',
+                        lib: []
+                    },
+                    {
+                        id: 12, 
+                        value: 'Add / Delete Files or Import Content',
+                        lib: []
+                    },
+                    {
+                        id: 13, 
+                        value: 'Grade book',
+                        lib: [
+                            {name: 'Setup the grade book'},
+                            {name: 'Add or Modify an Evaluation column'},
+                            {name: 'Import or Export Grades'},
+                            {name: 'Hide or Show columns to students'}
+                        ]
+                    },
+                    {
+                        id: 14, 
+                        value: 'Groups',
+                        lib: [
+                            {name: 'Setup groups'}
+                        ]
+                    },
+                    {
+                        id: 15, 
+                        value: 'Discussions',
+                        lib: [
+                            {name: 'Create an open discussion'},
+                            {name: 'Create a group discussion'},
+                            {name: 'Create discussions'},
+                            {name: 'Create a journal - single user discussion space'},
+                            {name: 'Hide or Show discussion to student'},
+                            {name: 'Attach a rubric to a discussion'}
+                        ]
+                    },
+                    {
+                        id: 16, 
+                        value: 'Assignments',
+                        lib: [
+                            {name: 'Create an assignment'},
+                            {name: 'Create a group assignment'},
+                            {name: 'Attach a rubric'},
+                            {name: 'Attach assignment to grade book'},
+                            {name: 'Make evaluation visible to students'}
+                        ]
+                    },
+                    {
+                        id: 17, 
+                        value: 'Quizzes',
+                        lib: [
+                            {name: 'Create a quiz'},
+                            {name: 'Automatically grade quiz'},
+                            {name: 'Automatically export grades to grade book'},
+                            {name: 'Hide or Show evaluation to students'}
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                topics: [
+                    {
+                        id: 21,
+                        value: 'Unable to login',
+                        lib: []
+                    },
+                    {
+                        id: 22,
+                        value: "Can't find my courses",
+                        lib: []
+                    }
+                ]
+            },
+            {
+                id: 5,
+                topics: [
+                    {
+                        id: 51,
+                        value: 'Unable to login',
+                        lib: []
+                    },
+                    {
+                        id: 52,
+                        value: "Account Creation",
+                        lib: []
+                    },
+                    {
+                        id: 53,
+                        value: 'Scheduling',
+                        lib: []
+                    },
+                    {
+                        id: 54,
+                        value: 'Recording',
+                        lib: []
+                    },
+                    {
+                        id: 55,
+                        value: 'Editing',
+                        lib: []
+                    },
+                    {
+                        id: 56,
+                        value: 'Giving access to students',
+                        lib: []
+                    },
+                    {
+                        id: 57,
+                        value: 'Creating content',
+                        lib: []
+                    }
+                ]
+            },
+            {
+                id: 4,
+                topics: [
+                    {
+                        id: 41,
+                        value: 'Unable to login',
+                        lib: []
+                    },
+                    {
+                        id: 42,
+                        value: "Can't find my courses",
+                        lib: []
+                    },
+                    {
+                        id: 43,
+                        value: 'Account creation',
+                        lib: []
+                    },
+                    {
+                        id: 44,
+                        value: 'Giving access to students',
+                        lib: []
+                    },
+                    {
+                        id: 45,
+                        value: 'Creating content',
+                        lib: []
+                    }
+                ]
+            }
         ]
     }
 }

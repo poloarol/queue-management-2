@@ -1,55 +1,61 @@
-INSERT INTO FACULTY(IDENT) VALUES
-  ('ARTS | ART'),
-  ('EDUCATION | ÉDUCATION'), 
-  ('ENGINEERING | GÉNIE'),
-  ('HEALTH SCIENCE | SCIENCE DE LA SANTÉ'),
-  ('LAW | DROIT'),
+INSERT INTO lab2019_Scheduler.FACULTY(IDENT) VALUES
+  ('ARTS'),
+  ('EDUCATION'), 
+  ('ENGINEERING'),
+  ('HEALTH SCIENCE'),
+  ('LAW'),
   ('SCIENCE'),
-  ('SOCIAL SCIENCES | SCIENCES SOCIALE'),
-  ('MEDECINE | MÉDÉCINE');
+  ('SOCIAL SCIENCES'),
+  ('MEDECINE');
 
 
-INSERT INTO ROLES(IDENT) VALUES
-    ('Full time Professor | Professeur Régulier'),
-    ('Part time Professor | Professeur en temps partiel'),
-    ("Teaching Assistant | Assistant d'enseignement"),
-    ('Practicuum Student | Étudiant (Practicuum)'),
+INSERT INTO lab2019_Scheduler.ROLES(IDENT) VALUES
+    ('Full time Professor'),
+    ('Part time Professor'),
+    ("Teaching Assistant"),
+    ('Practicuum Student'),
     ('Personnel'),
-    ('Other | Autre');
+    ('Other');
 
-INSERT INTO SOFTWARE(IDENT) VALUES
+INSERT INTO lab2019_Scheduler.SOFTWARE(IDENT) VALUES
     ('BrightSpace'),
     ('Maestro'),
-    ('Lecture Capture | Capture d écran'),
+    ('Lecture Capture'),
     ('Blue'),
     ('uOSyllabus'),
-    ('Other | Autre');
+    ('Other');
 
-INSERT INTO TOPICS(SOFTWARE_ID, PROB) VALUES
-    (1, 'Unable to login | Incapable de se connecter'),
-    (1, 'Import content | Importer du contenu'),
-    (1, 'Add files | Ajouter du contenu'),
-    (1, 'Grade book | Carnet de notes'),
-    (1, 'Groups | Groupes'),
+INSERT INTO lab2019_Scheduler.TOPICS(SOFTWARE_ID, PROB) VALUES
+    (1, 'Unable to login'),
+    (1, 'Import content'),
+    (1, 'Add files'),
+    (1, 'Grade book'),
+    (1, 'Groups'),
     (1, 'Discussions'),
-    (1, 'Rubrics | Rubriques'),
-    (1, 'Assignments | Devoir'),
-    (2, 'Unable to login | Incapable de se connecter');
+    (1, 'Rubrics'),
+    (1, 'Assignments'),
+    (2, 'Unable to login');
 
 
-INSERT INTO SUB_TOPICS(TOPIC_ID, SUB_TOPIC) VALUES
-    (4, 'Add/Delete Evaluation | Ajouter/Supprimer une évaluation'),
-    (4, 'Add/Modify grades | Ajouter/Modifier des notes'),
-    (4, 'Import/Export grades | Importer/Exporter des notes'),
+INSERT INTO lab2019_Scheduler.SUB_TOPICS(TOPIC_ID, SUB_TOPIC) VALUES
+    (4, 'Add/Delete Evaluation'),
+    (4, 'Add/Modify grades'),
+    (4, 'Import/Export grades'),
     (5, 'Setup groups | Crée des groupes'),
-    (6, 'Create an Open discussion | Crée une discussion ouvertes'),
-    (6, 'Create a group discussion | Crée une discussion de groupe'),
-    (6, 'Create single user discussion | Crée une discussion a un utilisateur unique'),
-    (8, 'Create an assignment | Crée un devoir'),
-    (7, 'Create a rubric | Crée une rubrique'),
-    (7, 'Modify an existing rubric | Modifier une rubrique existante');
+    (6, 'Create an Open discussion'),
+    (6, 'Create a group discussion'),
+    (6, 'Create single user discussion'),
+    (8, 'Create an assignment'),
+    (7, 'Create a rubric'),
+    (7, 'Modify an existing rubric');
 
 
-INSERT INTO STAFF(IDENT) VALUES
+INSERT INTO lab2019_Scheduler.STAFF(IDENT) VALUES
     ('DM'), ('EC'), ('GL'), ('JP'), ('MB'),
     ('MP'), ('NV'), ('RR'), ('SL'), ('SV'), ('PW');
+
+
+INSERT INTO lab2019_Scheduler.language(lang) VALUES
+    ('ENGLISH'),
+    ('FRENCH'),
+    ('BOTH')

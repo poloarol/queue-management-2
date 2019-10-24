@@ -136,10 +136,12 @@ export default {
                         2 : "blue",
                         3 : "orange",
                         4 : "olive",
-                        5 : "red",
-                        6 : "yellow",
-                        7 : "teal",
-                        8 : "purple"
+                        5 : "pink",
+                        6 : "pink",
+                        7 : "yellow",
+                        8 : "teal",
+                        9 : "purple",
+                        10 : "red"
                     }
         return color[id]
     },

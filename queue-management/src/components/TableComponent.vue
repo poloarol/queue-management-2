@@ -6,51 +6,58 @@
                     <th v-for="(head, index) in headers" :key="index">{{ head.name }}</th>
                 </tr>
             </thead>
-            <!-- <tbody>
+            <tbody>
                 <tr v-for="(job, index) in getPages" :key="index">
                    <td v-for="(j, i) in job" :key="i">
                        <div v-if="['str', 'date', 'number'].includes(j.type)">
                            <i :class="j.icon"></i>
                             {{ j.name }}
                        </div>
-                       <div v-else-if="j.type === 'dropdown'">
-                           <v-select label="ident" :options=j.name @input="setSelected"></v-select>
-                       </div>
+                           <!-- <v-select label="ident" :options=j.name @input="setSelected"></v-select> -->
+                        <multiselect v-else-if="j.type === 'dropdown'" v-model="setValue[index]" :options="j.name" track-by="ID" label="IDENT"></multiselect>
                        <div v-else-if="j.type.input === 'input'">
                            <input type='j.type.name'>
                        </div>
                        <div v-else-if="j.type === 'button'">
                            <button class="ui positive botton">j.name</button>
                        </div>
+                       <div v-else-if="j.type === 'textbox'" class="field">
+                           <div class="field">
+                               <textarea cols="30" rows="2" v-model="textValue[index]"></textarea>
+                           </div>
+                       </div>
                        <div v-else-if="j.type.input === 'input-plus-button'">
-                           <div class="container">
-                               <div class="ui toggle checkbox">
-                                   <input :type=j.type.name :id="`p_${index}`" @click="check(index)">
-                                   <label></label>
-                               </div>
-                               <div class="ui disabled button" 
+                                <div class="ui disabled button" 
                                     :id="`b_${index}`"
-                                    @click="parentEvent(j.event)"
-                                >
+                                    @click="parentEvent(j.event)">
                                    <i :class="j.name"></i>
                                    {{ j.name }}
                                </div>
-                           </div>
                        </div>
                     </td>
                 </tr>
-            </tbody> -->
+            </tbody>
         </table>
         <PaginationComponent :pages="pages" @moveable="current=$event"></PaginationComponent>
     </div>
 </template>
-
+ 
 <style>
     div.container-table{
         /* margin: 0 auto !important; */
         width: 70% !important;
         /* margin-top: 2.5em !important; */
     };
+
+    /* .multiselect{
+        position: static !important;
+    }
+
+    .multiselect__content-wrapper{
+        width: 16.5% !important;
+    } */
+
+    
 </style>
 
 
@@ -59,7 +66,7 @@ import PaginationComponent from './PaginationComponent'
 
 export default {
     name: 'TableComponent',
-    props: ['headers'],
+    props: ['headers', 'jobs', 'perPage', 'currentPage'],
     components: {
         PaginationComponent
     },
@@ -70,6 +77,8 @@ export default {
             activeNav: 0,
             visible: [],
             staff: 0,
+            setValue: [],
+            textValue: [],
             currentParams: this.currentStaffParams
         }
     },
@@ -83,7 +92,7 @@ export default {
     },
     methods:{
         setPages(){
-            // this.pages = Math.ceil(this.values.length / this.perPage)
+            this.pages = Math.ceil(this.jobs.length / this.perPage)
         },
         check(value){
             let box = document.querySelector(`#p_${value}`)
