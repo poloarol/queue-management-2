@@ -72,7 +72,7 @@ export default {
     }
 
     div.table-comp{
-        margin-top: 10em !important;
+        margin-top: 8em !important;
         margin: 0 auto;
     }
 </style>

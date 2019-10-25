@@ -14,7 +14,9 @@
                             {{ j.name }}
                        </div>
                            <!-- <v-select label="ident" :options=j.name @input="setSelected"></v-select> -->
-                        <multiselect v-else-if="j.type === 'dropdown'" v-model="setValue[index]" :options="j.name" track-by="ID" label="IDENT"></multiselect>
+                        <multiselect v-else-if="j.type === 'dropdown'" 
+                                        v-model="setValue[index]" :options="j.name" 
+                                        track-by="ID" label="IDENT" style="position: static !important;" @select="setSelected"></multiselect>
                        <div v-else-if="j.type.input === 'input'">
                            <input type='j.type.name'>
                        </div>
@@ -51,9 +53,9 @@
 
     /* .multiselect{
         position: static !important;
-    }
+    }*/
 
-    .multiselect__content-wrapper{
+    /* .multiselect__content-wrapper{
         width: 16.5% !important;
     } */
 
@@ -79,6 +81,8 @@ export default {
             staff: 0,
             setValue: [],
             textValue: [],
+            selected_staff: '',
+            input_text: '',
             currentParams: this.currentStaffParams
         }
     },
@@ -95,26 +99,35 @@ export default {
             this.pages = Math.ceil(this.jobs.length / this.perPage)
         },
         check(value){
-            let box = document.querySelector(`#p_${value}`)
-            if(box.checked){
-                let btn = document.querySelector(`#b_${value}`)
+            // let box = document.querySelector(`#p_${value}`)
+            // if(box.checked){
+            //     let btn = document.querySelector(`#b_${value}`)
+            //     btn.classList.remove('disabled')
+            //     btn.classList.add('positive')
+            // }else{
+            //     let btn = document.querySelector(`#b_${value}`)
+            //     btn.classList.add('disabled')
+            //     btn.classList.remove('positive')
+            // }
+            if(this.selected_staff){
+                let btn = document.querySelector(`#p_{value}`)
                 btn.classList.remove('disabled')
                 btn.classList.add('positive')
             }else{
-                let btn = document.querySelector(`#b_${value}`)
-                btn.classList.add('disabled')
-                btn.classList.remove('positive')
+                let btn = document.querySelector(`#p_{value}`)
+                btn.classList.remove('disabled')
+                btn.classList.add('positive')
             }
         },
         parentEvent(value){
             this.currentParams.id = value
             this.currentParams.staff = this.staff
         },
-        setSelected(value){
-            if(value === null)
-                this.staff = 0
-            else
-                this.staff = value.id
+        setSelectedStaff(value){
+            this.selected_staff = value.id
+        },
+        setInputText(value){
+
         },
         parameters(){
             this.$emit('getParams', this.currentParams)
