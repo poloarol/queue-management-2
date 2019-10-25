@@ -13,10 +13,7 @@
                            <i :class="j.icon"></i>
                             {{ j.name }}
                        </div>
-                           <!-- <v-select label="ident" :options=j.name @input="setSelected"></v-select> -->
-                        <multiselect v-else-if="j.type === 'dropdown'" 
-                                        v-model="setValue[index]" :options="j.name" 
-                                        track-by="ID" label="IDENT" style="position: static !important;" @select="setSelected"></multiselect>
+                        <multiselect v-else-if="j.type === 'dropdown'" v-model="setValue[index]" :options="j.name" track-by="ID" label="IDENT" style="position: static !important;" @select="setSelectedStaff" @open="getIndex(index)" @remove="removeOption"></multiselect>
                        <div v-else-if="j.type.input === 'input'">
                            <input type='j.type.name'>
                        </div>
@@ -25,7 +22,7 @@
                        </div>
                        <div v-else-if="j.type === 'textbox'" class="field">
                            <div class="field">
-                               <textarea cols="30" rows="2" v-model="textValue[index]"></textarea>
+                               <textarea cols="30" rows="2" v-model="textValue[index]" @keyup="setInputText"></textarea>
                            </div>
                        </div>
                        <div v-else-if="j.type.input === 'input-plus-button'">
@@ -83,6 +80,7 @@ export default {
             textValue: [],
             selected_staff: '',
             input_text: '',
+            index: 0,
             currentParams: this.currentStaffParams
         }
     },
@@ -93,30 +91,21 @@ export default {
     },
     updated(){
         this.setPages()
+
+        this.check(this.selected_staff, this.index)
     },
     methods:{
         setPages(){
             this.pages = Math.ceil(this.jobs.length / this.perPage)
         },
-        check(value){
-            // let box = document.querySelector(`#p_${value}`)
-            // if(box.checked){
-            //     let btn = document.querySelector(`#b_${value}`)
-            //     btn.classList.remove('disabled')
-            //     btn.classList.add('positive')
-            // }else{
-            //     let btn = document.querySelector(`#b_${value}`)
-            //     btn.classList.add('disabled')
-            //     btn.classList.remove('positive')
-            // }
-            if(this.selected_staff){
-                let btn = document.querySelector(`#p_{value}`)
+        check(staff, value){
+            let btn = document.querySelector(`#b_${value}`)
+            if(Number.isInteger(staff) && Number.isInteger(value) && this.textValue[this.index]){
                 btn.classList.remove('disabled')
                 btn.classList.add('positive')
             }else{
-                let btn = document.querySelector(`#p_{value}`)
-                btn.classList.remove('disabled')
-                btn.classList.add('positive')
+                btn.classList.add('disabled')
+                btn.classList.remove('positive')
             }
         },
         parentEvent(value){
@@ -124,13 +113,20 @@ export default {
             this.currentParams.staff = this.staff
         },
         setSelectedStaff(value){
-            this.selected_staff = value.id
+            this.selected_staff = value.ID
         },
         setInputText(value){
-
+            this.textValue[this.index]
         },
         parameters(){
             this.$emit('getParams', this.currentParams)
+        },
+        getIndex(index){
+            // Allows to get button index
+            this.index = index
+        },
+        removeOption(value){
+            this.selected_staff = null
         }
     },
     computed: {
@@ -140,8 +136,11 @@ export default {
         getPages(){
             this.visible = this.jobs.slice(this.current * this.perPage, (this.current * this.perPage) + this.perPage)
             return this.visible
+        },
+        setIndex(){
+            return this.index
         }
-    }
+    },
 }
 </script>
 
