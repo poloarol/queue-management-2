@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <TableComponent :headers="headers" :jobs="jobs" :perPage="perPage" :currentPage="cur" class="table-comp"></TableComponent>
+        <TableComponent :headers="headers" :jobs="jobs" :perPage="perPage" :currentPage="cur" class="table-comp" @getParams="staff=$event"></TableComponent>
     </div>
 </template>
 
@@ -8,11 +8,9 @@
 <script>
 import TableComponent from './TableComponent'
 import FilterJobs from '../../services/api/FilterJobs'
-// import JobServices from '../../services/api/JobServices'
 
 export default {
     name : 'UpdateComponent',
-    props : ['staffParams'],
     components : {
         TableComponent
     },
@@ -23,13 +21,12 @@ export default {
             headers_en: [{id: 1, 'name': 'Name'}, {'id': 2, 'name': 'Personnel'}, {'id': 3, 'name': 'Subject Discussed'}, {'id': 3, 'name': 'In Queue'}],
             headers_fr: [{id: 1, 'name': 'Nom'}, {'id': 2, 'name': 'Personnel'}, {'id': 3, 'name': 'Subjet abordés'}, {'id': 3, 'name': "File d'attente"}],
             perPage: 8,
-            currentStaffParams: this.staffParams,
-            cur: 0
+            cur: 0,
+            staff: {}
         }
     },
     async created(){
         try{
-            this.currentStaffParams = {'id': '', 'staff': ''}
             this.jobs = await FilterJobs.getAdminComp()
         }catch(err){
             this.error = err.message
@@ -38,9 +35,7 @@ export default {
     },
     async updated(){
         try{
-            // this.JobServices.updateJob(this.params.id, this.params.staff)
             this.jobs = await FilterJobs.getAdminComp()
-            // console.log(this.currentStaffParams)
         }catch(err){
             this.error = err.message
         }
@@ -48,7 +43,7 @@ export default {
     },
     computed: {
         getParams(){
-            return this.currentStaffParams
+            return this.staff
         }
     },
     methods: {

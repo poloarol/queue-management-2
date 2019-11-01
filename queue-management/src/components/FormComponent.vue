@@ -1,29 +1,33 @@
 <template>
     <div class="container form">
         <div class="container info-form">
-            <div class="ui big info icon attached message info-message">
+            <div class="ui blue info icon large attached message info-message">
                 <i class="info circle icon"></i>
                 <div class="content">
                     <div class="header">
                         <b>Welcome to the Techno-Pedagogy Lab</b> 
                     </div>
-                    <p>Complete this form to obtain personalized support</p>
+                    <p class="perso-message">Complete this form to obtain personalized support</p>
                 </div>
             </div>
-            <form action="" class="ui big form attached fluid segment" @submit.prevent="onSubmit">
+            <form action="" class="ui large form attached fluid segment" @submit.prevent="onSubmit">
                 <h4 class="ui dividing header">Your Information</h4>
-                <div class="three fields">
-                    <div class="field">
+                <div class="four fields">
+                    <div class="two wide field">
+                        <label>Computer Station</label>
+                        <multiselect v-model="selected_station" :options="station_info"  label="value" track-by="id"></multiselect>
+                    </div>
+                    <div class="five wide field">
                         <label>First name</label>
                         <input type="text" v-model="f_name" v-validate="'required'" name="first_name">
                         <span v-show="errors.has('first_name')" class="ui pointing red basic label">Please provide your first name</span>
                     </div>
-                    <div class="field">
+                    <div class="four wide field">
                         <label>Last name</label>
                         <input type="text" v-model="l_name" v-validate="'required'" name='last_name'>
                         <span v-show="errors.has('last_name')" class="ui pointing red basic label">Please provide your last name</span>
                     </div>
-                    <div class="field">
+                    <div class="five wide field">
                         <label>E-mail address</label>
                         <input type="email" v-model="email" v-validate="'required|email'" name='my_email'>
                         <span v-show="errors.has('my_email')" class="ui pointing red basic label">Please provide your email address</span>
@@ -44,11 +48,7 @@
                     </div>
                 </div>
                 <h4 class="ui dividing header">What system do you have questions about?</h4>
-                <div class="three fields">
-                    <div class="field">
-                        <label>Station</label>
-                        <multiselect v-model="selected_station" :options="station_info"  label="value" track-by="id"></multiselect>
-                    </div>
+                <div class="two fields">
                 <div class="field">
                     <label>Software</label>
                      <multiselect v-model="selected_software" :options="software_info"  label="value" track-by="id" :multiple="true"></multiselect>
@@ -67,31 +67,48 @@
                     </multiselect> -->
                 </div>
                 </div>
-                <h4 class="ui dividing header">Permission to Contact</h4>
-                <div class="ui message">
-                    <div class="header">Personalized service</div>
-                    <p>Please check this box if we can use this information to contact you regarding services that might be
-                        of interest to you (e.g. courses, workshops, events), or for follow-up surveys when relevant research
-                        data is being collected.
-                    </p>
-                    <div class="inline field">
-                        <input type="checkbox" tabindex="0"><label>I would like that</label>
+                <div class="ui styled fluid accordion">
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        Terms and Conditions
                     </div>
-                </div>
-                 <h4 class="ui dividing header">Terms and Conditions</h4>
-                <div class="ui info floating icon message">
-                    <i class="info circle icon"></i>
-                    <div class="content">
-                        <div class="header">
-                             <b>Use and Disclosure of Personal Information:</b>
-                        </div>
-                        <p>The information you provide in this form is gathered for
-                            statistical purposes and to help us continuously improve and tailor the services offered. Any personal
-                            information that could identify you will be removed from any disseminated reports.
+                    <div class="content active">
+                        <p class="transition visible">
+                            <div class="ui message">
+                                <div class="content">
+                                    <div class="header">
+                                        <b>Use and Disclosure of Personal Information:</b>
+                                    </div>
+                                    <p>The information you provide in this form is gathered for
+                                        statistical purposes and to help us continuously improve and tailor the services offered. Any personal
+                                        information that could identify you will be removed from any disseminated reports.
+                                    </p>
+                                    <!-- <div class="inline field">
+                                        <input type="checkbox" tabindex="0"><label>I agree to the <b>Terms and Conditions</b>.</label>
+                                    </div> -->
+                                </div>
+                            </div>
                         </p>
-                        <div class="inline field">
-                            <input type="checkbox" tabindex="0"><label>I agree to the <b>Terms and Conditions</b>.</label>
-                        </div>
+                    </div>
+                    <div class="title active">
+                        <i class="dropdown icon"></i>
+                        Permission to Contact
+                    </div>
+                    <div class="content">
+                        <p class="transition">
+                            <div class="ui message">
+                                <div class="content">
+                                    <div class="header">Personalized service</div>
+                                    <p>Please check this box if we can use this information to contact you regarding services that might be
+                                    of interest to you (e.g. courses, workshops, events), or for follow-up surveys when relevant research
+                                    data is being collected.
+                                    </p>
+                                </div>
+                                <div class="inline field">
+                                    <input type="checkbox" tabindex="0"><label>I would like that</label>
+                                </div>
+                            </div>
+                        </p>
                     </div>
                 </div>
                 <button class="ui blue submit button">Submit</button>
@@ -223,7 +240,11 @@ export default {
         width: 80% !important;
         margin: 0 auto;
         text-align: left;
-        margin-top: 10em;
+        margin-top: 7em;
+    }
+
+    p.perso-message{
+        color: #4C4C4C;
     }
 
 </style>

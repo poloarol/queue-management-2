@@ -1,6 +1,6 @@
 <template>
     <div class="container container-table">
-        <table class="ui purple fixed large table">
+        <table class="ui red fixed large table">
             <thead>
                 <tr>
                     <th v-for="(head, index) in headers" :key="index">{{ head.name }}</th>
@@ -22,7 +22,7 @@
                        </div>
                        <div v-else-if="j.type === 'textbox'" class="field">
                            <div class="field">
-                               <textarea cols="30" rows="2" v-model="textValue[index]" @keyup="setInputText"></textarea>
+                               <textarea cols="30" rows="2" v-model="textValue[index]" @keydown="setInputText"></textarea>
                            </div>
                        </div>
                        <div v-else-if="j.type.input === 'input-plus-button'">
@@ -63,6 +63,8 @@
 <script>
 import PaginationComponent from './PaginationComponent'
 
+import FilterJobs from '../../services/api/FilterJobs'
+
 export default {
     name: 'TableComponent',
     props: ['headers', 'jobs', 'perPage', 'currentPage'],
@@ -81,17 +83,16 @@ export default {
             selected_staff: '',
             input_text: '',
             index: 0,
-            currentParams: this.currentStaffParams
+            staff: {'id': '', 'staff': '', 'description': ''},
+            currentStaffParams: {'id': '','staff': '', 'description': ''}
         }
     },
     created(){
         this.current = 0
         this.setPages()
-        this.currentParams = {'id': '', 'staff': ''}
     },
     updated(){
         this.setPages()
-
         this.check(this.selected_staff, this.index)
     },
     methods:{
@@ -109,17 +110,20 @@ export default {
             }
         },
         parentEvent(value){
-            this.currentParams.id = value
-            this.currentParams.staff = this.staff
+            this.currentStaffParams.id = value
+            this.currentStaffParams.staff = this.selected_staff
+            this.currentStaffParams.description = this.input_text
+            this.parameters()
         },
         setSelectedStaff(value){
             this.selected_staff = value.ID
         },
-        setInputText(value){
-            this.textValue[this.index] = value
+        setInputText(){
+            this.input_text = this.textValue[this.index]
         },
         parameters(){
-            this.$emit('getParams', this.currentParams)
+            FilterJobs.getUpdateComp(this.currentStaffParams)
+            this.$emit('getParams', this.currentStaffParams)
         },
         getIndex(index){
             // Allows to get button index

@@ -11,7 +11,7 @@ router.get('/', async(req, res) => {
 
     try{
         const connection = await Pool.getConnection()
-        const query = 'select job.id as id, job.fname as name, job.software as software, job.station_id as post, job.faculty_id as f_id from job'
+        const query = 'select job.id as id, job.fname as name, job.software as software, job.station_id as post, job.faculty_id as f_id from job where job.assisted = false'
 
         let result = await connection.query(query)
         res.send(result)
@@ -116,11 +116,8 @@ router.put('/update/:id/:staff_id', async(req, res) => {
 
     try{
         const connection = await Pool.getConnection()
-        
-        let result = connection.upsert('staff',
-                        {id: req.params.id, staff: req.params.staff_id}
-                        )
-        console.log(result)
+        // let result = connection.updateById('job', {id: req.params.id, assisted_by: req.params.staff_id})
+        connection.updateById('job', req.params.id, {assisted_by: req.params.staff_id, assisted: true})
         connection.done()
 
     }catch(err){
@@ -202,7 +199,7 @@ function getPool() {
                 host : '137.122.48.140',
                 database: 'lab2019_Scheduler',
                 user : 'polo',
-                password : 'Polo2k19',
+                password : 'Polo@2k19',
                 insecureAuth : true
             })
         return Pool

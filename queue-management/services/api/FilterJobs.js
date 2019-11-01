@@ -37,7 +37,9 @@ export default{
         }
         return data
     },
-    getUpdateComp(){
-
+    async getUpdateComp(staff){
+        await JobServices.updateJob(staff.id, staff.staff)
+        await this.getJobComp()
+        await this.getAdminComp()
     }
 }

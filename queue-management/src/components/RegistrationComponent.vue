@@ -2,7 +2,7 @@
     <div class="container">
         <MenuComponent></MenuComponent>
         <FormComponent></FormComponent>
-        <FooterComponent></FooterComponent>
+        <!-- <FooterComponent></FooterComponent> -->
     </div>
 </template>
 <script>
