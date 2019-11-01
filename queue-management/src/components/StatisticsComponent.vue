@@ -7,7 +7,7 @@
             class="software">
         </SoftwareUpdateStats>
         <SideNavBar :values='software' :side='activeSoftware' @updateSide='activeSoftware=$event' class="side-bar"></SideNavBar>
-        <!-- <ChartComponent :chartData='datacollection' class='stats-chart'></ChartComponent> -->
+        <ChartComponent :chartData='datacollection' class='stats-chart'></ChartComponent>
     </div>
 </template>
 
@@ -50,8 +50,6 @@ import SideNavBar from './SideNavBar.vue'
 import SoftwareUpdateStats from './SoftwareUpdateStats.vue'
 import ChartComponent from './ChartComponent.vue'
 
-let date = new Date()
-
 export default {
     name: 'StatisticsComponent',
     props: [],
@@ -59,7 +57,7 @@ export default {
         // TabNavBar,
         SideNavBar,
         SoftwareUpdateStats,
-        // ChartComponent
+        ChartComponent
     },
     data(){
         return {

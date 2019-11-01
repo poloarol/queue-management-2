@@ -7,8 +7,8 @@
 
 <script>
 import TableComponent from './TableComponent'
-import FilterJobs from '../../services/api/FilterJobs';
-import JobServices from '../../services/api/JobServices'
+import FilterJobs from '../../services/api/FilterJobs'
+// import JobServices from '../../services/api/JobServices'
 
 export default {
     name : 'UpdateComponent',

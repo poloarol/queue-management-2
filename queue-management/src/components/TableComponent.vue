@@ -116,7 +116,7 @@ export default {
             this.selected_staff = value.ID
         },
         setInputText(value){
-            this.textValue[this.index]
+            this.textValue[this.index] = value
         },
         parameters(){
             this.$emit('getParams', this.currentParams)
@@ -125,7 +125,7 @@ export default {
             // Allows to get button index
             this.index = index
         },
-        removeOption(value){
+        removeOption(){
             this.selected_staff = null
         }
     },

@@ -43,8 +43,8 @@ img.logo{
  */
 
 
-import EN from '../../services/en/text.js'
-import FR from '../../services/fr/text.js'
+// import EN from '../../services/en/text.js'
+// import FR from '../../services/fr/text.js'
 
 export default {
     name: 'MenuComponent',

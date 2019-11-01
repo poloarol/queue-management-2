@@ -69,8 +69,8 @@ div.software-dropdown{
  * 
  */
 
-import EN from '../../services/en/text'
-import FR from '../../services/fr/text'
+// import EN from '../../services/en/text'
+// import FR from '../../services/fr/text'
 
 export default {
     name: 'SoftwareUpdateStats',

@@ -179,13 +179,13 @@ export default {
         fiter_topics(software_id){
             return this.en_topics.filter(selected => selected.id == software_id)
         },
-        onSubmit(e){
+        onSubmit(){
             let software_str = ''
             let issues_str = ''
 
             if(this.f_name === '' || this.l_name === '' || this.email === '' || this.selected_faculty === 'undefined' || this.selected_role === 'undefined' || this.selected_lang === 'undefined' || this.selected_software === 'undefined' || this.selected_station === 'undefined'){
-                // console.log(1)
                 let a = 1
+                // Add error messages to be shown
             }else{
                 // let date = new Date()
                 software_str = this.extract_name(this.selected_software)
