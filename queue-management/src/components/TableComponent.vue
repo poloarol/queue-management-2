@@ -1,6 +1,6 @@
 <template>
     <div class="container container-table">
-        <table class="ui red fixed large table">
+        <table class="ui red fixed table">
             <thead>
                 <tr>
                     <th v-for="(head, index) in headers" :key="index">{{ head.name }}</th>
@@ -9,7 +9,7 @@
             <tbody>
                 <tr v-for="(job, index) in getPages" :key="index">
                    <td v-for="(j, i) in job" :key="i">
-                       <div v-if="['str', 'date', 'number'].includes(j.type)">
+                       <div v-if="['str', 'date', 'number'].includes(j.type)" class="ui tiny header">
                            <i :class="j.icon"></i>
                             {{ j.name }}
                        </div>
@@ -18,7 +18,7 @@
                            <input type='j.type.name'>
                        </div>
                        <div v-else-if="j.type === 'button'">
-                           <button class="ui positive botton">j.name</button>
+                           <button class="ui positive botton small header" >j.name</button>
                        </div>
                        <div v-else-if="j.type === 'textbox'" class="field">
                            <div class="field">
@@ -26,7 +26,7 @@
                            </div>
                        </div>
                        <div v-else-if="j.type.input === 'input-plus-button'">
-                                <div class="ui disabled button" 
+                                <div class="ui disabled button small header" 
                                     :id="`b_${index}`"
                                     @click="parentEvent(j.event)">
                                    <i :class="j.name"></i>
@@ -44,7 +44,7 @@
 <style>
     div.container-table{
         /* margin: 0 auto !important; */
-        width: 70% !important;
+        width: 85% !important;
         /* margin-top: 2.5em !important; */
     };
 
@@ -84,7 +84,7 @@ export default {
             input_text: '',
             index: 0,
             staff: {'id': '', 'staff': '', 'description': ''},
-            currentStaffParams: {'id': '','staff': '', 'description': ''}
+            currentStaffParams: {}
         }
     },
     created(){
@@ -93,7 +93,8 @@ export default {
     },
     updated(){
         this.setPages()
-        this.check(this.selected_staff, this.index)
+        if(this.selected_staff !== '' || this.index !== 0)
+            this.check(this.selected_staff, this.index)
     },
     methods:{
         setPages(){
@@ -124,13 +125,17 @@ export default {
         parameters(){
             FilterJobs.getUpdateComp(this.currentStaffParams)
             this.$emit('getParams', this.currentStaffParams)
+            this.textValue[this.index] = ''
+            this.input_text = ''
         },
         getIndex(index){
             // Allows to get button index
             this.index = index
         },
-        removeOption(){
-            this.selected_staff = null
+        removeOption(value){
+            let val = value.ID
+            if(this.selected_staff === val)
+                this.selected_staff = null
         }
     },
     computed: {

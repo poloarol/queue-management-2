@@ -8,7 +8,7 @@
  *
  */
 
-;(function ($, window, document, undefined) {
+(function ($, window, document, undefined) {
 
 'use strict';
 
@@ -738,7 +738,7 @@ $.fn.dimmer.settings = {
           l = $('<div/>')
               .addClass(settings.className.loader)
               .addClass(settings.loaderVariation);
-          if(!!settings.loaderText){
+          if(settings.loaderText){
             l.text(settings.loaderText);
             l.addClass('text');
           }

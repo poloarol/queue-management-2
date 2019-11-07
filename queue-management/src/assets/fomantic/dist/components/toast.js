@@ -8,7 +8,7 @@
  *
  */
 
-;(function ($, window, document, undefined) {
+(function ($, window, document, undefined) {
 
 'use strict';
 
@@ -83,7 +83,7 @@ $.fn.toast = function(parameters) {
           module.bind.events();
           
           if(settings.displayTime > 0) {
-            module.closeTimer = setTimeout(module.close, settings.displayTime+(!!settings.showProgress ? 300 : 0));
+            module.closeTimer = setTimeout(module.close, settings.displayTime+(settings.showProgress ? 300 : 0));
           }
           module.show();
         },
