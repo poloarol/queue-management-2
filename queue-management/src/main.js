@@ -14,9 +14,15 @@ import AdminUpdateComponent from '@/components/AdminUpdateComponent.vue'
 import MiniAdminUpdateComponent from '@/components/MiniAdminUpdateComponent.vue'
 import AdminMenuComponent from '@/components/AdminMenuComponent.vue'
 import MenuChartComponent from '@/components/MenuChartComponent.vue'
+import ConfirmationComponent from '@/components/ConfirmationComponent'
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:3030/api/post'
+
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development'){
+  axios.defaults.baseURL = 'http://localhost:3030/api/post'
+}else{
+  axios.defaults.baseURL = 'http://report.mmdist.uottawa.ca/lab/api/post'
+}
 
 Vue.use(VueRouter)
 Vue.use(VeeValidate)
@@ -71,6 +77,10 @@ const router = new VueRouter({
     {
       path: '/menu',
       component: MenuChartComponent
+    },
+    {
+      path: '/confirmation',
+      component: ConfirmationComponent
     }
   ],
   mode: 'history'

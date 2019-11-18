@@ -10,13 +10,12 @@
                     <p class="perso-message">Complete this form to obtain personalized support</p>
                 </div>
             </div>
-            <form action="" class="ui form attached fluid segment">
+            <form action="post" class="ui form attached fluid segment" v-on:submit.prevent="onSubmit">
                 <h4 class="ui dividing header">Your Information</h4>
                 <div class="four fields">
                     <div class="two wide field">
                         <label>Computer Station</label>
                         <multiselect v-model="selected_station" :options="station_info"  label="value" track-by="id" @select="selectStation" @remove="deselectStation"></multiselect>
-                        
                     </div>
                     <div class="five wide field">
                         <label>First name</label>
@@ -180,7 +179,8 @@ export default {
             lang_topics: [],
             fr_topics: [],
             isLoading: false,
-            checkbox: false
+            checkbox: false,
+            complete_fill: false
         }
     },
 
@@ -218,18 +218,21 @@ export default {
             let issues_str = ''
 
             software_str = this.extract_name(this.selected_software)
-            let job = {
+            if (this.complete_fill){
+                let job = {
                     fname: this.f_name,
                     lname: this.l_name,
-                    faculty: this.selected_faculty,
-                    roles: this.selected_role,
-                    lang: this.selected_lang,
-                    station: this.selected_station,
+                    faculty: this.selected_faculty.id,
+                    roles: this.selected_role.id,
+                    lang: this.selected_lang.id,
+                    station: this.selected_station.id,
                     software: software_str,
                     topics: issues_str,
                     contact: this.checkbox
                 }
-            JobServices.createJob(job)
+                JobServices.createJob(job)
+                location.href = '/confirmation'
+            }
         },
         extract_name(object){
             let the_str = ''
@@ -243,26 +246,28 @@ export default {
         },
         verify(){
             let btn = document.querySelector('.ui.blue.submit.button')
-            if(this.f_name === '' || this.l_name === '' || this.email === '' || this.selected_faculty === 'undefined' || this.selected_role === 'undefined' || this.selected_lang === 'undefined' || this.selected_software[0] === 'undefined' || this.selected_station[0] === 'undefined' || this.checkbox === false){
+            if(this.f_name === '' || this.l_name === '' || this.email === '' || this.selected_faculty === 'undefined' || this.selected_role === 'undefined' || this.selected_lang === 'undefined' || this.selected_software === 'undefined' || this.selected_station === 'undefined' || this.checkbox === false){
                 btn.classList.add('disabled')
+                this.complete_fill = false
             }else{
                btn.classList.remove('disabled')
+               this.complete_fill = true
             }
         },
         selectFaculty(option){
-            this.selected_faculty = option.id
+            this.selected_faculty = option
         },
         selectRole(option){
-            this.selected_role = option.id
+            this.selected_role = option
         },
         selectSoftware(option){
-            this.selected_software = option.id
+            this.selected_software = option
         },
         selectLangauge(option){
-            this.selected_lang = option.id
+            this.selected_lang = option
         },
         selectStation(option){
-            this.selected_station = option.id
+            this.selected_station = option
         },
         deselectStation(){
             this.selected_station = undefined

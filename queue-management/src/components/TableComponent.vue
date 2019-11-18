@@ -3,13 +3,13 @@
         <table class="ui red fixed table">
             <thead>
                 <tr>
-                    <th v-for="(head, index) in headers" :key="index">{{ head.name }}</th>
+                    <th v-for="(head, index) in headers" :key="index" class="center aligned">{{ head.name }}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(job, index) in getPages" :key="index">
+                <tr v-for="(job, index) in getPages" :key="index" class="center aligned">
                    <td v-for="(j, i) in job" :key="i">
-                       <div v-if="['str', 'date', 'number'].includes(j.type)" class="ui tiny header">
+                       <div v-if="['str', 'date', 'number'].includes(j.type)">
                            <i :class="j.icon"></i>
                             {{ j.name }}
                        </div>
@@ -18,7 +18,7 @@
                            <input type='j.type.name'>
                        </div>
                        <div v-else-if="j.type === 'button'">
-                           <button class="ui positive botton small header" >j.name</button>
+                           <button class="ui positive botton" >j.name</button>
                        </div>
                        <div v-else-if="j.type === 'textbox'" class="field">
                            <div class="field">
@@ -26,7 +26,7 @@
                            </div>
                        </div>
                        <div v-else-if="j.type.input === 'input-plus-button'">
-                                <div class="ui disabled button small header" 
+                                <div class="ui disabled button" 
                                     :id="`b_${index}`"
                                     @click="parentEvent(j.event)">
                                    <i :class="j.name"></i>
@@ -43,9 +43,9 @@
  
 <style>
     div.container-table{
-        /* margin: 0 auto !important; */
+        margin: 0 auto !important;
         width: 85% !important;
-        /* margin-top: 2.5em !important; */
+        margin-top: 2.5em !important;
     };
 
     /* .multiselect{

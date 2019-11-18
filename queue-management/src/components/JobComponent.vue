@@ -1,30 +1,30 @@
 <template>
   <div class="container">
-    <div class="container container-welcome">
-      <div class="ui attached info message">
-        <h1 class="ui header">Bienvenue au Laboratoire Techono-Pedagogique | Welcome to the TechnoPedagogic Laboratory</h1>
+    <div class="container-welcome">
+      <div class="ui attached blue message">
+        <h1 class="ui header">Bienvenue au Lab technopédagogique | Welcome to the Techno-Pedagogy Lab</h1>
       </div>
       <div class="ui bottom attached warning message">
-        <h1 class="ui large header">Prenez une place et enregistrer pour obtenir de l'aide</h1>
+        <h1 class="ui large header">SVP prenez une place et enregistrer vous pour obtenir de l'aide</h1>
         <br>
-        <h1 class="ui large header">Take a seat and register to get help</h1>
+        <h1 class="ui large header">Please take a sit and register, to obtain help</h1>
       </div>
     </div>
-    <TableComponent :headers="headers" :jobs="jobs" :perPage="perPage" :currentPage="cur" class="table-comp-2"></TableComponent>
+    <TableComponent :headers="headers" :jobs="jobs" :perPage="perPage" :currentPage="cur"></TableComponent>
   </div>
 </template>
 
 <style>
 
-div.table-comp-2{
-  margin: 0 auto;
-  margin-top: 4.5em;
-}
+/* div.table-comp-2{
+  margin: 0 auto !important;
+  margin-top: 2em !important;
+} */
 
-div.container-welcome{
+.container-welcome{
   width: 80%;
   margin: 0 auto;
-  margin-top: 8.5em;
+  margin-top: 7em;
 }
 
 </style>
