@@ -10,6 +10,7 @@ import StaticData from './StaticData'
 export default{
     async getJobComp(){
         let collection = await JobServices.getJobs()
+        console.log(collection)
         let data = []
         let datum, color
         for(let i in collection){
