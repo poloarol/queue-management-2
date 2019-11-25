@@ -16,7 +16,7 @@
     "VueJS",
     "NodeJS",
     "Express",
-    "PostgresSQL"
+    "mySQL"
   ],
   "author": "Polo Arol",
   "license": "MIT",
@@ -25,16 +25,13 @@
   },
   "homepage": "https://github.com/poloarol/queue-management-2#readme",
   "dependencies": {
-    "@hapi/joi": "^15.1.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "eslint": "^6.0.1",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "mysql": "^2.17.1",
-    "mysql-easier": "^2.1.0",
-    "pg": "^7.11.0",
-    "vfc": "^2.0.0"
+    "mysql-easier": "^2.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
