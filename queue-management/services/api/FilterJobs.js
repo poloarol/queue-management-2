@@ -19,8 +19,9 @@ export default{
             datum.name = {'icon': `user ${color} icon`, 'name' : collection[i].name, 'type': 'str'}
             datum.software = {'icon': `app store ios ${color} icon`, 'name' : collection[i].software, 'type' : 'str'}
             data.push(datum)
-            console.log(i)
+
         }
+        console.log(collection.length)
         return data
     },
     async getAdminComp(){
