@@ -13,7 +13,8 @@ router.get('/', async(req, res) => {
         const connection = await Pool.getConnection()
         const query = 'select job.id as id, job.fname as name, job.software as software, job.station_id as post, job.faculty_id as f_id from lab2019_scheduler.job where job.assisted = false'
         let result = await connection.query(query)
-        // console.log(result)
+        let results = await connection.query('select count(*) from job')
+        console.log(results)
         res.send(result)
         connection.done()
     }catch(err){
@@ -193,7 +194,6 @@ router.get('/admin/:soft/:lang/:faculty/:role', async(req, res) => {
 
 
 function getPool() {
-
     try{
         const Pool = mysqlEasier.createPool({
                 host : '137.122.48.140',
@@ -202,15 +202,10 @@ function getPool() {
                 password : 'Polo@2k19',
                 insecureAuth : true
             })
-        let connection = Pool.getConnection()
-        // let results = connection.query('Select count(*) from job.id')
-        console.log(results)
         return Pool
     }catch(err){
         console.error('Connectionn failed ...', err)
     }
-
-
 }
 
 async function runQuery(client, query, done){
