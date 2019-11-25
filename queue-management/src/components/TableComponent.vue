@@ -8,7 +8,7 @@
             </thead>
             <tbody>
                 <tr v-for="(job, index) in getPages" :key="index" class="center aligned">
-                    {{index}}
+                    {{job}}
                    <td v-for="(j, i) in job" :key="i">
                        <div v-if="['str', 'date', 'number'].includes(j.type)">
                            <i :class="j.icon"></i>
