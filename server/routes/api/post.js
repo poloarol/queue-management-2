@@ -13,6 +13,7 @@ router.get('/', async(req, res) => {
         const connection = await Pool.getConnection()
         const query = 'select job.id as id, job.fname as name, job.software as software, job.station_id as post, job.faculty_id as f_id from lab2019_scheduler.job where job.assisted = false'
         let result = await connection.query(query)
+        console.log(result)
         res.send(result)
         connection.done()
     }catch(err){
