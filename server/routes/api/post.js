@@ -202,6 +202,9 @@ function getPool() {
                 password : 'Polo@2k19',
                 insecureAuth : true
             })
+        const connectionn = Pool.getConnection()
+        let results = connectionn.query('Select count(*) from job.id')
+        console.log(results)
         return Pool
     }catch(err){
         console.error('Connectionn failed ...', err)

@@ -10,7 +10,6 @@ import StaticData from './StaticData'
 export default{
     async getJobComp(){
         let collection = await JobServices.getJobs()
-        console.log(collection)
         let data = []
         let datum, color
         for(let i in collection){
@@ -20,6 +19,7 @@ export default{
             datum.name = {'icon': `user ${color} icon`, 'name' : collection[i].name, 'type': 'str'}
             datum.software = {'icon': `app store ios ${color} icon`, 'name' : collection[i].software, 'type' : 'str'}
             data.push(datum)
+            console.log(i)
         }
         return data
     },
