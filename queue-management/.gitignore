@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-/dist
 /queue-management/semantic
 
 # local env files
