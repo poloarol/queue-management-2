@@ -31,7 +31,7 @@
 
 
 <script>
-import FilterJobs from '../../services/api/FilterJobs'
+// import FilterJobs from '../../services/api/FilterJobs'
 import TableComponent from './TableComponent'
 
 /**
