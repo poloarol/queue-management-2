@@ -22,7 +22,6 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development'){
   axios.defaults.baseURL = 'http://localhost:3030/api/post'
 }else{
   axios.defaults.baseURL = 'http://report.mmdist.uottawa.ca/lab/api/post'
-  // axios.defaults.baseURL = 'https://labstat.herokuapp.com/api/post'
 }
 
 Vue.use(VueRouter)
