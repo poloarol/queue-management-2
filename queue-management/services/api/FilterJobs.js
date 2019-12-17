@@ -10,10 +10,10 @@ import StaticData from './StaticData'
 export default{
     async getJobComp(){
         let collection = await JobServices.getJobs()
-        console.log(collection.length)
         let data = []
         let datum, color
         for(let i in collection){
+            console.log(collection[i])
             color = StaticData.getFacultyColor(collection[i].f_id)
             datum = {'station': {}, 'name':{}, 'software': {}}
             datum.station = {'icon': `desktop ${color} icon`, 'name': collection[i].post, 'type': 'str'}
@@ -22,7 +22,6 @@ export default{
             data.push(datum)
 
         }
-        console.log(data.length)
         return data
     },
     async getAdminComp(){
