@@ -4,6 +4,7 @@
       <div class="ui attached blue message">
         <h1 class="ui header">Bienvenue au Lab technopédagogique | Welcome to the Techno-Pedagogy Lab</h1>
       </div>
+      {{ jobs }}
       <div class="ui bottom attached warning message">
         <h1 class="ui large header">SVP prenez une place et enregistrer vous pour obtenir de l'aide</h1>
         <br>

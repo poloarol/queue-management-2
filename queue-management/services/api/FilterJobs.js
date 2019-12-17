@@ -21,7 +21,6 @@ export default{
             data.push(datum)
 
         }
-        console.log(collection.length)
         return data
     },
     async getAdminComp(){
