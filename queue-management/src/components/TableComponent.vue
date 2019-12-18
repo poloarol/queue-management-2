@@ -6,7 +6,7 @@
                     <th v-for="(head, index) in headers" :key="index" class="center aligned">{{ head.name }}</th>
                 </tr>
             </thead>
-            <tbody>
+            <!-- <tbody>
                 <tr v-for="(job, index) in getPages" :key="index" class="center aligned">
                    <td v-for="(j, i) in job" :key="i">
                        <div v-if="['str', 'date', 'number'].includes(j.type)">
@@ -35,7 +35,8 @@
                        </div>
                     </td>
                 </tr>
-            </tbody>
+            </tbody> -->
+            {{ getPages }}
         </table>
         <PaginationComponent :pages="pages" @moveable="current=$event"></PaginationComponent>
     </div>
