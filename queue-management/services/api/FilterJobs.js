@@ -5,11 +5,10 @@
 
 
 import JobServices from './JobServices'
-import StaticData from './StaticData'
 
 export default{
     async getJobComp(){
-        let collection = await JobServices.getJobs()
+        // let collection = await JobServices.getJobs()
         // let data = []
         // let datum, color
         // for(let i in collection){
@@ -22,7 +21,7 @@ export default{
 
         // }
         // return data
-        console.log(collection)
+        // console.log(collection)
         return []
     },
     async getAdminComp(){

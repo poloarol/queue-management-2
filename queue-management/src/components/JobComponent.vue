@@ -50,8 +50,6 @@ export default {
     return {
       jobs: [],
       headers: [{'id': 1, 'name': 'Poste de travail | Work Station'}, {'id': 2,'name': 'Nom | Name'}, {'id': 3, 'name': 'Logiciel | Software'}],
-      // headers_fr: [{'id': 1, 'name': 'Poste de travail'}, {'id': 2,'name': 'Nom'}, {'id': 3, 'name': 'Logiciel'}],
-      // headers_en: [{'id': 1, 'name': 'Work station'}, {'id': 2,'name': 'Name'}, {'id': 3, 'name': 'Software'}],
       perPage: 10,
       cur: 0
     }
