@@ -5,7 +5,7 @@ export default {
     getJobs() {
         return axios.get('/')
                     .then(response => {
-                        console.log(response.data)
+                        console.log(response)
                         return response.data
                     })
     },
