@@ -58,21 +58,12 @@ export default {
   },
   async created(){
     try{
-      // this.getText()
-      // this.jobs = await FilterJobs.getJobComp()
+      this.jobs = await FilterJobs.getJobComp()
     }catch(err){
       this.error = err.message
     }
   },
   async updated() {
-    try{
-      // this.getText()
-      // this.jobs = await FilterJobs.getJobComp()
-    }catch(err){
-      return err.message
-    }
-  },
-  async computed(){
     try{
       this.jobs = await FilterJobs.getJobComp()
     }catch(err){

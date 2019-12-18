@@ -12,8 +12,9 @@ router.get('/', async(req, res) => {
     try{
         const connection = await Pool.getConnection()
         const query = 'select job.id as id, job.fname as name, job.software as software, job.station_id as post, job.faculty_id as f_id from lab2019_scheduler.job where job.assisted = false'
+        let result = await connection.query(query)
         res.send(result)
-        connection.done()
+        await connection.done()
     }catch(err){
         console.error('error running query ...', err.message)
     }
@@ -88,7 +89,7 @@ router.post('/register', async(req, res) => {
                                 topics: data.topics,
                                 contact: data.contact
                             })
-        connection.done()
+        await connection.done()
     }catch(err){
         console.error('error running this query', err.message)
     }
@@ -102,7 +103,7 @@ router.get('/update', async(req, res) => {
 
         let result = await connection.getAll('staff')
         res.send(result)
-        connection.done()
+        await connection.done()
     }catch(err){
         console.error('error running this query', err.message)
     }
@@ -115,8 +116,8 @@ router.put('/update/:id/:staff_id', async(req, res) => {
     try{
         const connection = await Pool.getConnection()
         // let result = connection.updateById('job', {id: req.params.id, assisted_by: req.params.staff_id})
-        connection.updateById('job', req.params.id, {assisted_by: req.params.staff_id, assisted: true})
-        connection.done()
+        await connection.updateById('job', req.params.id, {assisted_by: req.params.staff_id, assisted: true})
+        await connection.done()
 
     }catch(err){
         console.error('error running this query', err.message)
@@ -181,8 +182,8 @@ router.get('/admin/:soft/:lang/:faculty/:role', async(req, res) => {
         const connection = await Pool.getConnection()
         const  query = "SELECT JOB FROM JOB WHERE SOFTWARE_ID = ? AND LANGUANGE = \
                             ? OR FACULTY_ID = ? OR ROLES_ID = ?"
-        let results = connection.query(query, req.params.soft, req.params.lang, req.params.faculty, req.params.role)
-        connection.done()
+        let results = await connection.query(query, req.params.soft, req.params.lang, req.params.faculty, req.params.role)
+        await connection.done()
         res.send(results.rows)
     }catch(err){
         console.error('error running query', err.message)
