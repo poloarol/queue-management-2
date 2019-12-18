@@ -36,7 +36,6 @@
                     </td>
                 </tr>
             </tbody> -->
-            {{ getPages }}
         </table>
         <PaginationComponent :pages="pages" @moveable="current=$event"></PaginationComponent>
     </div>
