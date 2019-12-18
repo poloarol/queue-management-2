@@ -8,7 +8,7 @@ import JobServices from './JobServices'
 
 export default{
     async getJobComp(){
-        // let collection = await JobServices.getJobs()
+        let collection = await JobServices.getJobs()
         // let data = []
         // let datum, color
         // for(let i in collection){
