@@ -24,6 +24,8 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development'){
   axios.defaults.baseURL = 'http://report.mmdist.uottawa.ca/lab/api/post'
 }
 
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
 Vue.use(VueRouter)
 Vue.use(VeeValidate)
 // Vue.use(VFC)

@@ -1,28 +1,28 @@
 /*
 
+Accessory  methods which allow to parse data into different formats for 
+display into tables based on components being used i.e. called from.
 
 */
 
 
 import JobServices from './JobServices'
+import StaticData from'./StaticData'
 
 export default{
     async getJobComp(){
         let collection = await JobServices.getJobs()
-        // let data = []
-        // let datum, color
-        // for(let i in collection){
-        //     color = StaticData.getFacultyColor(collection[i].f_id)
-        //     datum = {'station': {}, 'name':{}, 'software': {}}
-        //     datum.station = {'icon': `desktop ${color} icon`, 'name': collection[i].post, 'type': 'str'}
-        //     datum.name = {'icon': `user ${color} icon`, 'name' : collection[i].name, 'type': 'str'}
-        //     datum.software = {'icon': `app store ios ${color} icon`, 'name' : collection[i].software, 'type' : 'str'}
-        //     data.push(datum)
-
-        // }
-        // return data
-        // console.log(collection)
-        return []
+        let data = []
+        let datum, color
+        for(let i in collection){
+            color = StaticData.getFacultyColor(collection[i].f_id)
+            datum = {'station': {}, 'name':{}, 'software': {}}
+            datum.station = {'icon': `desktop ${color} icon`, 'name': collection[i].post, 'type': 'str'}
+            datum.name = {'icon': `user ${color} icon`, 'name' : collection[i].name, 'type': 'str'}
+            datum.software = {'icon': `app store ios ${color} icon`, 'name' : collection[i].software, 'type' : 'str'}
+            data.push(datum)
+        }
+        return data
     },
     async getAdminComp(){
         let collection = await JobServices.getJobs()
