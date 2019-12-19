@@ -3,7 +3,7 @@ import axios from 'axios'
 export default {
 
     getJobs() {
-        return axios.get('/')
+        return axios.get('/home')
                     .then(response => {
                         return response.data
                     })
