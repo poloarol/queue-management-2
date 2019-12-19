@@ -3,8 +3,9 @@ import axios from 'axios'
 export default {
 
     getJobs() {
-        return axios.get('/home')
+        return axios.get('/')
                     .then(response => {
+                        console.log(response)
                         return response.data
                     })
     },

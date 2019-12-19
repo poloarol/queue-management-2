@@ -57,7 +57,7 @@ Vue.mixin({
 const router = new VueRouter({
   routes: [
     {
-      path: '/home',
+      path: '*',
       component: MainComponent
     },
     {
