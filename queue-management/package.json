@@ -26,6 +26,7 @@
     "vfc": "^2.0.0",
     "vue": "^2.6.11",
     "vue-accordion-styless": "^1.0.1",
+    "vue-axios": "^2.1.5",
     "vue-chartjs": "^3.5.0",
     "vue-good-table": "^2.18.1",
     "vue-jquery": "^1.0.6",

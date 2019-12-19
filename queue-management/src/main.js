@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
+import axios from 'axios';
+import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
 // import VFC from 'vfc'
@@ -15,27 +17,29 @@ import MiniAdminUpdateComponent from '@/components/MiniAdminUpdateComponent.vue'
 import AdminMenuComponent from '@/components/AdminMenuComponent.vue'
 import MenuChartComponent from '@/components/MenuChartComponent.vue'
 import ConfirmationComponent from '@/components/ConfirmationComponent'
-import axios from 'axios';
 
+
+Vue.use(VueRouter)
+Vue.use(VeeValidate)
+Vue.use(VueAxios, axios)
+// Vue.use(VFC)
+Vue.component('multiselect', Multiselect)
+Vue.config.productionTip = false
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development'){
   axios.defaults.baseURL = 'http://localhost:3030/api/post'
 }else{
+  // check if problem is with this line -- ask Desire to check it out.
+  // check what this endpoint is and what it hits, because if it hits and html, then 
+  // we'll always return an html
   axios.defaults.baseURL = 'http://report.mmdist.uottawa.ca/lab/api/post'
 }
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-Vue.use(VueRouter)
-Vue.use(VeeValidate)
-// Vue.use(VFC)
-Vue.component('multiselect', Multiselect)
-Vue.config.productionTip = false
+
 
 // achieve this by changing lang tag in browser
-
-
-
 Vue.mixin({
   data(){
     return {language: ''}
