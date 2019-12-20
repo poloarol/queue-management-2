@@ -6,6 +6,14 @@ const router = express.Router()
 
 const Pool = getPool()
 
+
+router.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+})
+
+
+
 // Get Jobs
 router.get('/', async(req, res) => {
 
