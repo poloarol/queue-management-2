@@ -32,7 +32,7 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development'){
   // check if problem is with this line -- ask Desire to check it out.
   // check what this endpoint is and what it hits, because if it hits and html, then 
   // we'll always return an html
-  axios.defaults.baseURL = 'http://137.122.48.140/api/post'
+  axios.defaults.baseURL = 'http://137.122.48.71/api/post'
   // axios.defaults.baseURL = 'http://report.mmdist.uottawa.ca/lab/queue-management-2/server/routes/api/post'
 }
 
