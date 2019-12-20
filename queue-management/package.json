@@ -1,6 +1,6 @@
 {
   "name": "queue-management",
-  "homepage": "http://report.mmdist.uottawa.ca/lab",
+  "homepage": "http://report.mmdist.uottawa.ca",
   "version": "0.1.0",
   "private": true,
   "scripts": {
